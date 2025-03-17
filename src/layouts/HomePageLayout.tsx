@@ -1,12 +1,12 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
 import NavigationBar from "../components/NavigationBar";
+import Home from "../pages/Home";
 
 const HomePageLayout = () => {
   return (
     <div className="h-screen flex flex-col">
       <NavigationBar />
-      <Outlet />
+      <Home />
     </div>
   );
 };

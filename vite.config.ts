@@ -6,6 +6,6 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   define: {
-    global: "globalThis", // this helps the websocket to connect to backend's websocket
+    global: "globalThis", // this allows the websocket to connect to backend's websocket
   },
 });
