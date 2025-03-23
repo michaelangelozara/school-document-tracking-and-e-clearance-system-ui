@@ -1,5 +1,5 @@
 import { loginApi, logoutApi } from "../api/AuthApi";
-import { Login } from "../interfaces/ILogin";
+import { Login } from "../types/auth/Login";
 
 export const login = async (credential: Login) => {
   const accessToken = await loginApi(credential);

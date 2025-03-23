@@ -1,5 +1,5 @@
 import { findUsersApi, FindUsersProps, findMeApi } from "../api/UserApi";
-import { User } from "../interfaces/IUser";
+import { User } from "../types/user/User";
 
 export const findUsers = async (
   pagination: FindUsersProps

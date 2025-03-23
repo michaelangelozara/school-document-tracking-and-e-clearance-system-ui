@@ -1,5 +1,5 @@
 import axiosConfig from "../api/AxiosConfig";
-import { Login, LoginResponse } from "../interfaces/ILogin";
+import { Login, LoginResponse } from "../types/auth/Login";
 
 export const loginApi = async (credential: Login): Promise<LoginResponse> => {
   const response = await axiosConfig.post("/auth/login", credential);

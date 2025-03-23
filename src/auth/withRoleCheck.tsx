@@ -1,15 +1,15 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 
-type WithRoleCheckProps = {
-  allowedRoles: string[];
+type WithAuthorityCheckProps = {
+  allowedAuthorities: string[];
 };
 
 const withRoleCheck = <P extends object>(
   WrappedComponent: React.ComponentType<P>
 ) => {
-  const RoleCheckedComponent: React.FC<P & WithRoleCheckProps> = ({
-    allowedRoles,
+  const AuthorityCheckedComponent: React.FC<P & WithAuthorityCheckProps> = ({
+    allowedAuthorities,
     ...props
   }) => {
     // const { user } = useAuth();
@@ -18,7 +18,7 @@ const withRoleCheck = <P extends object>(
     //   return <Navigate to="/login" replace />;
     // }
 
-    // const isAuthorized = user.roles.some((role) => allowedRoles.includes(role));
+    // const isAuthorized = user.roles.some((role) => allowedAuthorities.includes(role));
 
     // if (!isAuthorized) {
     //   return <Navigate to="/unauthorized" replace />;
@@ -27,7 +27,7 @@ const withRoleCheck = <P extends object>(
     return <WrappedComponent {...(props as P)} />;
   };
 
-  return RoleCheckedComponent;
+  return AuthorityCheckedComponent;
 };
 
 export default withRoleCheck;

@@ -1,5 +1,5 @@
 import axiosConfig from "../api/AxiosConfig";
-import { User } from "../interfaces/IUser";
+import { User } from "../types/user/User";
 
 export type FindUsersProps = {
   page: number;

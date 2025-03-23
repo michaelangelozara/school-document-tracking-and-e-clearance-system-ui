@@ -1,4 +1,4 @@
-import { User } from "./IUser";
+import { IUserSummaryResponse } from "../user/User";
 
 export interface Login {
   username: string;
@@ -7,5 +7,5 @@ export interface Login {
 
 export interface LoginResponse {
   token: string;
-  user: User;
+  user: IUserSummaryResponse;
 }
