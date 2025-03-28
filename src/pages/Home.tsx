@@ -29,7 +29,7 @@ const Home = () => {
             ["1", "Computer Science", "CS"],
             ["2", "Hotel Management", "HM"],
           ]}
-          onClick={() => navigate("/home/departments")}
+          onClick={() => navigate("/home/clearances")}
           allowedAuthorities={[]}
           userAuthorities={[]}
         />
@@ -41,7 +41,7 @@ const Home = () => {
             ["1", "Computer Science", "CS"],
             ["2", "Hotel Management", "HM"],
           ]}
-          onClick={() => navigate("/home/departments")}
+          onClick={() => navigate("/home/letters")}
           allowedAuthorities={[]}
           userAuthorities={[]}
         />

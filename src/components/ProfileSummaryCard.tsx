@@ -1,5 +1,4 @@
 import React from "react";
-import { IUserSummaryResponse } from "../types/user/User";
 
 import AUTHORITY_ICON from "../assets/icon/svg/profile_summary/role-icon-svgrepo-com.svg";
 import EMAIL_ICON from "../assets/icon/svg/profile_summary/email-icon-svgrepo-com.svg";
@@ -17,7 +16,8 @@ const ProfileSummaryCard = () => {
         <div className="flex gap-4">
           <img src={USERNAME_ICON} alt="Year Level Icon" className="size-6" />
           <h1>
-            Name: <span className="text-blue-600">Michae Angelo B. Zara</span>
+            Name:{" "}
+            <span className="text-darkContrast">Michae Angelo B. Zara</span>
           </h1>
         </div>
         <div className="flex gap-4">
@@ -27,26 +27,27 @@ const ProfileSummaryCard = () => {
             className="size-6"
           />
           <h1>
-            Type of Personnel: <span className="text-blue-600">Academic</span>
+            Type of Personnel:{" "}
+            <span className="text-darkContrast">Academic</span>
           </h1>
         </div>
         <div className="flex gap-4">
           <img src={AUTHORITY_ICON} alt="Authority Icon" className="size-6" />
           <h1>
-            Role: <span className="text-blue-600">DSA</span>
+            Role: <span className="text-darkContrast">DSA</span>
           </h1>
         </div>
         <div className="flex gap-4">
           <img src={USERNAME_ICON} alt="Year Level Icon" className="size-6" />
           <h1>
-            User ID: <span className="text-blue-600">D-****-1**4</span>
+            User ID: <span className="text-darkContrast">D-****-1**4</span>
           </h1>
         </div>
         <div className="flex gap-4">
           <img src={EMAIL_ICON} alt="Course Icon" className="size-6" />
           <h1>
             Email:{" "}
-            <span className="text-blue-600">
+            <span className="text-darkContrast">
               mi*****************ra@gmail.com
             </span>
           </h1>
@@ -54,12 +55,13 @@ const ProfileSummaryCard = () => {
         <div className="flex gap-4">
           <img src={CONTACT_NUMBER_ICON} alt="Course Icon" className="size-6" />
           <h1>
-            Contact Number: <span className="text-blue-600">+639******385</span>
+            Contact Number:{" "}
+            <span className="text-darkContrast">+639******385</span>
           </h1>
         </div>
       </div>
       <div className="flex justify-center p-2">
-        <button className="w-fit text-blue-600 hover:underline">
+        <button className="w-fit text-blue-600 hover:underline hover:cursor-pointer">
           View More
         </button>
       </div>

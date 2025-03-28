@@ -8,7 +8,7 @@ const ClearanceCard = () => {
       </h1>
       <div className="bg-white flex-1 flex flex-col pl-2 pr-2"></div>
       <div className="flex justify-center p-2">
-        <button className="ml-2 w-fit text-blue-600 hover:underline">
+        <button className="ml-2 w-fit text-blue-600 hover:underline hover:cursor-pointer">
           View More
         </button>
       </div>

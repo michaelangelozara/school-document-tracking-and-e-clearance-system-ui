@@ -5,21 +5,24 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Login, { loginLoader } from "./pages/Login";
-import Home from "./pages/Home";
 import HomePageLayout from "./layouts/HomePageLayout";
-import ProfileInfoModal, { profileLoader } from "./components/ProfileInfoModal";
+import ProfileInfoModal, {
+  profileLoader,
+} from "./components/modal/ProfileInfoModal";
 import Account, { accountLoader } from "./components/Account";
 import UserPageLayout from "./layouts/UserPageLayout";
 import withRoleCheck from "./auth/withRoleCheck";
 import PageNotFound from "./pages/PageNotFound";
 import Unauthorized from "./pages/Unauthorized";
-import DepartmentModal from "./components/DepartmentModal";
-import CourseModal from "./components/CourseModal";
+import DepartmentModal from "./components/modal/DepartmentModal";
+import CourseModal from "./components/modal/CourseModal";
+import ClearanceModal from "./components/modal/ClearanceModal";
+import LetterModal from "./components/modal/LetterModal";
 
 function App() {
-  const ProtectedHomePage = withRoleCheck(HomePageLayout);
-
   const ProtectedCourseModal = withRoleCheck(CourseModal);
+  const ProtectedClearanceModal = withRoleCheck(ClearanceModal);
+  const ProtectedLetterModal = withRoleCheck(LetterModal);
   const ProtectedDepartmentModal = withRoleCheck(DepartmentModal);
 
   const router = createBrowserRouter(
@@ -27,12 +30,15 @@ function App() {
       <Route>
         <Route path="/">
           <Route path="login" element={<Login />} loader={loginLoader} />
-          <Route
-            path="home"
-            element={
-              <ProtectedHomePage allowedAuthorities={["admin", "user"]} />
-            }
-          >
+          <Route path="home" element={<HomePageLayout />}>
+            <Route
+              path="clearances"
+              element={<ProtectedClearanceModal allowedAuthorities={[]} />}
+            />
+            <Route
+              path="letters"
+              element={<ProtectedLetterModal allowedAuthorities={[]} />}
+            />
             <Route
               path="departments"
               element={

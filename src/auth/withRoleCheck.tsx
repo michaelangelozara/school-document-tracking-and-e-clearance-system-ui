@@ -18,10 +18,14 @@ const withRoleCheck = <P extends object>(
     //   return <Navigate to="/login" replace />;
     // }
 
-    // const isAuthorized = user.roles.some((role) => allowedAuthorities.includes(role));
+    // if (allowedAuthorities.length !== 0) {
+    //   const isAuthorized = user.roles.some((role) =>
+    //     allowedAuthorities.includes(role)
+    //   );
 
-    // if (!isAuthorized) {
-    //   return <Navigate to="/unauthorized" replace />;
+    //   if (!isAuthorized) {
+    //     return <Navigate to="/unauthorized" replace />;
+    //   }
     // }
 
     return <WrappedComponent {...(props as P)} />;

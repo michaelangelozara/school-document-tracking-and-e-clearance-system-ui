@@ -1,4 +1,3 @@
-import React, { use } from "react";
 import { checkAuthorities } from "../helper/AuthorityHelper";
 
 type SectionCardProps = {
@@ -61,7 +60,10 @@ const SectionCard = ({
           </tbody>
         </table>
       </div>
-      <button onClick={onClick} className="mt-2 text-blue-600 hover:underline">
+      <button
+        onClick={onClick}
+        className="mt-2 text-blue-600 hover:underline hover:cursor-pointer"
+      >
         View More
       </button>
     </div>
