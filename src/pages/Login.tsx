@@ -5,7 +5,12 @@ import { useState } from "react";
 const Login = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const loginHandler = async () => {};
+  const loginHandler = async () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      window.location.href = "/home";
+    }, 3000);
+  };
 
   return (
     <div className="bg-background w-full h-screen flex justify-center items-center">
@@ -15,10 +20,16 @@ const Login = () => {
       >
         <div className="flex flex-col justify-start gap-4">
           <div className="flex items-center">
-            <img src={NDTC_LOGO} className="size-10" alt="NDTC Logo" />
-            <span className="text-2xl font-bold text-darkContrast">NDTC</span>
+            <img
+              src={NDTC_LOGO}
+              className="size-8 sm:size-10"
+              alt="NDTC Logo"
+            />
+            <span className="text-xl sm:text-2xl font-bold text-darkContrast">
+              NDTC
+            </span>
           </div>
-          <h1 className="text-4xl font-semibold">Sign in</h1>
+          <h1 className="text-3xl sm:text-4xl font-semibold">Sign in</h1>
         </div>
         <div className="flex flex-col gap-2">
           <h1 className="text-gray-600">User ID</h1>
@@ -43,10 +54,10 @@ const Login = () => {
               isLoading ? "flex justify-center p-0" : ""
             }`}
           >
-            {isLoading ? "Loading ..." : "Sign in"}
+            {isLoading ? "Loading . . ." : "Sign in"}
           </button>
           <NavLink
-            to={"/account/forgot-password"}
+            to={"/forgot-password"}
             className="p-1 text-sm hover:underline text-darkContrast"
           >
             Forgot your password?
