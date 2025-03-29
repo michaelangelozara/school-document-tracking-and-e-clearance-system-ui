@@ -12,4 +12,9 @@
     --color-accent: #FFEB99;
     --color-background: #F8F9FA;
     --color-darkContrast: #2F5D50;
+    --text-xs: 14px;
+    --text-sm: 16px;
+    --text-md: 18px;
+    --text-lg: 20px;
+    --text-xl: 22px;
 }

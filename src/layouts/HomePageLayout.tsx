@@ -3,7 +3,7 @@ import Home from "../pages/Home";
 
 const HomePageLayout = () => {
   return (
-    <div className="h-screen flex flex-col">
+    <div className="flex flex-col">
       <NavigationBar />
       <Home />
     </div>

@@ -12,15 +12,13 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-1 flex-wrap bg-background p-4 gap-[1rem]">
+    <div className="w-full grid grid-rows-3 gap-3 bg-background p-2 lg:grid lg:grid-cols-3">
       {/* User info and Clearance Summary */}
-      <div className="bg-white flex w-full h-[55%] p-2 gap-2 rounded">
-        <ProfileSummaryCard />
-        <ClearanceCard />
-      </div>
+      <ProfileSummaryCard />
+      <ClearanceCard />
 
       {/* Sections container */}
-      <div className="bg-white w-full h-[45%] flex p-4 gap-1 overflow-x-scroll rounded">
+      <div className="bg-white w-full flex p-4 gap-1 overflow-x-scroll rounded lg:col-span-full">
         <SectionCard
           icon={CLEARANCE_ICON}
           title="Clearances"
@@ -48,30 +46,6 @@ const Home = () => {
         <SectionCard
           icon={DEPARTMENT_ICON}
           title="Departments"
-          columns={["No.", "Name", "Short Name"]}
-          data={[
-            ["1", "Computer Science", "CS"],
-            ["2", "Hotel Management", "HM"],
-          ]}
-          onClick={() => navigate("/home/departments")}
-          allowedAuthorities={[]}
-          userAuthorities={[]}
-        />
-        <SectionCard
-          icon=""
-          title="Courses"
-          columns={["No.", "Name", "Short Name"]}
-          data={[
-            ["1", "Computer Science", "CS"],
-            ["2", "Hotel Management", "HM"],
-          ]}
-          onClick={() => navigate("/home/departments")}
-          allowedAuthorities={[]}
-          userAuthorities={[]}
-        />
-        <SectionCard
-          icon=""
-          title="Clubs"
           columns={["No.", "Name", "Short Name"]}
           data={[
             ["1", "Computer Science", "CS"],

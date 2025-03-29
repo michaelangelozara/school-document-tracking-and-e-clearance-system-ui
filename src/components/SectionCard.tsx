@@ -27,7 +27,7 @@ const SectionCard = ({
   }
 
   return (
-    <div className="min-w-[30%] bg-white shadow-lg border border-gray-200 rounded-xl p-4">
+    <div className="min-w-[200px] bg-white shadow-lg border border-gray-200 rounded-xl p-4">
       <div className="text-md bg-primary rounded text-darkContrast text-center p-2 flex justify-center gap-2">
         {icon !== "" ? (
           <img src={icon} alt={title + " Icon"} className="size-6" />
@@ -62,7 +62,7 @@ const SectionCard = ({
       </div>
       <button
         onClick={onClick}
-        className="mt-2 text-blue-600 hover:underline hover:cursor-pointer"
+        className="mt-2 text-xs sm:text-sm text-blue-600 hover:underline hover:cursor-pointer"
       >
         View More
       </button>

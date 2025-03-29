@@ -14,11 +14,11 @@ type ButtonPropsType = {
 const Button = ({ label, icon, onClick }: ButtonPropsType) => {
   return (
     <button
-      className={`w-full h-[10%] hover:cursor-pointer bg-primary text-contrast border-secondary hover:bg-[#8DD6B3] hover:text-white flex space-x-2 items-center justify-center rounded-sm p-1`}
+      className={`w-full hover:cursor-pointer bg-primary text-contrast border-secondary hover:bg-[#8DD6B3] hover:text-white flex space-x-2 items-center justify-center rounded-sm p-1`}
       onClick={onClick}
     >
-      <img className="size-6" src={icon} alt={label + " Icon"} />{" "}
-      <span>{label}</span>
+      <img className="size-4 sm:size-6" src={icon} alt={label + " Icon"} />{" "}
+      <h1 className="">{label}</h1>
     </button>
   );
 };
@@ -27,15 +27,19 @@ const NavigationBar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-full h-[13%] min-w-[375px] sm:px-2 md:px-4 lg:px-6 bg-primary flex items-center justify-between">
-      <div className="flex items-center flex-1">
-        <img className="w-22 h-22" src={NDTC_LOGO} alt="NDTC Logo" />
-        <span className="sm:text-[10px] md:text-[15px] lg:text-[22px] text-darkContrast font-bold">
+    <div className="w-full bg-primary md:grid grid-cols-2">
+      <div className="hidden md:flex items-center gap-1">
+        <img
+          className="size-16 lg:size-[74px]"
+          src={NDTC_LOGO}
+          alt="NDTC Logo"
+        />
+        <span className="text-sm text-darkContrast font-bold lg:text-md">
           Notre Dame of Tacurong College
         </span>
       </div>
       {/* Container for user profile & settings dropdown */}
-      <div className="flex flex-1 items-center p-4 gap-1">
+      <div className="w-full flex justify-between p-2 gap-1">
         <Button
           label="Home"
           icon={HOME_ICON}
