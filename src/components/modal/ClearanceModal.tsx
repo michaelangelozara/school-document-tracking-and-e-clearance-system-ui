@@ -1,13 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CLEARANCE_ICON from "../../assets/icon/svg/section_card/clearance-icon-svgrepo-com.svg";
 
+import PaginationButton from "../PaginationButton";
+
+type TablePropsType = {
+  onClick: () => void;
+};
+
+const Table = ({ onClick }: TablePropsType) => {
+  return (
+    <table className="w-full border border-gray-300">
+      <thead>
+        <tr className="bg-gray-200 border-b border-gray-300 text-nowrap">
+          <th className="p-2 border-r border-gray-300 ">No.</th>
+          <th className="p-2 border-r border-gray-300 ">Semester & S.Y</th>
+          <th className="p-2 border-r border-gray-300 ">Type</th>
+          <th className="p-2 border-r border-gray-300 ">Status</th>
+          <th className="p-2 border-r border-gray-300 ">Current Office</th>
+          <th className="p-2 border-r border-gray-300 ">Requested</th>
+          <th className="p-2 ">Last Modified</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 text-center">10-Sep-2025 11:23 am</td>
+          <th>
+            <button
+              onClick={onClick}
+              className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+            >
+              View
+            </button>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  );
+};
+
 const ClearanceModal = () => {
   const navigate = useNavigate();
+  const [isViewClicked, setIsViewClicked] = useState<boolean>(false);
 
   const navigationHandler = () => {
     navigate("/home");
   };
+
+  const handleNext = () => {};
+
+  const handlePrev = () => {};
 
   return (
     <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
@@ -42,52 +97,21 @@ const ClearanceModal = () => {
             </select>
           </div>
           <div className="bg-white flex-1 overflow-auto">
-            <table className="w-full border border-gray-300">
-              <thead>
-                <tr className="bg-gray-200 border-b border-gray-300 text-nowrap">
-                  <th className="p-2 border-r border-gray-300 ">No.</th>
-                  <th className="p-2 border-r border-gray-300 ">
-                    Semester & S.Y
-                  </th>
-                  <th className="p-2 border-r border-gray-300 ">Type</th>
-                  <th className="p-2 border-r border-gray-300 ">Status</th>
-                  <th className="p-2 border-r border-gray-300 ">
-                    Current Office
-                  </th>
-                  <th className="p-2 border-r border-gray-300 ">Requested</th>
-                  <th className="p-2 ">Last Modified</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr className="border-b border-gray-300 text-nowrap">
-                  <td className="p-2 border-r border-gray-300 text-center">
-                    1
-                  </td>
-                  <td className="p-2 border-r border-gray-300 text-center">
-                    1st 2024-2025
-                  </td>
-                  <td className="p-2 border-r border-gray-300 text-center">
-                    Personnel
-                  </td>
-                  <td className="p-2 border-r border-gray-300 text-center">
-                    Pending
-                  </td>
-                  <td className="p-2 border-r border-gray-300 text-center">
-                    DSA
-                  </td>
-                  <td className="p-2 border-r border-gray-300 text-center">
-                    10-Sep-2025 10:00 am
-                  </td>
-                  <td className="p-2 text-center">10-Sep-2025 11:23 am</td>
-                </tr>
-              </tbody>
-            </table>
+            {isViewClicked ? (
+              <>
+                <h1>Clearance is not available</h1>
+              </>
+            ) : (
+              <Table onClick={() => setIsViewClicked((v) => !v)} />
+            )}
           </div>
-          <div className="bg-yellow-500 h-[1rem] p-4 flex justify-center items-center gap-3">
-            <button>{"<"}</button>
-            <span>Page 3 - 15</span>
-            <button>{">"}</button>
-          </div>
+
+          {/* Pagination Button */}
+          <PaginationButton
+            nextPage={handleNext}
+            prevPage={handlePrev}
+            totalPages={1}
+          />
         </div>
       </div>
     </div>

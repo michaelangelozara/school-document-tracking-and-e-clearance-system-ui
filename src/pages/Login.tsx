@@ -1,16 +1,37 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import NDTC_LOGO from "../assets/icon/png/NDTC-300x279.png";
 import { useState } from "react";
 
+import { authenticate } from "../service/UserService";
+import { LoginType } from "../types/auth/Login";
+import { BaseResponse } from "../types/response/Response";
+import { getAxiosError } from "../util/AxiosUtil";
+import { useAuth } from "../context/AuthContext";
+
 const Login = () => {
+  const [login, setLogin] = useState<LoginType>({ username: "", password: "" });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const { token, authSetter } = useAuth();
+
   const loginHandler = async () => {
-    setIsLoading(true);
-    setTimeout(() => {
+    try {
+      setIsLoading(true);
+      const response = await authenticate(login);
+      const data = response.data;
+      authSetter(data);
       window.location.href = "/home";
-    }, 3000);
+    } catch (err) {
+      const exception = getAxiosError(err).response?.data as BaseResponse<null>;
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  if (token !== null) {
+    window.location.href = "/home";
+    return;
+  }
 
   return (
     <div className="bg-background w-full h-screen flex justify-center items-center">
@@ -37,6 +58,9 @@ const Login = () => {
             type="text"
             className="w-full bg-background h-10 border border-gray-200 rounded-md pl-3 placeholder:text-gray-400 outline-darkContrast"
             placeholder="A-0000-0000 or 123-1234-123"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setLogin((prev) => ({ ...prev, username: e.target.value }))
+            }
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -45,6 +69,9 @@ const Login = () => {
             type="password"
             className="w-full bg-background h-10 border border-gray-200 rounded-md pl-3 placeholder:text-gray-400 outline-darkContrast"
             placeholder="********"
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setLogin((prev) => ({ ...prev, password: e.target.value }))
+            }
           />
         </div>
         <div className="flex flex-col items-center gap-3">
@@ -54,7 +81,7 @@ const Login = () => {
               isLoading ? "flex justify-center p-0" : ""
             }`}
           >
-            {isLoading ? "Loading . . ." : "Sign in"}
+            {isLoading ? "Signing in . . ." : "Sign in"}
           </button>
           <NavLink
             to={"/forgot-password"}

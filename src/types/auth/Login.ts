@@ -1,11 +1,11 @@
 import { IUserSummaryResponse } from "../user/User";
 
-export interface Login {
+export interface LoginType {
   username: string;
   password: string;
 }
 
-export interface LoginResponse {
+export interface AuthResponse {
   token: string;
   user: IUserSummaryResponse;
 }

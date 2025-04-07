@@ -1,4 +1,4 @@
-export interface IPageableRequest<T> {
+export interface PaginationResponse<T> {
   content: T[];
   page: number;
   size: number;

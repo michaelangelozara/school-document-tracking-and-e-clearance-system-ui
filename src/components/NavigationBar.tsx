@@ -4,6 +4,7 @@ import PROFILE_ICON from "../assets/icon/svg/profile-account-settings-icon-svg.s
 import KEY_ICON from "../assets/icon/svg/navigation/key-icon-svg-com.svg";
 import LOG_OUT_ICON from "../assets/icon/svg/navigation/logout-icon-svg-com.svg";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 type ButtonPropsType = {
   label: string;
@@ -25,6 +26,8 @@ const Button = ({ label, icon, onClick }: ButtonPropsType) => {
 
 const NavigationBar = () => {
   const navigate = useNavigate();
+
+  const { logout } = useAuth();
 
   return (
     <div className="w-full bg-primary md:grid grid-cols-2">
@@ -63,7 +66,7 @@ const NavigationBar = () => {
             ("");
           }}
         />
-        <Button label="Logout" icon={LOG_OUT_ICON} onClick={() => ""} />
+        <Button label="Logout" icon={LOG_OUT_ICON} onClick={logout} />
       </div>
     </div>
   );

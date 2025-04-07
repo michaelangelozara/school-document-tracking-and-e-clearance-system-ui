@@ -5,19 +5,27 @@ import EMAIL_ICON from "../assets/icon/svg/profile_summary/email-icon-svgrepo-co
 import USERNAME_ICON from "../assets/icon/svg/profile_summary/username-icon-svgrepo-com.svg";
 import CONTACT_NUMBER_ICON from "../assets/icon/svg/profile_summary/contact-icon-svgrepo-com.svg";
 import TYPE_OF_PERSONNEL_ICON from "../assets/icon/svg/profile_summary/type-of-personel-svgrepo-com.svg";
+import { IUserSummaryResponse } from "../types/user/User";
+import { extractAuthorties, getFullName } from "../util/UserUtil";
 
-const ProfileSummaryCard = () => {
+interface Props {
+  userData: IUserSummaryResponse | null;
+}
+
+const ProfileSummaryCard = ({ userData }: Props) => {
   return (
     <div className="h-[260px] border border-gray-200 rounded-xl bg-white flex-1/5 shadow-lg flex flex-col lg:col-span-2">
       <h1 className="text-center text-lg text-darkContrast bg-primary rounded-tl-xl rounded-tr-xl">
         My Profile Summary
       </h1>
-      <div className="bg-white flex-1 flex flex-col pt-2 pl-2 pr-2 gap-[5%] overflow-x-scroll">
+      <div className="bg-white flex-1 flex flex-col pt-2 pl-2 pr-2 gap-[5%] overflow-auto">
         <div className="flex gap-4">
           <img src={USERNAME_ICON} alt="Year Level Icon" className="size-6" />
           <h1>
             Name:{" "}
-            <span className="text-darkContrast">Michae Angelo B. Zara</span>
+            <span className="text-darkContrast">
+              {userData ? getFullName(userData) : ""}
+            </span>
           </h1>
         </div>
         <div className="flex gap-4">
@@ -27,36 +35,37 @@ const ProfileSummaryCard = () => {
             className="size-6"
           />
           <h1>
-            Type of Personnel:{" "}
-            <span className="text-darkContrast">Academic</span>
+            Type : <span className="text-darkContrast">{userData?.type}</span>
           </h1>
         </div>
         <div className="flex gap-4">
           <img src={AUTHORITY_ICON} alt="Authority Icon" className="size-6" />
           <h1>
-            Role: <span className="text-darkContrast">DSA</span>
+            Role:{" "}
+            <span className="text-darkContrast">
+              {userData ? extractAuthorties(userData) : ""}
+            </span>
           </h1>
         </div>
         <div className="flex gap-4">
           <img src={USERNAME_ICON} alt="Year Level Icon" className="size-6" />
           <h1>
-            User ID: <span className="text-darkContrast">D-****-1**4</span>
+            User ID:{" "}
+            <span className="text-darkContrast">{userData?.username}</span>
           </h1>
         </div>
         <div className="flex gap-4">
           <img src={EMAIL_ICON} alt="Course Icon" className="size-6" />
           <h1>
             Email:{" "}
-            <span className="text-darkContrast">
-              mi*****************ra@gmail.com
-            </span>
+            <span className="text-darkContrast">{userData?.username}</span>
           </h1>
         </div>
         <div className="flex gap-4">
           <img src={CONTACT_NUMBER_ICON} alt="Course Icon" className="size-6" />
           <h1>
             Contact Number:{" "}
-            <span className="text-darkContrast">+639******385</span>
+            <span className="text-darkContrast">{userData?.username}</span>
           </h1>
         </div>
       </div>

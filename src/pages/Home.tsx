@@ -7,16 +7,18 @@ import ClearanceCard from "../components/ClearanceCard";
 import CLEARANCE_ICON from "../assets/icon/svg/section_card/clearance-icon-svgrepo-com.svg";
 import LETTER_ICON from "../assets/icon/svg/section_card/letter-icon-svgrepo-com.svg";
 import DEPARTMENT_ICON from "../assets/icon/svg/section_card/department-icon-svgrepo-com.svg";
+import { useAuth } from "../context/AuthContext";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  return (
-    <div className="w-full grid grid-rows-3 gap-3 bg-background p-2 lg:grid lg:grid-cols-3">
-      {/* User info and Clearance Summary */}
-      <ProfileSummaryCard />
-      <ClearanceCard />
+  const { user } = useAuth();
 
+  return (
+    <div className="w-full grid grid-rows-3 gap-3 bg-background p-2 lg:grid-rows-2 lg:grid-cols-3">
+      {/* User info and Clearance Summary */}
+      <ProfileSummaryCard userData={user} />
+      <ClearanceCard />
       {/* Sections container */}
       <div className="bg-white w-full flex p-4 gap-1 overflow-x-scroll rounded lg:col-span-full">
         <SectionCard
