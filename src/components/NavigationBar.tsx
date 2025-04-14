@@ -25,8 +25,6 @@ const Button = ({ label, icon, onClick }: ButtonPropsType) => {
 };
 
 const NavigationBar = () => {
-  const navigate = useNavigate();
-
   const { logout } = useAuth();
 
   return (

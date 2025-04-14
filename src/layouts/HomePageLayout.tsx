@@ -3,10 +3,13 @@ import { useAuth } from "../context/AuthContext";
 import Home from "../pages/Home";
 
 const HomePageLayout = () => {
-  const { token } = useAuth();
+  const { isTokenChecking, token } = useAuth();
 
-  if (token === null) {
-    window.location.href = "/login";
+  if (isTokenChecking) {
+    return <div>Loading ...</div>;
+  }
+
+  if (!token) {
     return;
   }
 

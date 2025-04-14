@@ -29,7 +29,7 @@ function App() {
     createRoutesFromElements(
       <Route>
         <Route path="/">
-          <Route path="login" element={<Login />} loader={loginLoader} />
+          <Route path="login" element={<Login />} />
           <Route path="home" element={<HomePageLayout />}>
             <Route
               path="clearances"

@@ -1,12 +1,18 @@
-import { loginApi, logoutApi } from "../api/AuthApi";
-import { Login } from "../types/auth/Login";
+import apiClient from "../api/apiClient";
+import { LoginType } from "../types/auth/Login";
 
-export const login = async (credential: Login) => {
-  const accessToken = await loginApi(credential);
-  // set the token to the redux
+export const authenticate = async (loginBody: LoginType) => {
+  try {
+    await apiClient.post("/auth/authenticate", loginBody);
+  } catch (err) {
+    throw err;
+  }
 };
 
-export const logout = async () => {
-  logoutApi();
-  // remove the saved access token to the redux
+export const logoutApi = async () => {
+  try {
+    await apiClient.post("/auth/logout");
+  } catch (err) {
+    throw new Error("Something went wrong during logout");
+  }
 };

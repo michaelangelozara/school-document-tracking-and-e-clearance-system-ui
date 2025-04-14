@@ -1,35 +1,38 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import NDTC_LOGO from "../assets/icon/png/NDTC-300x279.png";
 import { useState } from "react";
 
-import { authenticate } from "../service/UserService";
+import { authenticate } from "../service/AuthService";
 import { LoginType } from "../types/auth/Login";
-import { BaseResponse } from "../types/response/Response";
-import { getAxiosError } from "../util/AxiosUtil";
 import { useAuth } from "../context/AuthContext";
+import { redirectHome } from "../util/HrefUtils";
 
 const Login = () => {
   const [login, setLogin] = useState<LoginType>({ username: "", password: "" });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { token, authSetter } = useAuth();
+  const { token, isTokenChecking } = useAuth();
 
   const loginHandler = async () => {
     try {
       setIsLoading(true);
-      const response = await authenticate(login);
-      const data = response.data;
-      authSetter(data);
-      window.location.href = "/home";
+      await authenticate(login);
+      redirectHome();
     } catch (err) {
-      const exception = getAxiosError(err).response?.data as BaseResponse<null>;
+      setLogin((prev) => ({ ...prev, password: "" }));
+      console.log(err);
+      // const exception = getAxiosError(err).response?.data as BaseResponse<null>;
     } finally {
       setIsLoading(false);
     }
   };
 
+  if (isTokenChecking) {
+    return <div>Loading Login Page ...</div>;
+  }
+
   if (token !== null) {
-    window.location.href = "/home";
+    redirectHome();
     return;
   }
 
@@ -56,6 +59,7 @@ const Login = () => {
           <h1 className="text-gray-600">User ID</h1>
           <input
             type="text"
+            value={login.username}
             className="w-full bg-background h-10 border border-gray-200 rounded-md pl-3 placeholder:text-gray-400 outline-darkContrast"
             placeholder="A-0000-0000 or 123-1234-123"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -67,6 +71,7 @@ const Login = () => {
           <h1 className="text-gray-600">Password</h1>
           <input
             type="password"
+            value={login.password}
             className="w-full bg-background h-10 border border-gray-200 rounded-md pl-3 placeholder:text-gray-400 outline-darkContrast"
             placeholder="********"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
