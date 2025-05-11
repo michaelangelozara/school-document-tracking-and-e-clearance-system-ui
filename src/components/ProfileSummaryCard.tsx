@@ -5,12 +5,24 @@ import EMAIL_ICON from "../assets/icon/svg/profile_summary/email-icon-svgrepo-co
 import USERNAME_ICON from "../assets/icon/svg/profile_summary/username-icon-svgrepo-com.svg";
 import CONTACT_NUMBER_ICON from "../assets/icon/svg/profile_summary/contact-icon-svgrepo-com.svg";
 import TYPE_OF_PERSONNEL_ICON from "../assets/icon/svg/profile_summary/type-of-personel-svgrepo-com.svg";
-import { IUserSummaryResponse } from "../types/user/User";
+import { IUserSummaryResponse, TypeOfBaseUserUser } from "../types/user/User";
 import { extractAuthorties, getFullName } from "../util/UserUtil";
 
 interface Props {
   userData: IUserSummaryResponse | null;
 }
+
+const extractUserType = (type: TypeOfBaseUserUser | undefined): string => {
+  if (type === TypeOfBaseUserUser.STUDENT) {
+    return "Student";
+  } else if (type === TypeOfBaseUserUser.ACADEMIC_PERSONNEL) {
+    return "Academic Personnel";
+  } else if (type === TypeOfBaseUserUser.NON_ACADEMIC_PERSONNEL) {
+    return "Non Academic Personnel";
+  } else {
+    return "Unknown";
+  }
+};
 
 const ProfileSummaryCard = ({ userData }: Props) => {
   return (
@@ -35,7 +47,10 @@ const ProfileSummaryCard = ({ userData }: Props) => {
             className="size-6"
           />
           <h1>
-            Type : <span className="text-darkContrast">{userData?.type}</span>
+            Type :{" "}
+            <span className="text-darkContrast">
+              {extractUserType(userData?.type)}
+            </span>
           </h1>
         </div>
         <div className="flex gap-4">

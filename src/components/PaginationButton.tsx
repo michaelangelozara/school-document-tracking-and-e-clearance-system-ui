@@ -28,14 +28,22 @@ const PaginationButtons = ({
   };
 
   return (
-    <div className="bg-yellow-500 h-[1rem] p-4 flex justify-center items-center gap-3">
-      <button onClick={handlePrev} disabled={currentPage === 1}>
+    <div className="bg-primary text-darkContrast font-semibold h-[1rem] p-4 flex justify-center items-center gap-3">
+      <button
+        className="hover:text-white hover:bg-secondary rounded-sm"
+        onClick={handlePrev}
+        disabled={currentPage === 1}
+      >
         Prev
       </button>
       <span>
         Page {currentPage} of {totalPages}
       </span>
-      <button onClick={handleNext} disabled={currentPage === totalPages}>
+      <button
+        className="hover:text-white hover:bg-secondary rounded-sm"
+        onClick={handleNext}
+        disabled={currentPage === totalPages}
+      >
         Next
       </button>
     </div>

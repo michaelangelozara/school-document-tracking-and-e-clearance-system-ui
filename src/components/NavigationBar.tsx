@@ -26,6 +26,7 @@ const Button = ({ label, icon, onClick }: ButtonPropsType) => {
 
 const NavigationBar = () => {
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <div className="w-full bg-primary md:grid grid-cols-2">
@@ -44,9 +45,7 @@ const NavigationBar = () => {
         <Button
           label="Home"
           icon={HOME_ICON}
-          onClick={() => {
-            ("");
-          }}
+          onClick={() => navigate("/home")}
         />
 
         <Button

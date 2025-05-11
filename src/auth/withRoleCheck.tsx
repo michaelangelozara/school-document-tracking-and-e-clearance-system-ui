@@ -13,10 +13,10 @@ const withRoleCheck = <P extends object>(
     allowedAuthorities,
     ...props
   }) => {
-    const { user, token } = useAuth();
+    const { user, isTokenChecking } = useAuth();
 
-    if (!token) {
-      return <Navigate to="/login" replace />;
+    if (isTokenChecking) {
+      return <div>Loding ...</div>;
     }
 
     if (allowedAuthorities.length !== 0) {

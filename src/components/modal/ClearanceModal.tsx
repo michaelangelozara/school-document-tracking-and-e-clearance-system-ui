@@ -13,14 +13,28 @@ const Table = ({ onClick }: TablePropsType) => {
     <table className="w-full border border-gray-300">
       <thead>
         <tr className="bg-gray-200 border-b border-gray-300 text-nowrap">
-          <th className="p-2 border-r border-gray-300 ">No.</th>
-          <th className="p-2 border-r border-gray-300 ">Semester & S.Y</th>
-          <th className="p-2 border-r border-gray-300 ">Type</th>
-          <th className="p-2 border-r border-gray-300 ">Status</th>
-          <th className="p-2 border-r border-gray-300 ">Current Office</th>
-          <th className="p-2 border-r border-gray-300 ">Requested</th>
-          <th className="p-2 ">Last Modified</th>
-          <th>Action</th>
+          <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
+            No.
+          </th>
+          <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
+            Semester & S.Y
+          </th>
+          <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
+            Type
+          </th>
+          <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
+            Status
+          </th>
+          <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
+            Current Office
+          </th>
+          <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
+            Requested Date
+          </th>
+          <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
+            Last Modified
+          </th>
+          <th className="sticky top-0 p-2 bg-gray-200">Action</th>
         </tr>
       </thead>
       <tbody>
@@ -37,15 +51,721 @@ const Table = ({ onClick }: TablePropsType) => {
           <td className="p-2 border-r border-gray-300 text-center">
             10-Sep-2025 10:00 am
           </td>
-          <td className="p-2 text-center">10-Sep-2025 11:23 am</td>
-          <th>
-            <button
-              onClick={onClick}
-              className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-            >
-              View
-            </button>
-          </th>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr className="border-b border-gray-300 text-nowrap">
+          <td className="p-2 border-r border-gray-300 text-center">1</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            1st 2024-2025
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            Personnel
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
+          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 10:00 am
+          </td>
+          <td className="p-2 border-r border-gray-300 text-center">
+            10-Sep-2025 11:23 am
+          </td>
+          <td>
+            <div className="flex justify-center">
+              <button
+                onClick={onClick}
+                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+              >
+                View
+              </button>
+            </div>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -69,18 +789,18 @@ const ClearanceModal = () => {
       {/* Modal Content */}
       <div className="w-[95%] h-[95%] max-h-[95%] bg-background flex flex-col rounded-lg shadow-xl relative">
         {/* Header Layer */}
-        <div className="flex justify-between rounded-tl-lg rounded-tr-lg bg-primary text-darkContrast p-1">
+        <div className="flex justify-between rounded-tl-lg rounded-tr-lg bg-primary text-darkContrast p-1 text-md">
           <div className="flex justify-center items-center gap-2">
             <img
               src={CLEARANCE_ICON}
               alt="Department Icon"
               className="size-6 sm:size-7"
             />
-            <span className="text-md text-darkContrast">Clearance Section</span>
+            <span className="text-darkContrast">Clearance Section</span>
           </div>
           <button
             onClick={navigationHandler}
-            className="text-lg font-bold hover:text-red-500 hover:cursor-pointer"
+            className="font-bold hover:text-red-500 hover:cursor-pointer"
           >
             ✖
           </button>
@@ -88,12 +808,16 @@ const ClearanceModal = () => {
         {/* Modal Body */}
         <div className="bg-background w-full flex-1 p-4 flex flex-col overflow-auto">
           <div className="bg-white rounded-tl-lg rounded-tr-lg p-2 flex space-x-2">
-            <input type="text" placeholder="Search" />
-            <select>
+            <input
+              className="border border-gray-200 rounded-md pl-2 placeholder:text-gray-400 outline-darkContrast"
+              type="text"
+              placeholder="Search"
+            />
+            <select className="pl-1.5 text-darkContrast border border-gray-200 outline-darkContrast rounded">
               <option>Status</option>
-              <option value="">Option 1</option>
-              <option value="">Option 2</option>
-              <option value="">Option 3</option>
+              <option value="">Pending</option>
+              <option value="">Completed</option>
+              <option value="">Uncompleted</option>
             </select>
           </div>
           <div className="bg-white flex-1 overflow-auto">

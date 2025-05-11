@@ -1,6 +1,7 @@
-enum TypeOfBaseUserUser {
-  STUDENT,
-  PERSONNEL,
+export enum TypeOfBaseUserUser {
+  STUDENT = "STUDENT",
+  ACADEMIC_PERSONNEL = "ACADEMIC_PERSONNEL",
+  NON_ACADEMIC_PERSONNEL = "NON_ACADEMIC_PERSONNEL",
 }
 export interface IUserSummaryResponse {
   id: string;
@@ -13,10 +14,11 @@ export interface IUserSummaryResponse {
 }
 
 enum Gender {
-  MALE,
-  FEMALE,
-  OTHER,
+  MALE = "MALE",
+  FEMALE = "FAMALE",
+  OTHER = "OTHER",
 }
+
 export interface IUserDetailedResponse {
   id: string;
   firstname: string;
@@ -33,12 +35,12 @@ export interface IUserDetailedResponse {
 }
 
 enum YearLevel {
-  FIRST_YEAR,
-  SECOND_YEAR,
-  THIRD_YEAR,
-  FOURTH_YEAR,
-  FIRST_YEAR_VOCATIONAL,
-  LAST_YEAR_VOCATIONAL,
+  FIRST_YEAR = "FIRST_YEAR",
+  SECOND_YEAR = "SECOND_YEAR",
+  THIRD_YEAR = "THIRD_YEAR",
+  FOURTH_YEAR = "FOURTH_YEAR",
+  FIRST_YEAR_VOCATIONAL = "FIRST_YEAR_VOCATIONAL",
+  LAST_YEAR_VOCATIONAL = "LAST_YEAR_VOCATIONAL",
 }
 export interface IStudentResponse extends IUserDetailedResponse {
   year_level: YearLevel;

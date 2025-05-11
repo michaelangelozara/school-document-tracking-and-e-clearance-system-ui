@@ -18,6 +18,10 @@ import DepartmentModal from "./components/modal/DepartmentModal";
 import CourseModal from "./components/modal/CourseModal";
 import ClearanceModal from "./components/modal/ClearanceModal";
 import LetterModal from "./components/modal/LetterModal";
+import MyClearanceModal from "./components/modal/MyClearanceModal";
+
+import LetterLayout from "./layouts/LetterLayout";
+import BudgetProposal from "./pages/letter/BudgetProposal";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -25,12 +29,15 @@ function App() {
   const ProtectedLetterModal = withRoleCheck(LetterModal);
   const ProtectedDepartmentModal = withRoleCheck(DepartmentModal);
 
+  const ProtectedLetterLayout = withRoleCheck(LetterLayout);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
         <Route path="/">
           <Route path="login" element={<Login />} />
           <Route path="home" element={<HomePageLayout />}>
+            <Route path="my-clearance" element={<MyClearanceModal />} />
             <Route
               path="clearances"
               element={<ProtectedClearanceModal allowedAuthorities={[]} />}
@@ -55,6 +62,18 @@ function App() {
                 />
               }
             />
+          </Route>
+          <Route path="letters">
+            <Route
+              path="apply"
+              element={
+                <ProtectedLetterLayout
+                  allowedAuthorities={["STUDENT", "SUPER_ADMIN"]}
+                />
+              }
+            >
+              <Route path="budget-proposal" element={<BudgetProposal />} />
+            </Route>
           </Route>
           <Route path="user" element={<UserPageLayout />}>
             <Route
