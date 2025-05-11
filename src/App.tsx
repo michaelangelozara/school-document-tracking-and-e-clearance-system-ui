@@ -4,7 +4,7 @@ import {
   Route,
   RouterProvider,
 } from "react-router-dom";
-import Login, { loginLoader } from "./pages/Login";
+import Login from "./pages/Login";
 import HomePageLayout from "./layouts/HomePageLayout";
 import ProfileInfoModal, {
   profileLoader,

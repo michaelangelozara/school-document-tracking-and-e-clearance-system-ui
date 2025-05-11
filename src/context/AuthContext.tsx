@@ -98,9 +98,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           originalRequest.url !== REFRESH_TOKEN_URL &&
           originalRequest.url !== "/auth/authenticate" // this makes sure that when credential is in correct the refresh token won't trigger
         ) {
-          // Optional: Add logic to prevent multiple concurrent refresh attempts if needed
-          // e.g., using a flag like `isRefreshing`
-
           // Check if this request was already retried
           if (originalRequest._retry) {
             // If already retried, it means refresh failed or the new token didn't work.

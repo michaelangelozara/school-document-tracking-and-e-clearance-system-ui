@@ -5,7 +5,10 @@ export interface IBudgetProposalRequest extends BaseLetter {
   venue: string;
   source_of_fund: string;
   amount_allotted: number;
-  expected_expenses: IExpectedOutputRequest[];
+  expected_expenses: IExpectedExpensesRequest[];
 }
 
-export interface IExpectedOutputRequest {}
+export interface IExpectedExpensesRequest {
+  name: string;
+  amount: number;
+}

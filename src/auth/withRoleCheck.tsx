@@ -20,11 +20,11 @@ const withRoleCheck = <P extends object>(
     }
 
     if (allowedAuthorities.length !== 0) {
-      const isAuthorized = user?.authorities.some((role) =>
+      const isAuthorized = user?.authorities?.some((role) =>
         allowedAuthorities.includes(role)
       );
 
-      if (!isAuthorized) {
+      if (!isAuthorized && user?.authorities?.length !== undefined) {
         return <Navigate to="/unauthorized" replace />;
       }
     }
