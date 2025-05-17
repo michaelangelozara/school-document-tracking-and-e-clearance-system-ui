@@ -17,4 +17,7 @@
     --text-md: 18px;
     --text-lg: 20px;
     --text-xl: 22px;
+    
+    /* input element */
+    --input-height-md: 2.5rem;
 }

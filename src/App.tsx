@@ -30,13 +30,17 @@ function App() {
   const ProtectedDepartmentModal = withRoleCheck(DepartmentModal);
 
   const ProtectedLetterLayout = withRoleCheck(LetterLayout);
+  const ProtectedHomePageLayout = withRoleCheck(HomePageLayout);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route>
         <Route path="/">
           <Route path="login" element={<Login />} />
-          <Route path="home" element={<HomePageLayout />}>
+          <Route
+            path="home"
+            element={<ProtectedHomePageLayout allowedAuthorities={[]} />}
+          >
             <Route path="my-clearance" element={<MyClearanceModal />} />
             <Route
               path="clearances"

@@ -1,19 +1,22 @@
+import { useNavigate } from "react-router-dom";
+
 type CancelApplyPropsType = {
-  cancel: () => void;
   apply: () => void;
 };
-const CancelApplyButton = ({ cancel, apply }: CancelApplyPropsType) => {
+const CancelApplyButton = ({ apply }: CancelApplyPropsType) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="flex justify-end gap-4 pr-3">
+    <div className="flex justify-end gap-4 pr-3 md:text-lg">
       <button
-        onClick={cancel}
-        className="bg-red-500 hover:bg-red-400 text-white p-1 rounded-md"
+        onClick={() => navigate("/home/letters")}
+        className="bg-red-500 hover:bg-red-400 text-white p-1 md:p-2 rounded-md"
       >
         Cancel
       </button>
       <button
         onClick={apply}
-        className="bg-green-500 hover:bg-green-400 text-white p-1 rounded-md"
+        className="bg-green-500 hover:bg-green-400 text-white p-1 md:p-2 rounded-md"
       >
         Apply
       </button>

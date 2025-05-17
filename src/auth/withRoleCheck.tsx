@@ -15,7 +15,7 @@ const withRoleCheck = <P extends object>(
   }) => {
     const { user, isTokenChecking } = useAuth();
 
-    if (isTokenChecking) {
+    if (isTokenChecking || user === null) {
       return <div>Loding ...</div>;
     }
 
@@ -24,6 +24,7 @@ const withRoleCheck = <P extends object>(
         allowedAuthorities.includes(role)
       );
 
+      // the 2nd condition is to make sure that if the user logs out it won't redirect to unauthorize page
       if (!isAuthorized && user?.authorities?.length !== undefined) {
         return <Navigate to="/unauthorized" replace />;
       }
