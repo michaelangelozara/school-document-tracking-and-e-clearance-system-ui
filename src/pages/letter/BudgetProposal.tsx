@@ -188,7 +188,7 @@ const BudgetProposal = () => {
                 <tr className="text-nowrap">
                   <td className="border-r border-gray-300">
                     <input
-                      autoFocus
+                      placeholder="Name of Item"
                       value={expectedExpense.name || ""}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         setExpectedExpense((prev) => ({
@@ -201,6 +201,7 @@ const BudgetProposal = () => {
                   </td>
                   <td className="border-r border-gray-300">
                     <input
+                      placeholder="Amount of Item"
                       value={expectedExpense.amount || ""}
                       type="number"
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
