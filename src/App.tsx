@@ -22,6 +22,7 @@ import MyClearanceModal from "./components/modal/MyClearanceModal";
 
 import LetterLayout from "./layouts/LetterLayout";
 import BudgetProposal from "./pages/letter/BudgetProposal";
+import CommunicationLetter from "./pages/letter/CommunicationLetter";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -77,6 +78,7 @@ function App() {
               }
             >
               <Route path="budget-proposal" element={<BudgetProposal />} />
+              <Route path="communication" element={<CommunicationLetter />} />
             </Route>
           </Route>
           <Route path="user" element={<UserPageLayout />}>

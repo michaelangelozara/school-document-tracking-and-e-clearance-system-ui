@@ -1,6 +1,6 @@
 import { BaseLetter } from "./BaseLetter";
 
-enum TypeOfCommunicationLetter {
+export enum TypeOfCommunicationLetter {
   IN_CAMPUS = "IN_CAMPUS",
   OFF_CAMPUS = "OFF_CAMPUS",
 }

@@ -6,6 +6,7 @@ import {
 import NDTC_LOGO from "../../assets/icon/png/NDTC-300x279.png";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
+import SignatureCard from "../../components/signature/SignatureCard";
 
 const BudgetProposal = () => {
   const [budgetProposal, setBudgetProposal] = useState<IBudgetProposalRequest>({
@@ -22,8 +23,6 @@ const BudgetProposal = () => {
       name: "",
       amount: 0,
     });
-  const [isESignatureLoading, setIsESignatureLoading] =
-    useState<boolean>(false);
 
   const addItemHandler = () => {
     if (expectedExpense.name !== "" && expectedExpense.amount !== 0) {
@@ -49,10 +48,6 @@ const BudgetProposal = () => {
   };
 
   const submit = () => {
-    if (isESignatureLoading) {
-      return;
-    }
-
     if (
       budgetProposal.base_letter_request_body_type === null ||
       budgetProposal.type === null
@@ -78,7 +73,7 @@ const BudgetProposal = () => {
         <div className="flex flex-col justify-center items-center">
           <img className="size-14 md:size-16" src={NDTC_LOGO} alt="NDTC Logo" />
           <h1 className="font-semibold md:text-lg lg:text-xl">
-            Budget Proposal Application
+            Budget Proposal Letter Application
           </h1>
         </div>
         <div className="flex flex-col gap-2 text-sm md:text-md md:gap-4">
@@ -227,28 +222,7 @@ const BudgetProposal = () => {
           </div>
         </div>
         <div className="flex flex-col gap-4">
-          <div>
-            <h1 className="italic">
-              Upload your E-Signature here{" "}
-              <span className="text-red-600">*</span>
-            </h1>
-            {true ? (
-              <img
-                className="w-[200px] h-[80px] border border-gray-300"
-                src=""
-                alt="E-Signature"
-              />
-            ) : (
-              <div className="w-[200px] h-[80px] flex justify-center items-center border border-gray-300">
-                <h1 className="italic">No E-Signature</h1>
-              </div>
-            )}
-          </div>
-          <div>
-            <button className="p-2 bg-primary text-darkContrast rounded-md cursor-pointer">
-              {isESignatureLoading ? "Uploading ..." : "Upload"}
-            </button>
-          </div>
+          <SignatureCard />
         </div>
         <CancelApplyButton apply={submit} />
       </div>

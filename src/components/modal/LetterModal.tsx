@@ -510,7 +510,7 @@ const RequestModal = ({ onClick }: RequestModalPropsType) => {
           <RequestModalIcon
             name="Communication Letter"
             icon={COMMUNICATION_ICON}
-            type="budget-proposal"
+            type="communication"
           />
           <RequestModalIcon
             name="Implementation Letter In Campus"
