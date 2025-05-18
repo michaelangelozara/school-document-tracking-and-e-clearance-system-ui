@@ -101,3 +101,9 @@ export interface IAcademicPersonnelRequest extends IPersonnelRequest {
 export interface IAcademicPersonnelRequest extends IPersonnelRequest {
   authority_ids: string[];
 }
+
+export interface IUserNameAndIdOnly {
+  id: string;
+  name: string;
+  profile: string;
+}

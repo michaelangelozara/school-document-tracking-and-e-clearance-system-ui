@@ -461,7 +461,7 @@ const Table = ({ onClick }: TablePropsType) => {
   );
 };
 
-type RequestModalIconPropsType = {
+export type RequestModalIconPropsType = {
   name: string;
   icon: string;
   type: string;
@@ -486,6 +486,40 @@ const RequestModalIcon = ({ name, icon, type }: RequestModalIconPropsType) => {
   );
 };
 
+const listOfLetters: RequestModalIconPropsType[] = [
+  {
+    name: "Budget Proposal Letter",
+    icon: BUDGET_PROPOSAL_ICON,
+    type: "budget-proposal",
+  },
+  {
+    name: "Communication Letter",
+    icon: COMMUNICATION_ICON,
+    type: "communication",
+  },
+  {
+    name: "Implementation Letter In Campus",
+    icon: IMPLEMENATION_LETTER_IN_CAMPUS_ICON,
+    type: "implementation-letter-in-campus",
+  },
+  {
+    name: "Implementation Letter Off Campus",
+    icon: IMPLEMENATION_LETTER_OFF_CAMPUS_ICON,
+    type: "implementation-letter-off-campus",
+  },
+
+  {
+    name: "Permit To Enter Leter",
+    icon: PERMIT_TO_ENTER_ICON,
+    type: "permit-to-enter",
+  },
+  {
+    name: "School Facility Letter",
+    icon: SCHOOL_FACILITY_ICON,
+    type: "school-facility",
+  },
+];
+
 type RequestModalPropsType = {
   onClick: () => void;
 };
@@ -502,36 +536,13 @@ const RequestModal = ({ onClick }: RequestModalPropsType) => {
           </div>
         </div>
         <div className="grid gap-2 p-2 grid-cols-2 auto-rows-auto flex-1 bg-white overflow-auto text-xs">
-          <RequestModalIcon
-            name="Budget Proposal Letter"
-            icon={BUDGET_PROPOSAL_ICON}
-            type="budget-proposal"
-          />
-          <RequestModalIcon
-            name="Communication Letter"
-            icon={COMMUNICATION_ICON}
-            type="communication"
-          />
-          <RequestModalIcon
-            name="Implementation Letter In Campus"
-            icon={IMPLEMENATION_LETTER_IN_CAMPUS_ICON}
-            type="budget-proposal"
-          />
-          <RequestModalIcon
-            name="Implementation Letter Off Campus"
-            icon={IMPLEMENATION_LETTER_OFF_CAMPUS_ICON}
-            type="budget-proposal"
-          />
-          <RequestModalIcon
-            name="Permit To Enter Leter"
-            icon={PERMIT_TO_ENTER_ICON}
-            type="budget-proposal"
-          />
-          <RequestModalIcon
-            name="School Facility Letter"
-            icon={SCHOOL_FACILITY_ICON}
-            type="budget-proposal"
-          />
+          {listOfLetters?.map((element) => (
+            <RequestModalIcon
+              name={element.name}
+              icon={element.icon}
+              type={element.type}
+            />
+          ))}
         </div>
       </div>
     </div>
