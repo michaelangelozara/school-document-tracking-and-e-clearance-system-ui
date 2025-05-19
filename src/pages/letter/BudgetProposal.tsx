@@ -3,10 +3,10 @@ import {
   IBudgetProposalRequest,
   IExpectedExpensesRequest,
 } from "../../types/letter/BudgetProposal";
-import NDTC_LOGO from "../../assets/icon/png/NDTC-300x279.png";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import SignatureCard from "../../components/signature/SignatureCard";
+import LetterHeader from "../../components/letter/LetterHeader";
 
 const BudgetProposal = () => {
   const [budgetProposal, setBudgetProposal] = useState<IBudgetProposalRequest>({
@@ -70,12 +70,8 @@ const BudgetProposal = () => {
   return (
     <div className="bg-background p-3">
       <div className="flex flex-col rounded-md gap-2 p-2 bg-white text-darkContrast overflow-auto">
-        <div className="flex flex-col justify-center items-center">
-          <img className="size-14 md:size-16" src={NDTC_LOGO} alt="NDTC Logo" />
-          <h1 className="font-semibold md:text-lg lg:text-xl">
-            Budget Proposal Letter Application
-          </h1>
-        </div>
+        <LetterHeader title="Budget Proposal Letter Application" />
+
         <div className="flex flex-col gap-2 text-sm md:text-md md:gap-4">
           <div>
             <h1>

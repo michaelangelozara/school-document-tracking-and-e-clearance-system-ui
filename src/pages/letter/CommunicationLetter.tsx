@@ -1,6 +1,5 @@
-import { ChangeEvent, ChangeEventHandler, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
-import NDTC_LOGO from "../../assets/icon/png/NDTC-300x279.png";
 import {
   ICommunicationLetterRequest,
   TypeOfCommunicationLetter,
@@ -8,6 +7,7 @@ import {
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import SignatureCard from "../../components/signature/SignatureCard";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
+import LetterHeader from "../../components/letter/LetterHeader";
 
 const CommunicationLetter = () => {
   const [communicationLetter, setCommunicationLetter] =
@@ -24,12 +24,7 @@ const CommunicationLetter = () => {
   return (
     <div className="bg-background p-3">
       <div className="flex flex-col rounded-md gap-4 p-2 bg-white text-darkContrast overflow-auto lg:text-md">
-        <div className="flex flex-col justify-center items-center">
-          <img className="size-14 md:size-16" src={NDTC_LOGO} alt="NDTC Logo" />
-          <h1 className="font-semibold md:text-lg lg:text-xl">
-            Communication Letter Application
-          </h1>
-        </div>
+        <LetterHeader title="Communication Letter Application" />
 
         <div className="flex gap-2">
           <div className="border rounded-lg border-gray-300 outline-darkContrast lg:flex lg:gap-4">
