@@ -4,36 +4,7 @@ import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import { IUserNameAndIdOnly } from "../../types/user/User";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
 import LetterHeader from "../../components/letter/LetterHeader";
-
-type SearchedUserCardPropsType = {
-  user: IUserNameAndIdOnly;
-  onChange: (user: IUserNameAndIdOnly, value: boolean) => void;
-};
-const SearchedUserCard = ({ user, onChange }: SearchedUserCardPropsType) => {
-  const [isChecked, setIsChecked] = useState<boolean>(false);
-
-  return (
-    <div>
-      <div className="flex items-center gap-3 p-2">
-        <img
-          className="size-9 rounded-full md:size-12"
-          src={user.profile || ""}
-          alt="User Image"
-        />
-        <h1 className="md:text-sm">{user.name}</h1>
-        <input
-          className="md:size-4"
-          type="checkbox"
-          checked={isChecked}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            setIsChecked(e.target.checked);
-            onChange(user, e.target.checked);
-          }}
-        />
-      </div>
-    </div>
-  );
-};
+import UserSearchedCard from "../../components/letter/UserSearchedCard";
 
 const PermitToEnter = () => {
   const [permitToEnter, setPermitToEnter] = useState<IPermitToEnter>({
@@ -88,7 +59,7 @@ const PermitToEnter = () => {
         <LetterHeader title="Permit To Enter Letter Application" />
 
         <div className="flex gap-2">
-          <div className="border rounded-lg border-gray-300 outline-darkContrast lg:flex lg:gap-4">
+          <div className="border rounded-lg border-gray-300 outline-darkContrast md:h-[var(--input-height-md)] lg:flex lg:gap-4">
             <h1>
               Date <span className="text-red-600">*</span>
             </h1>
@@ -103,7 +74,7 @@ const PermitToEnter = () => {
               }
             />
           </div>
-          <div className="border rounded-lg border-gray-300 outline-darkContrast lg:flex lg:gap-4">
+          <div className="border rounded-lg border-gray-300 outline-darkContrast md:h-[var(--input-height-md)] lg:flex lg:gap-4">
             <h1>
               Time <span className="text-red-600">*</span>
             </h1>
@@ -147,7 +118,7 @@ const PermitToEnter = () => {
             </div>
             <div className="h-[12rem] overflow-auto">
               {searchedStudents?.map((element, _) => (
-                <SearchedUserCard
+                <UserSearchedCard
                   onChange={onChangeHandler}
                   user={{
                     id: element.id,

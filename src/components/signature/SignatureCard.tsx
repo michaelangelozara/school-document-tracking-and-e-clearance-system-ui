@@ -18,7 +18,7 @@ const SignatureCard = () => {
   return (
     <div className="flex flex-col gap-4">
       <div>
-        <h1 className="italic">
+        <h1 className="italic text-xs md:text-sm">
           Upload your E-Signature here <span className="text-red-600">*</span>
         </h1>
         {eSignature ? (

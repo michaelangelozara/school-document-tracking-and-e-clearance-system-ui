@@ -25,6 +25,7 @@ import BudgetProposal from "./pages/letter/BudgetProposal";
 import CommunicationLetter from "./pages/letter/CommunicationLetter";
 import PermitToEnter from "./pages/letter/PermitToEnter";
 import SchoolFacility from "./pages/letter/SchoolFacility";
+import ImplementationLetterInCampus from "./pages/letter/ImplementationLetterInCampus";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -83,6 +84,10 @@ function App() {
               <Route path="communication" element={<CommunicationLetter />} />
               <Route path="permit-to-enter" element={<PermitToEnter />} />
               <Route path="school-facility" element={<SchoolFacility />} />
+              <Route
+                path="implementation-letter-in-campus"
+                element={<ImplementationLetterInCampus />}
+              />
             </Route>
           </Route>
           <Route path="user" element={<UserPageLayout />}>

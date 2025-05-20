@@ -27,7 +27,7 @@ const CommunicationLetter = () => {
         <LetterHeader title="Communication Letter Application" />
 
         <div className="flex gap-2">
-          <div className="border rounded-lg border-gray-300 outline-darkContrast lg:flex lg:gap-4">
+          <div className="border rounded-lg border-gray-300 outline-darkContrast md:h-[var(--input-height-md)] lg:flex lg:gap-4">
             <h1>
               Date <span className="text-red-600">*</span>
             </h1>
@@ -44,7 +44,7 @@ const CommunicationLetter = () => {
           </div>
           <div>
             <select
-              className="border rounded-lg border-gray-300 outline-darkContrast cursor-pointer"
+              className="border rounded-lg border-gray-300 outline-darkContrast cursor-pointer md:h-[var(--input-height-md)]"
               onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                 setCommunicationLetter((prev) => ({
                   ...prev,

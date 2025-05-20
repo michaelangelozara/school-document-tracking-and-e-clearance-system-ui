@@ -101,11 +101,11 @@ const SchoolFacility = () => {
             <h1>Date & Time</h1>
             <div className="flex gap-2">
               <input
-                className="border p-1 border-gray-200 rounded-md outline-darkContrast"
+                className="border p-1 border-gray-200 rounded-md outline-darkContrast md:h-[var(--input-height-md)]"
                 type="date"
               />
               <input
-                className="border p-1 border-gray-200 rounded-md outline-darkContrast"
+                className="border p-1 border-gray-200 rounded-md outline-darkContrast md:h-[var(--input-height-md)]"
                 type="time"
               />
             </div>
