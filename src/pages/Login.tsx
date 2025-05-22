@@ -6,22 +6,35 @@ import { authenticate } from "../service/AuthService";
 import { LoginType } from "../types/auth/Login";
 import { useAuth } from "../context/AuthContext";
 import { redirectHome } from "../util/HrefUtils";
+import { AxiosError } from "axios";
+import { BaseResponse } from "../types/response/Response";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store/Store";
+import { open } from "../store/slice/MessageSlice";
 
 const Login = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const [login, setLogin] = useState<LoginType>({ username: "", password: "" });
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { token, isTokenChecking } = useAuth();
 
   const loginHandler = async () => {
+    if (login.password === "") {
+      dispatch(open("User ID or Password cannot be empty"));
+      return;
+    }
+
     try {
       setIsLoading(true);
       await authenticate(login);
       redirectHome();
     } catch (err) {
-      setLogin((prev) => ({ ...prev, password: "" }));
-      console.log(err);
-      // const exception = getAxiosError(err).response?.data as BaseResponse<null>;
+      setLogin((prev) => ({ ...prev, password: "" })); // reset the password
+      const error = err as AxiosError;
+      const message = error.response?.data as BaseResponse<null>;
+      dispatch(open(message.message));
     } finally {
       setIsLoading(false);
     }
