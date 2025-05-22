@@ -10,6 +10,8 @@ const CancelApplyButton = ({ apply }: CancelApplyPropsType) => {
   const isLoading = useSelector(
     (state: RootState) => state.eSignature.isFetching
   );
+
+  const isApplying = useSelector((state: RootState) => state.letter.isApplying);
   return (
     <div className="flex justify-end gap-4 pr-3 md:text-lg">
       <button
@@ -23,7 +25,7 @@ const CancelApplyButton = ({ apply }: CancelApplyPropsType) => {
         onClick={apply}
         className="bg-green-500 hover:bg-green-400 text-white p-1 md:p-2 rounded-md cursor-pointer"
       >
-        Apply
+        {isApplying ? "Appying" : "Apply"}
       </button>
     </div>
   );
