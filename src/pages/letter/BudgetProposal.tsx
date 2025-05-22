@@ -7,6 +7,13 @@ import CancelApplyButton from "../../components/button/CancelApplyButton";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import SignatureCard from "../../components/signature/SignatureCard";
 import LetterHeader from "../../components/letter/LetterHeader";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/Store";
+import { open } from "../../store/slice/MessageSlice";
+import { apply } from "../../service/LetterService";
+import { applying, stopApplying } from "../../store/slice/LetterSlice";
+import { useAuth } from "../../context/AuthContext";
+import { getErrorMessage } from "../../helper/AxiosHelper";
 
 const BudgetProposal = () => {
   const [budgetProposal, setBudgetProposal] = useState<IBudgetProposalRequest>({
@@ -47,24 +54,39 @@ const BudgetProposal = () => {
     }));
   };
 
-  const submit = () => {
-    if (
-      budgetProposal.base_letter_request_body_type === null ||
-      budgetProposal.type === null
-    ) {
+  const reset = () => {
+    setBudgetProposal({
+      base_letter_request_body_type: TypeOfBaseLetter.BUDGET_PROPOSAL_LETTER,
+      type: TypeOfBaseLetter.BUDGET_PROPOSAL_LETTER,
+      name_of_activity: "",
+      venue: "",
+      source_of_fund: "",
+      amount_allotted: 0,
+      expected_expenses: [],
+    });
+  };
+
+  const { apiClient } = useAuth();
+  const dispatch = useDispatch<AppDispatch>();
+  const { hasESignature } = useSelector((state: RootState) => state.eSignature);
+
+  const submit = async () => {
+    if (!hasESignature) {
+      dispatch(open("Please attach you E-Signature."));
       return;
     }
 
-    if (
-      budgetProposal.name_of_activity === "" ||
-      budgetProposal.venue === "" ||
-      budgetProposal.source_of_fund === "" ||
-      budgetProposal.amount_allotted === 0
-    ) {
-      return;
+    try {
+      dispatch(applying());
+      const response = await apply(budgetProposal, apiClient);
+      dispatch(open(response));
+      reset();
+    } catch (error) {
+      const errorMessage = getErrorMessage(error);
+      dispatch(open(errorMessage));
+    } finally {
+      dispatch(stopApplying());
     }
-
-    console.log(budgetProposal);
   };
 
   return (
@@ -78,6 +100,7 @@ const BudgetProposal = () => {
               Name of Activity <span className="text-red-600">*</span>
             </h1>
             <input
+              value={budgetProposal.name_of_activity || ""}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setBudgetProposal((prev) => ({
                   ...prev,
@@ -92,6 +115,7 @@ const BudgetProposal = () => {
               Venue <span className="text-red-600">*</span>
             </h1>
             <input
+              value={budgetProposal.venue || ""}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setBudgetProposal((prev) => ({
                   ...prev,
@@ -107,6 +131,7 @@ const BudgetProposal = () => {
               Source of Fund <span className="text-red-600">*</span>
             </h1>
             <input
+              value={budgetProposal.source_of_fund || ""}
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
                 setBudgetProposal((prev) => ({
                   ...prev,
@@ -122,6 +147,7 @@ const BudgetProposal = () => {
               Amount Allotted <span className="text-red-600">*</span>
             </h1>
             <input
+              value={budgetProposal.amount_allotted || ""}
               type="number"
               placeholder="₱0.00"
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
