@@ -10,6 +10,7 @@ import IMPLEMENATION_LETTER_OFF_CAMPUS_ICON from "../../assets/icon/png/implemen
 import PERMIT_TO_ENTER_ICON from "../../assets/icon/png/permit_to_enter_icon.png";
 import SCHOOL_FACILITY_ICON from "../../assets/icon/png/school_facility_icon.png";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
+import Loading from "../Loading";
 
 type TablePropsType = {
   onClick: () => void;
@@ -30,7 +31,7 @@ const Table = ({ onClick }: TablePropsType) => {
             Type
           </th>
           <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
-            Current Office
+            Current Office/s
           </th>
           <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
             Requested Date
@@ -553,6 +554,7 @@ const LetterModal = () => {
   const navigate = useNavigate();
   const [isRequestButtonClicked, setIsRequestButtonClicked] =
     useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const navigationHandler = () => {
     navigate("/home");
@@ -608,8 +610,12 @@ const LetterModal = () => {
               </button>
             </div>
           </div>
-          <div className="bg-white flex-1 overflow-auto">
-            <Table onClick={() => null} />
+          <div
+            className={`bg-white flex-1 ${
+              isLoading ? "flex justify-center items-center" : ""
+            } overflow-auto`}
+          >
+            {isLoading ? <Loading /> : <Table onClick={() => null} />}
           </div>
           <PaginationButtons
             totalPages={0}
