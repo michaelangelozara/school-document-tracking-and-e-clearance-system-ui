@@ -8,8 +8,16 @@ import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import SignatureCard from "../../components/signature/SignatureCard";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
 import LetterHeader from "../../components/letter/LetterHeader";
+import { apply } from "../../service/LetterService";
+import { useAuth } from "../../context/AuthContext";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/Store";
+import { open } from "../../store/slice/MessageSlice";
+import { applying, stopApplying } from "../../store/slice/LetterSlice";
+import { getErrorMessage } from "../../helper/AxiosHelper";
 
 const CommunicationLetter = () => {
+  const { apiClient } = useAuth();
   const [communicationLetter, setCommunicationLetter] =
     useState<ICommunicationLetterRequest>({
       base_letter_request_body_type: TypeOfBaseLetter.COMMUNICATION_LETTER,
@@ -19,7 +27,36 @@ const CommunicationLetter = () => {
       type_of_communication_letter: TypeOfCommunicationLetter.IN_CAMPUS,
     });
 
-  const submit = () => {};
+  const { hasESignature } = useSelector((state: RootState) => state.eSignature);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const reset = () => {
+    setCommunicationLetter({
+      base_letter_request_body_type: TypeOfBaseLetter.COMMUNICATION_LETTER,
+      type: TypeOfBaseLetter.COMMUNICATION_LETTER,
+      date: "",
+      content: "",
+      type_of_communication_letter: TypeOfCommunicationLetter.IN_CAMPUS,
+    });
+  };
+
+  const submit = async () => {
+    if (!hasESignature) {
+      dispatch(open("Please attach you E-Signature."));
+      return;
+    }
+    try {
+      dispatch(applying());
+      const response = await apply(communicationLetter, apiClient);
+      dispatch(open(response));
+      reset();
+    } catch (error) {
+      const errorMessage = getErrorMessage(error);
+      dispatch(open(errorMessage));
+    } finally {
+      dispatch(stopApplying());
+    }
+  };
 
   return (
     <div className="bg-background p-3">
@@ -32,6 +69,7 @@ const CommunicationLetter = () => {
               Date <span className="text-red-600">*</span>
             </h1>
             <input
+              value={communicationLetter.date || ""}
               className="cursor-pointer"
               type="date"
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -67,6 +105,7 @@ const CommunicationLetter = () => {
             Content/Body <span className="text-red-600">*</span>
           </h1>
           <textarea
+            value={communicationLetter.content || ""}
             onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
               setCommunicationLetter((prev) => ({
                 ...prev,
