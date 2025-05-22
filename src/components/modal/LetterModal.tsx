@@ -596,10 +596,13 @@ const LetterModal = () => {
             />
             <select className="pl-1.5 justify-self-center text-darkContrast border border-gray-200 outline-darkContrast rounded sm:justify-self-start">
               <option value="">All</option>
-              <option value="">For Evaluation</option>
-              <option value="">In Progress</option>
-              <option value="">Completed</option>
+              <option value="">Draft</option>
+              <option value="">Pending Review</option>
+              <option value="">Under Review</option>
+              <option value="">Approved</option>
               <option value="">Rejected</option>
+              <option value="">Expired</option>
+              <option value="">Cancelled</option>
             </select>
             <div className="sm:justify-self-end">
               <button
