@@ -12,6 +12,9 @@ import { AuthResponse } from "../types/auth/Login";
 import { AxiosInstance, AxiosRequestConfig } from "axios";
 import { logoutApi } from "../service/AuthService";
 import { redirectLogin } from "../util/HrefUtils";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store/Store";
+import { open } from "../store/slice/MessageSlice";
 
 interface AuthContextType {
   user: IUserSummaryResponse | null;
@@ -32,6 +35,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<IUserSummaryResponse | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [isChecking, setIsChecking] = useState<boolean>(true);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const authSetter = (data: AuthResponse | null) => {
     if (data) {
@@ -90,6 +95,16 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const originalRequest = error.config as AxiosRequestConfig & {
           _retry?: boolean;
         }; // Add type assertion for safety
+
+        // Check if this is a network error (no response)
+        if (!error.response) {
+          dispatch(open("Network Error")); // this shows the message dialog about network issue
+          // You could:
+          // 1. Show a network offline notification
+          // 2. Queue requests for later retry
+          // 3. Reject immediately
+          return Promise.reject(error);
+        }
 
         // Check if the response exists, status is 401, AND it's NOT a request to the refresh URL already
         if (
