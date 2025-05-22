@@ -1,12 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import NEXT_ICON from "../assets/icon/svg/next-svgrepo-com.svg";
 
 type PaginationTypes = {
   totalPages: number;
   nextPage: () => void;
   prevPage: () => void;
 };
-
-const PaginationButtons = ({
+const PaginationButton = ({
   totalPages,
   nextPage,
   prevPage,
@@ -28,26 +28,28 @@ const PaginationButtons = ({
   };
 
   return (
-    <div className="bg-primary text-darkContrast font-semibold h-[1rem] p-4 flex justify-center items-center gap-3">
-      <button
-        className="hover:text-white hover:bg-secondary rounded-sm"
-        onClick={handlePrev}
-        disabled={currentPage === 1}
-      >
-        Prev
-      </button>
-      <span>
-        Page {currentPage} of {totalPages}
-      </span>
-      <button
-        className="hover:text-white hover:bg-secondary rounded-sm"
-        onClick={handleNext}
-        disabled={currentPage === totalPages}
-      >
-        Next
-      </button>
+    <div className="flex justify-center">
+      <div className="flex items-center gap-2">
+        <button
+          className="hover:text-white hover:bg-secondary rounded-sm"
+          onClick={handlePrev}
+          disabled={currentPage === 1}
+        >
+          <img className="size-9 rotate-[180deg]" src={NEXT_ICON} alt="" />
+        </button>
+        <span>
+          Page {0} of {0}
+        </span>
+        <button
+          className="hover:text-white hover:bg-secondary rounded-sm"
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+        >
+          <img className="size-9" src={NEXT_ICON} alt="" />
+        </button>
+      </div>
     </div>
   );
 };
 
-export default PaginationButtons;
+export default PaginationButton;
