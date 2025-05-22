@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 
+import { getMySignature } from "../../service/UserService";
+import { useAuth } from "../../context/AuthContext";
+
 const SignatureCard = () => {
   const [isESignatureLoading, setIsESignatureLoading] =
     useState<boolean>(false);
 
   const [eSignature, setESignature] = useState<string | null>(null);
-
+  const { apiClient } = useAuth();
   const getESignature = async () => {
     try {
       setIsESignatureLoading(true);
+      const response = await getMySignature(apiClient);
+      setESignature(response);
     } catch (error) {
+      console.log(error);
     } finally {
       setIsESignatureLoading(false);
     }

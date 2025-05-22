@@ -1,17 +1,14 @@
-// export type FindUsersProps = {
-//   page: number;
-//   size: number;
-// };
-// export const findAllUsersApi = async (
-//   pagination: FindUsersProps
-// ): Promise<IPaginationRequest<User[]>> => {
-//   const response = await axiosConfig.get(
-//     `/users?page=${pagination.page}&size=${pagination.size}`
-//   );
-//   return response.data as IPaginationRequest<User[]>;
-// };
+import { AxiosInstance } from "axios";
+import { BaseResponse } from "../types/response/Response";
 
-// export const findMeApi = async (): Promise<User> => {
-//   const response = await axiosConfig.get("/users/me");
-//   return response.data as User;
-// };
+export const getMySignature = async (
+  apiClient: AxiosInstance
+): Promise<string> => {
+  try {
+    const response = await apiClient.get("/users/me/signature");
+    const data = response.data as BaseResponse<string>;
+    return data.data;
+  } catch (error) {
+    throw error;
+  }
+};
