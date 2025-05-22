@@ -27,6 +27,7 @@ import PermitToEnter from "./pages/letter/PermitToEnter";
 import SchoolFacility from "./pages/letter/SchoolFacility";
 import ImplementationLetterInCampus from "./pages/letter/ImplementationLetterInCampus";
 import ImplementationLetterOffCampus from "./pages/letter/ImplementationLetterOffCampus";
+import MessageModal from "./components/MessageModal";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -114,7 +115,12 @@ function App() {
     )
   );
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <MessageModal /> {/* this is the global information modal */}
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;
