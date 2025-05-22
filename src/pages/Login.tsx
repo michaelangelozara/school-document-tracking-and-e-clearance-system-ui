@@ -33,8 +33,10 @@ const Login = () => {
     } catch (err) {
       setLogin((prev) => ({ ...prev, password: "" })); // reset the password
       const error = err as AxiosError;
-      const message = error.response?.data as BaseResponse<null>;
-      dispatch(open(message.message));
+      const response = error.response?.data as BaseResponse<null>;
+      if (response.message) {
+        dispatch(open(response.message));
+      }
     } finally {
       setIsLoading(false);
     }
