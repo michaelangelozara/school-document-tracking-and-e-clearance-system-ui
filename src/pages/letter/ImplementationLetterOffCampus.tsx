@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import LetterHeader from "../../components/letter/LetterHeader";
 import SignatureCard from "../../components/signature/SignatureCard";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
@@ -11,6 +11,16 @@ import {
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import { IUserNameAndIdOnly } from "../../types/user/User";
 import PaginationButton from "../../components/PaginationButton";
+import { Page, PaginationResponse } from "../../types/Pagination";
+import { useAuth } from "../../context/AuthContext";
+import { debounce } from "lodash";
+import { BaseResponse } from "../../types/response/Response";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/Store";
+import { applying, stopApplying } from "../../store/slice/LetterSlice";
+import { open } from "../../store/slice/MessageSlice";
+import { apply } from "../../service/LetterService";
+import { getErrorMessage } from "../../helper/AxiosHelper";
 
 type SearchedUserCard = {
   id: string;
@@ -28,6 +38,7 @@ const SearchedUserCard = ({
 }: SearchedUserCard) => {
   return (
     <button
+      key={id}
       disabled={isSelected}
       onClick={() => selectUser({ id, profile, name })}
       className={`flex border border-gray-200 items-center p-2 gap-2 text-darkContrast ${
@@ -36,7 +47,7 @@ const SearchedUserCard = ({
     >
       <img
         className="size-9 rounded-full md:size-12"
-        src={profile || ""}
+        src={profile}
         alt="User Icon"
       />
       <h1>{name}</h1>
@@ -49,6 +60,8 @@ type AssigningActivityModalPropsType = {
   isCommitteeSelected: (id: string) => boolean;
   cancel: () => void;
   listOfCommittees: ICommittee[];
+  removeCommittee: (id: string) => void;
+  updateCommittee: (committee: ICommittee) => void;
 };
 
 const AssigningActivityModal = ({
@@ -56,8 +69,37 @@ const AssigningActivityModal = ({
   isCommitteeSelected,
   cancel,
   listOfCommittees,
+  removeCommittee,
+  updateCommittee,
 }: AssigningActivityModalPropsType) => {
-  const [searchedUsers, setSearchedUsers] = useState<IUserNameAndIdOnly[]>([]);
+  const [searchedStudents, setSearchedStudents] = useState<
+    IUserNameAndIdOnly[]
+  >([]);
+
+  const [page, setPage] = useState<Page>({
+    totalPage: 0,
+    currentPage: 0,
+  });
+
+  const studentMap = useRef<Map<string, IUserNameAndIdOnly>>(new Map());
+  // this adds the selected user from the searched users to the map
+  const addStudentToMap = () => {
+    studentMap.current.set(selectedUser.id, selectedUser);
+  };
+
+  // this returns the user's info that will be updating
+  const getSelectedUserToUpdate = (id: string): IUserNameAndIdOnly => {
+    const selectedUser = studentMap.current.get(id);
+    return selectedUser !== undefined
+      ? selectedUser
+      : ({ id: "", name: "", profile: "" } as IUserNameAndIdOnly);
+  };
+
+  const [isUpdating, setIsUpdating] = useState<boolean>(false);
+
+  const isUpdatingHandler = () => {
+    setIsUpdating((prev) => !prev);
+  };
 
   const [selectedUser, setSelectedUser] = useState<IUserNameAndIdOnly>({
     id: "",
@@ -83,8 +125,12 @@ const AssigningActivityModal = ({
   };
 
   const addNewCommittee = () => {
-    console.log(newCommittee);
     addCommittee(newCommittee);
+    resetCommittee();
+  };
+
+  const updateNewCommittee = () => {
+    updateCommittee(newCommittee);
     resetCommittee();
   };
 
@@ -102,6 +148,42 @@ const AssigningActivityModal = ({
     });
   };
 
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const { apiClient } = useAuth();
+
+  // Debounced search function (no need for useCallback if using useEffect)
+  const debouncedSearch = debounce(
+    async (query: string, currentPage: number) => {
+      if (!query.trim() || query.length < 3) {
+        setPage({ currentPage: 0, totalPage: 0 });
+        setSearchedStudents([]);
+        return;
+      }
+
+      const response = await apiClient.get(
+        `/students/search?q=${query}&page=${currentPage - 1}&size=5`
+      );
+      const { data } = response.data as BaseResponse<
+        PaginationResponse<IUserNameAndIdOnly>
+      >;
+      setSearchedStudents(data.content);
+      setPage((prev) => ({ ...prev, totalPage: data.totalPages }));
+    },
+    300
+  );
+
+  // Trigger API call when searchTerm or page changes
+  useEffect(() => {
+    debouncedSearch(searchTerm, page.currentPage);
+    return () => debouncedSearch.cancel(); // Cleanup on unmount
+  }, [searchTerm, page.currentPage]);
+
+  const searchTermHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    setPage((prev) => ({ ...prev, currentPage: 1 })); // Reset to page 1 on new search
+  };
+
   return (
     <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-60 text-darkContrast">
       <div className="flex flex-col bg-white p-2 gap-2 w-[90%] h-[80%] overflow-auto rounded-md">
@@ -110,6 +192,7 @@ const AssigningActivityModal = ({
           <div className="flex flex-col border border-gray-300 w-full rounded-md p-2 ">
             <div className="border-b border-gray-300 p-1.5">
               <input
+                onChange={searchTermHandler}
                 type="text"
                 placeholder="Search student name"
                 className="border border-gray-200 rounded-md p-1.5 placeholder:text-gray-400 outline-darkContrast md:h-[var(--input-height-md)]"
@@ -117,7 +200,7 @@ const AssigningActivityModal = ({
             </div>
             <div className="flex flex-col gap-1 h-[12rem] overflow-auto">
               {/* list of searched student */}
-              {searchedUsers?.map((element, _) => (
+              {searchedStudents?.map((element, _) => (
                 <SearchedUserCard
                   id={element.id}
                   profile={element.profile}
@@ -130,9 +213,9 @@ const AssigningActivityModal = ({
           </div>
           <div>
             <PaginationButton
-              totalPages={0}
-              nextPage={() => null}
-              prevPage={() => null}
+              page={page}
+              onNext={() => null}
+              onPrev={() => null}
             />
           </div>
           <div>
@@ -191,10 +274,18 @@ const AssigningActivityModal = ({
           </div>
           <div className="flex flex-col p-2">
             <button
-              onClick={addNewCommittee}
+              onClick={() => {
+                if (isUpdating) {
+                  isUpdatingHandler();
+                  updateNewCommittee();
+                } else {
+                  addNewCommittee();
+                  addStudentToMap();
+                }
+              }}
               className="bg-secondary p-1 rounded-md font-semibold hover:bg-primary"
             >
-              Assign Activity
+              {isUpdating ? "Update" : "Assign Activity"}
             </button>
             <button
               onClick={resetCommittee}
@@ -220,18 +311,41 @@ const AssigningActivityModal = ({
               <tbody className="border border-gray-200">
                 {listOfCommittees?.map((element, index) => (
                   <tr key={index}>
-                    <td className="break-words p-1">{element.student_id}</td>
+                    <td className="break-words p-1">
+                      {element.student_id.slice(0, 9)}
+                    </td>
                     <td className="p-1">{element.activity}</td>
                     <td className="p-1">{element.objective}</td>
                     <td className="p-1">{element.expected_output}</td>
                     <td>
                       <div className="flex-1 flex w-auto justify-center items-center gap-1">
                         <img
+                          onClick={() => {
+                            isUpdatingHandler();
+                            const userWillBeUpdated = getSelectedUserToUpdate(
+                              element.student_id
+                            );
+
+                            // re-set the fields
+                            setNewCommittee({
+                              student_id: userWillBeUpdated.id,
+                              activity: element.activity,
+                              objective: element.objective,
+                              expected_output: element.expected_output,
+                            });
+
+                            setSelectedUser(userWillBeUpdated);
+                            // setNewCommittee((prev) => ({
+                            //   ...prev,
+                            //   student_id: userWillBeUpdated.id,
+                            // }));
+                          }}
                           className="size-6"
                           src={EDIT_ICON}
                           alt="Remove Icon"
                         />
                         <img
+                          onClick={() => removeCommittee(element.student_id)}
                           className="size-6"
                           src={REMOVE_ICON}
                           alt="Remove Icon"
@@ -292,6 +406,25 @@ const ImplementationLetterOffCampus = () => {
     committeeMap.current.set(committee.student_id, committee);
   };
 
+  const removeCommittee = (id: string) => {
+    setImplementationLetter((prev) => ({
+      ...prev,
+      committees: prev.committees.filter(
+        (committee) => committee.student_id !== id
+      ),
+    }));
+
+    committeeMap.current.delete(id);
+  };
+
+  const updateCommittee = (committee: ICommittee) => {
+    removeCommittee(committee.student_id); // remove first
+
+    addCommittee(committee); // then add the updated committee
+
+    committeeMap.current.set(committee.student_id, committee);
+  };
+
   const [isAssignmentClicked, setIsAssignmentClicked] =
     useState<boolean>(false);
 
@@ -300,15 +433,46 @@ const ImplementationLetterOffCampus = () => {
   };
 
   const isUserSelected = (id: string): boolean => {
-    if (committeeMap.current.get(id) === undefined) {
-      return false;
-    } else {
-      return true;
-    }
+    return committeeMap.current.has(id);
   };
 
-  const submit = () => {
-    console.log(implementationLetter);
+  const reset = () => {
+    setImplementationLetter({
+      base_letter_request_body_type:
+        TypeOfBaseLetter.IMPLEMENTATION_LETTER_OFF_CAMPUS,
+      type: TypeOfBaseLetter.IMPLEMENTATION_LETTER_OFF_CAMPUS,
+      name_of_activity: "",
+      description: "",
+      reason: "",
+      date_of_implementation: "",
+      time_of_implementation: "",
+      program_or_flow: "",
+      committees: [],
+    });
+  };
+
+  const { hasESignature } = useSelector((state: RootState) => state.eSignature);
+  const dispatch = useDispatch<AppDispatch>();
+  const { apiClient } = useAuth();
+
+  const submit = async () => {
+    if (!hasESignature) {
+      dispatch(open("Please attach you E-Signature."));
+      return;
+    }
+    try {
+      dispatch(applying());
+      const response = await apply(implementationLetter, apiClient);
+      dispatch(open(response));
+      reset();
+    } catch (error: any) {
+      if (error.status === 400) {
+        const errorMessage = getErrorMessage(error);
+        dispatch(open(errorMessage));
+      }
+    } finally {
+      dispatch(stopApplying());
+    }
   };
 
   return (
@@ -432,6 +596,8 @@ const ImplementationLetterOffCampus = () => {
                 addCommittee={addCommittee}
                 isCommitteeSelected={isUserSelected}
                 listOfCommittees={implementationLetter.committees}
+                removeCommittee={removeCommittee}
+                updateCommittee={updateCommittee}
               />
             )}
           </div>
