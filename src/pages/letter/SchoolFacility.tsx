@@ -131,9 +131,11 @@ const SchoolFacility = () => {
       const response = await apply(schoolFacility, apiClient);
       dispatch(open(response));
       reset();
-    } catch (error) {
-      const errorMessage = getErrorMessage(error);
-      dispatch(open(errorMessage));
+    } catch (error: any) {
+      if (error.status === 400) {
+        const errorMessage = getErrorMessage(error);
+        dispatch(open(errorMessage));
+      }
     } finally {
       dispatch(stopApplying());
     }
