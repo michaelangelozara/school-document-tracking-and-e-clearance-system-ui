@@ -10,6 +10,13 @@ import { debounce } from "lodash";
 import PaginationButton from "../../components/PaginationButton";
 import { Page, PaginationResponse } from "../../types/Pagination";
 import { BaseResponse } from "../../types/response/Response";
+import { applying, stopApplying } from "../../store/slice/LetterSlice";
+import { getErrorMessage } from "../../helper/AxiosHelper";
+import { apply } from "../../service/LetterService";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../store/Store";
+import { open } from "../../store/slice/MessageSlice";
+import SignatureCard from "../../components/signature/SignatureCard";
 
 const PermitToEnter = () => {
   const [permitToEnter, setPermitToEnter] = useState<IPermitToEnter>({
@@ -96,7 +103,38 @@ const PermitToEnter = () => {
     }
   };
 
-  const submit = () => {};
+  const reset = () => {
+    setPermitToEnter({
+      base_letter_request_body_type: TypeOfBaseLetter.PERMIT_TO_ENTER_LETTER,
+      type: TypeOfBaseLetter.PERMIT_TO_ENTER_LETTER,
+      activity: "",
+      date: "",
+      time: "",
+      participant_ids: [],
+    });
+    studentMap.current = new Map();
+  };
+
+  const { hasESignature } = useSelector((state: RootState) => state.eSignature);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const submit = async () => {
+    if (!hasESignature) {
+      dispatch(open("Please attach you E-Signature."));
+      return;
+    }
+    try {
+      dispatch(applying());
+      const response = await apply(permitToEnter, apiClient);
+      dispatch(open(response));
+      reset();
+    } catch (error) {
+      const errorMessage = getErrorMessage(error);
+      dispatch(open(errorMessage));
+    } finally {
+      dispatch(stopApplying());
+    }
+  };
 
   return (
     <div className="bg-background p-3">
@@ -109,6 +147,7 @@ const PermitToEnter = () => {
               Date <span className="text-red-600">*</span>
             </h1>
             <input
+              value={permitToEnter.date || ""}
               className="cursor-pointer"
               type="date"
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -124,6 +163,7 @@ const PermitToEnter = () => {
               Time <span className="text-red-600">*</span>
             </h1>
             <input
+              value={permitToEnter.time || ""}
               className="cursor-pointer"
               type="time"
               onChange={(e: ChangeEvent<HTMLInputElement>) =>
@@ -141,6 +181,7 @@ const PermitToEnter = () => {
             Name of Activity <span className="text-red-600">*</span>
           </h1>
           <input
+            value={permitToEnter.activity || ""}
             onChange={(e: ChangeEvent<HTMLInputElement>) =>
               setPermitToEnter((prev) => ({
                 ...prev,
@@ -193,7 +234,7 @@ const PermitToEnter = () => {
             }
           />
         </div>
-
+        <SignatureCard />
         <CancelApplyButton apply={submit} />
       </div>
     </div>

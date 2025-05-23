@@ -11,6 +11,7 @@ import PERMIT_TO_ENTER_ICON from "../../assets/icon/png/permit_to_enter_icon.png
 import SCHOOL_FACILITY_ICON from "../../assets/icon/png/school_facility_icon.png";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import Loading from "../Loading";
+import { Page } from "../../types/Pagination";
 
 type TablePropsType = {
   onClick: () => void;
@@ -551,6 +552,10 @@ const RequestModal = ({ onClick }: RequestModalPropsType) => {
 };
 
 const LetterModal = () => {
+  const [page, setPage] = useState<Page>({
+    totalPage: 0,
+    currentPage: 0,
+  });
   const navigate = useNavigate();
   const [isRequestButtonClicked, setIsRequestButtonClicked] =
     useState<boolean>(false);
@@ -621,9 +626,9 @@ const LetterModal = () => {
             {isLoading ? <Loading /> : <Table onClick={() => null} />}
           </div>
           <PaginationButtons
-            totalPages={0}
-            nextPage={() => null}
-            prevPage={() => null}
+            page={page}
+            onNext={() => null}
+            onPrev={() => null}
           />
         </div>
         {isRequestButtonClicked && (
