@@ -22,9 +22,11 @@ const SignatureCard = () => {
       const response = await getMySignature(apiClient);
       setESignature(response);
       dispatch(save(response));
-    } catch (err) {
-      const errorMessage = getErrorMessage(err);
-      dispatch(open(errorMessage));
+    } catch (err: any) {
+      if (err.status === 404) {
+        const errorMessage = getErrorMessage(err);
+        dispatch(open(errorMessage));
+      }
     } finally {
       setIsESignatureLoading(false);
       dispatch(updateLoadingStatus(false));
