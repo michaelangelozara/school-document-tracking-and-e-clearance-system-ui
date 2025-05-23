@@ -7,3 +7,8 @@ export interface PaginationResponse<T> {
   isFirst: boolean;
   isLast: boolean;
 }
+
+export interface Page {
+  currentPage: number;
+  totalPage: number;
+}

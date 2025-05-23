@@ -1,10 +1,15 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 import { IPermitToEnter } from "../../types/letter/PermitToEnter";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import { IUserNameAndIdOnly } from "../../types/user/User";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
 import LetterHeader from "../../components/letter/LetterHeader";
 import UserSearchedCard from "../../components/letter/UserSearchedCard";
+import { useAuth } from "../../context/AuthContext";
+import { debounce } from "lodash";
+import PaginationButton from "../../components/PaginationButton";
+import { Page, PaginationResponse } from "../../types/Pagination";
+import { BaseResponse } from "../../types/response/Response";
 
 const PermitToEnter = () => {
   const [permitToEnter, setPermitToEnter] = useState<IPermitToEnter>({
@@ -16,40 +21,80 @@ const PermitToEnter = () => {
     participant_ids: [],
   });
 
+  const [page, setPage] = useState<Page>({
+    currentPage: 0,
+    totalPage: 0,
+  });
+
   const [searchedStudents, setSearchedStudents] = useState<
     IUserNameAndIdOnly[]
   >([]);
 
+  const [searchTerm, setSearchTerm] = useState<string>("");
+
+  const { apiClient } = useAuth();
+
+  // Debounced search function (no need for useCallback if using useEffect)
+  const debouncedSearch = debounce(
+    async (query: string, currentPage: number) => {
+      if (!query.trim() || query.length < 3) {
+        setPage({ currentPage: 0, totalPage: 0 });
+        setSearchedStudents([]);
+        return;
+      }
+
+      const response = await apiClient.get(
+        `/students/search?q=${query}&page=${currentPage - 1}&size=5`
+      );
+      const { data } = response.data as BaseResponse<
+        PaginationResponse<IUserNameAndIdOnly>
+      >;
+      setSearchedStudents(data.content);
+      setPage((prev) => ({ ...prev, totalPage: data.totalPages }));
+    },
+    300
+  );
+
+  // Trigger API call when searchTerm or page changes
+  useEffect(() => {
+    debouncedSearch(searchTerm, page.currentPage);
+    return () => debouncedSearch.cancel(); // Cleanup on unmount
+  }, [searchTerm, page.currentPage]);
+
+  const searchTermHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+    setPage((prev) => ({ ...prev, currentPage: 1 })); // Reset to page 1 on new search
+  };
+
   const studentMap = useRef<Map<string, IUserNameAndIdOnly>>(new Map()); // this holds all the selected participants
 
-  const selectStudent = ({ id, name, profile }: IUserNameAndIdOnly) => {
-    studentMap.current.set(id, { id: id, name: name, profile: profile });
+  const selectStudent = (selected: IUserNameAndIdOnly) => {
+    studentMap.current.set(selected.id, selected);
+    setPermitToEnter((prev) => ({
+      ...prev,
+      participant_ids: [...prev.participant_ids, selected.id],
+    }));
   };
 
   const removeStudent = (id: string) => {
     studentMap.current.delete(id);
+    setPermitToEnter((prev) => ({
+      ...prev,
+      participant_ids: prev.participant_ids.filter((i) => i !== id),
+    }));
   };
 
-  const selectedStudentList: IUserNameAndIdOnly[] = Array.from(
-    studentMap.current.values()
-  );
-
   const isStudentSelected = (id: string): boolean => {
-    if (studentMap.current.get(id) !== undefined) {
-      return true;
-    } else {
-      return false;
-    }
+    return studentMap.current.has(id);
   };
 
   const onChangeHandler = (userDetails: IUserNameAndIdOnly, value: boolean) => {
-    console.log(userDetails);
+    if (value) {
+      selectStudent(userDetails);
+    } else {
+      removeStudent(userDetails.id);
+    }
   };
-
-  useEffect(() => {
-    try {
-    } catch (error) {}
-  }, []);
 
   const submit = () => {};
 
@@ -111,6 +156,8 @@ const PermitToEnter = () => {
           <div className="flex flex-col border border-gray-300 w-full rounded-md p-2 ">
             <div className="border-b border-gray-300 p-1.5">
               <input
+                value={searchTerm || ""}
+                onChange={searchTermHandler}
                 type="text"
                 placeholder="Search student name"
                 className="border border-gray-200 rounded-md p-1.5 placeholder:text-gray-400 outline-darkContrast md:h-[var(--input-height-md)]"
@@ -125,10 +172,26 @@ const PermitToEnter = () => {
                     name: element.name,
                     profile: element.profile,
                   }}
+                  isSelected={isStudentSelected(element.id)}
                 />
               ))}
             </div>
           </div>
+          <PaginationButton
+            page={page}
+            onPrev={() =>
+              setPage((prev) => ({
+                ...prev,
+                currentPage: prev.currentPage - 1,
+              }))
+            }
+            onNext={() =>
+              setPage((prev) => ({
+                ...prev,
+                currentPage: prev.currentPage + 1,
+              }))
+            }
+          />
         </div>
 
         <CancelApplyButton apply={submit} />
