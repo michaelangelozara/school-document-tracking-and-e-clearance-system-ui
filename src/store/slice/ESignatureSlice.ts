@@ -19,7 +19,7 @@ const eSignatureSlice = createSlice({
       state.hasESignature = true;
       state.data = action.payload;
     },
-    remove: (state, action) => {
+    remove: (state) => {
       state.hasESignature = false;
       state.data = "";
     },

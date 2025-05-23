@@ -7,6 +7,14 @@ import {
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import REMOVE_ICON from "../../assets/icon/svg/letter/remove-svgrepo-com.svg";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
+import SignatureCard from "../../components/signature/SignatureCard";
+import { useAuth } from "../../context/AuthContext";
+import { AppDispatch, RootState } from "../../store/Store";
+import { useDispatch, useSelector } from "react-redux";
+import { open } from "../../store/slice/MessageSlice";
+import { applying, stopApplying } from "../../store/slice/LetterSlice";
+import { getErrorMessage } from "../../helper/AxiosHelper";
+import { apply } from "../../service/LetterService";
 
 type SelectedItemPropsType = {
   index: number;
@@ -85,6 +93,52 @@ const SchoolFacility = () => {
     }));
   };
 
+  const venueHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSchoolFacility((prev) => ({ ...prev, venue: e.target.value }));
+  };
+
+  const dateHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSchoolFacility((prev) => ({ ...prev, date: e.target.value }));
+  };
+
+  const timeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setSchoolFacility((prev) => ({ ...prev, time: e.target.value }));
+  };
+
+  const reset = () => {
+    setSchoolFacility({
+      base_letter_request_body_type: TypeOfBaseLetter.SCHOOL_FACILITY_LETTER,
+      type: TypeOfBaseLetter.SCHOOL_FACILITY_LETTER,
+      venue: "",
+      date: "",
+      time: "",
+      facility_or_equipments: [],
+    });
+  };
+  const { apiClient } = useAuth();
+
+  const { hasESignature } = useSelector((state: RootState) => state.eSignature);
+  const dispatch = useDispatch<AppDispatch>();
+
+  const submit = async () => {
+    if (!hasESignature) {
+      dispatch(open("Please attach you E-Signature."));
+      return;
+    }
+
+    try {
+      dispatch(applying());
+      const response = await apply(schoolFacility, apiClient);
+      dispatch(open(response));
+      reset();
+    } catch (error) {
+      const errorMessage = getErrorMessage(error);
+      dispatch(open(errorMessage));
+    } finally {
+      dispatch(stopApplying());
+    }
+  };
+
   return (
     <div className="bg-background p-3">
       <div className="flex flex-col rounded-md gap-4 p-2 bg-white text-darkContrast overflow-auto lg:text-md">
@@ -93,6 +147,8 @@ const SchoolFacility = () => {
           <div>
             <h1>Venue</h1>
             <input
+              value={schoolFacility.venue || ""}
+              onChange={venueHandler}
               type="text"
               className="border border-gray-200 rounded-md p-1 pl-1 placeholder:text-gray-400 outline-darkContrast md:h-[var(--input-height-md)]"
             />
@@ -101,10 +157,14 @@ const SchoolFacility = () => {
             <h1>Date & Time</h1>
             <div className="flex gap-2">
               <input
+                onChange={dateHandler}
+                value={schoolFacility.date || ""}
                 className="border p-1 border-gray-200 rounded-md outline-darkContrast md:h-[var(--input-height-md)]"
                 type="date"
               />
               <input
+                onChange={timeHandler}
+                value={schoolFacility.time || ""}
                 className="border p-1 border-gray-200 rounded-md outline-darkContrast md:h-[var(--input-height-md)]"
                 type="time"
               />
@@ -169,7 +229,8 @@ const SchoolFacility = () => {
               Add Item
             </button>
           </div>
-          <CancelApplyButton apply={() => null} />
+          <SignatureCard />
+          <CancelApplyButton apply={submit} />
         </div>
       </div>
     </div>
