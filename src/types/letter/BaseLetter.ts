@@ -10,3 +10,25 @@ export interface BaseLetter {
   base_letter_request_body_type: TypeOfBaseLetter;
   type: TypeOfBaseLetter;
 }
+
+export enum StatusOfBaseLetter {
+  DRAFT = "DRAFT",
+  PENDING = "PENDING",
+  APPROVED = "APPROVED",
+  REJECTED = "REJECTED",
+  EXPIRED = "EXPIRED",
+  CANCELLED = "CANCELLED",
+}
+
+export interface IBaseLetterSummaryProjection {
+  id: string;
+  status: StatusOfBaseLetter | undefined;
+  type: TypeOfBaseLetter | undefined;
+  created_at: string;
+  last_modified_at: string;
+}
+
+export interface IBaseLetterFilterBody {
+  status: string;
+  type: string;
+}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 
 import LETTER_ICON from "../../assets/icon/svg/section_card/letter-icon-svgrepo-com.svg";
 import { Outlet, useNavigate } from "react-router-dom";
@@ -9,15 +9,23 @@ import IMPLEMENATION_LETTER_IN_CAMPUS_ICON from "../../assets/icon/png/implement
 import IMPLEMENATION_LETTER_OFF_CAMPUS_ICON from "../../assets/icon/png/implementation_off_campus_icon.png";
 import PERMIT_TO_ENTER_ICON from "../../assets/icon/png/permit_to_enter_icon.png";
 import SCHOOL_FACILITY_ICON from "../../assets/icon/png/school_facility_icon.png";
-import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import Loading from "../Loading";
-import { Page } from "../../types/Pagination";
+import { Page, PaginationResponse } from "../../types/Pagination";
+import {
+  IBaseLetterFilterBody,
+  IBaseLetterSummaryProjection,
+  StatusOfBaseLetter,
+  TypeOfBaseLetter,
+} from "../../types/letter/BaseLetter";
+import { useAuth } from "../../context/AuthContext";
+import { BaseResponse } from "../../types/response/Response";
 
 type TablePropsType = {
   onClick: () => void;
+  data: IBaseLetterSummaryProjection[];
 };
 
-const Table = ({ onClick }: TablePropsType) => {
+const Table = ({ onClick, data }: TablePropsType) => {
   return (
     <table className="w-full border border-gray-300">
       <thead>
@@ -32,9 +40,6 @@ const Table = ({ onClick }: TablePropsType) => {
             Type
           </th>
           <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
-            Current Office/s
-          </th>
-          <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
             Requested Date
           </th>
           <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
@@ -44,420 +49,37 @@ const Table = ({ onClick }: TablePropsType) => {
         </tr>
       </thead>
       <tbody>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">1</td>
-          <td className="p-2 border-r border-gray-300 text-center">Pending</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">DSA</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
-        <tr className="border-b border-gray-300 text-nowrap">
-          <td className="p-2 border-r border-gray-300 text-center">2</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Completed
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            Budget Proposal
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">Dean</td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 10:00 am
-          </td>
-          <td className="p-2 border-r border-gray-300 text-center">
-            10-Sep-2025 11:23 am
-          </td>
-          <td>
-            <div className="flex justify-center">
-              <button
-                onClick={onClick}
-                className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
-              >
-                View
-              </button>
-            </div>
-          </td>
-        </tr>
+        {data?.map((element, index) => (
+          <tr key={index} className="border-b border-gray-300 text-nowrap">
+            <td className="p-2 border-r border-gray-300 text-center">
+              {index + 1}
+            </td>
+            <td className="p-2 border-r border-gray-300 text-center">
+              {element.status}
+            </td>
+            <td className="p-2 border-r border-gray-300 text-center">
+              {element.type}
+            </td>
+            <td className="p-2 border-r border-gray-300 text-center">
+              {element.created_at}
+            </td>
+            <td className="p-2 border-r border-gray-300 text-center">
+              {element.last_modified_at !== null
+                ? element.last_modified_at
+                : "N/A"}
+            </td>
+            <td>
+              <div className="flex justify-center">
+                <button
+                  onClick={onClick}
+                  className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+                >
+                  View
+                </button>
+              </div>
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
@@ -561,6 +183,41 @@ const LetterModal = () => {
     useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [fetchedLetter, setFetchedLetter] = useState<
+    IBaseLetterSummaryProjection[]
+  >([]);
+  const [filterBody, setFilterBody] = useState<IBaseLetterFilterBody>({
+    type: "",
+    status: "",
+  });
+
+  const { apiClient } = useAuth();
+
+  // Trigger API call when searchTerm or page changes
+  useEffect(() => {
+    const fetchedData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await apiClient.get(
+          `/letters?page=${page.currentPage - 1}&size=10&status=${
+            filterBody.status
+          }&type=${filterBody.type}`
+        );
+        const { data } = response.data as BaseResponse<
+          PaginationResponse<IBaseLetterSummaryProjection>
+        >;
+        setFetchedLetter(data.content);
+        setPage((prev) => ({ ...prev, totalPage: data.totalPages }));
+      } catch (error) {
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchedData();
+  }, [page.currentPage, filterBody.status, filterBody.type]);
+
   const navigationHandler = () => {
     navigate("/home");
   };
@@ -593,23 +250,58 @@ const LetterModal = () => {
         {/* Modal Body */}
         <div className="flex flex-1 flex-col p-4 gap-2 overflow-auto">
           {/* Content Goes Here */}
-          <div className="grid grid-cols-2 grid-rows-2 gap-2 sm:grid-rows-1 sm:grid-cols-3 bg-white">
-            <input
-              type="text"
-              placeholder="Search"
-              className="border border-gray-200 rounded-md pl-2 placeholder:text-gray-400 outline-darkContrast"
-            />
-            <select className="pl-1.5 justify-self-center text-darkContrast border border-gray-200 outline-darkContrast rounded sm:justify-self-start">
-              <option value="">All</option>
-              <option value="">Draft</option>
-              <option value="">Pending Review</option>
-              <option value="">Under Review</option>
-              <option value="">Approved</option>
-              <option value="">Rejected</option>
-              <option value="">Expired</option>
-              <option value="">Cancelled</option>
-            </select>
-            <div className="sm:justify-self-end">
+          <div className="grid grid-cols-2 grid-rows-2 gap-1.5 sm:grid-rows-1 sm:grid-cols-3 bg-white">
+            <div className="flex items-center gap-2 col-span-2 sm:col-span-1">
+              <h1>Type</h1>
+              <select
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  setFilterBody((prev) => ({ ...prev, type: e.target.value }))
+                }
+                className="w-[9rem] pl-1.5 justify-self-center text-darkContrast border border-gray-200 outline-darkContrast rounded sm:justify-self-start"
+              >
+                <option value="">All</option>
+                <option value={TypeOfBaseLetter.BUDGET_PROPOSAL_LETTER}>
+                  Budget Proposal Letter
+                </option>
+                <option value={TypeOfBaseLetter.COMMUNICATION_LETTER}>
+                  Communication Letter
+                </option>
+                <option
+                  value={TypeOfBaseLetter.IMPLEMENTATION_LETTER_IN_CAMPUS}
+                >
+                  Implementation Letter (In-Campus)
+                </option>
+                <option
+                  value={TypeOfBaseLetter.IMPLEMENTATION_LETTER_OFF_CAMPUS}
+                >
+                  Implementation Letter (Off-Campus)
+                </option>
+                <option value={TypeOfBaseLetter.PERMIT_TO_ENTER_LETTER}>
+                  Permit to Enter Letter
+                </option>
+                <option value={TypeOfBaseLetter.SCHOOL_FACILITY_LETTER}>
+                  School Facility Letter
+                </option>
+              </select>
+            </div>
+            <div className="flex items-center gap-2 ">
+              <h1>Status</h1>
+              <select
+                onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+                  setFilterBody((prev) => ({ ...prev, status: e.target.value }))
+                }
+                className="pl-1.5 justify-self-center text-darkContrast border border-gray-200 outline-darkContrast rounded sm:justify-self-start"
+              >
+                <option value="">All</option>
+                <option value={StatusOfBaseLetter.DRAFT}>Draft</option>
+                <option value={StatusOfBaseLetter.PENDING}>Pending</option>
+                <option value={StatusOfBaseLetter.APPROVED}>Approved</option>
+                <option value={StatusOfBaseLetter.REJECTED}>Rejected</option>
+                <option value={StatusOfBaseLetter.EXPIRED}>Expired</option>
+                <option value={StatusOfBaseLetter.CANCELLED}>Cancelled</option>
+              </select>
+            </div>
+            <div className="justify-self-end">
               <button
                 onClick={requestButtonHandler}
                 className="bg-primary text-darkContrast pl-2 pr-2 rounded-md hover:text-white md:pl-4 md:pr-4 md:pt-1 md:pb-1"
@@ -623,7 +315,11 @@ const LetterModal = () => {
               isLoading ? "flex justify-center items-center" : ""
             } overflow-auto`}
           >
-            {isLoading ? <Loading /> : <Table onClick={() => null} />}
+            {isLoading ? (
+              <Loading />
+            ) : (
+              <Table onClick={() => null} data={fetchedLetter} />
+            )}
           </div>
           <PaginationButtons
             page={page}
