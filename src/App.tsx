@@ -28,6 +28,7 @@ import SchoolFacility from "./pages/letter/SchoolFacility";
 import ImplementationLetterInCampus from "./pages/letter/ImplementationLetterInCampus";
 import ImplementationLetterOffCampus from "./pages/letter/ImplementationLetterOffCampus";
 import MessageModal from "./components/MessageModal";
+import CommunicatioLetterView from "./pages/letter/view/CommunicatioLetterView";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -93,6 +94,15 @@ function App() {
               <Route
                 path="implementation-letter-off-campus"
                 element={<ImplementationLetterOffCampus />}
+              />
+            </Route>
+            <Route
+              path="view"
+              element={<ProtectedLetterLayout allowedAuthorities={[]} />}
+            >
+              <Route
+                path="communication/:id"
+                element={<CommunicatioLetterView />}
               />
             </Route>
           </Route>

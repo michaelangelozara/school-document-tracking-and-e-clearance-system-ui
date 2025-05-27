@@ -1,6 +1,6 @@
-import { BaseLetter } from "./BaseLetter";
+import { IBaseLetterRequestDTO } from "./BaseLetter";
 
-export interface IImplementationLetterOffCampus extends BaseLetter {
+export interface IImplementationLetterOffCampus extends IBaseLetterRequestDTO {
   name_of_activity: string;
   description: string;
   reason: string;

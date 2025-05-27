@@ -2,13 +2,15 @@ import styled from "styled-components";
 
 const Loading = () => {
   return (
-    <StyledWrapper>
-      <div className="loader">
-        <span className="bar" />
-        <span className="bar" />
-        <span className="bar" />
-      </div>
-    </StyledWrapper>
+    <div className="flex flex-col items-center justify-center rounded-md gap-2 p-2 overflow-auto min-h-[90vh]">
+      <StyledWrapper>
+        <div className="loader">
+          <span className="bar" />
+          <span className="bar" />
+          <span className="bar" />
+        </div>
+      </StyledWrapper>
+    </div>
   );
 };
 

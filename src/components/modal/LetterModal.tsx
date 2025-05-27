@@ -19,13 +19,14 @@ import {
 } from "../../types/letter/BaseLetter";
 import { useAuth } from "../../context/AuthContext";
 import { BaseResponse } from "../../types/response/Response";
+import { typeOfLetterEnumToStringURLConverter } from "../../helper/LetterHelper";
 
 type TablePropsType = {
-  onClick: () => void;
+  view: (type: string, id: string) => void;
   data: IBaseLetterSummaryProjection[];
 };
 
-const Table = ({ onClick, data }: TablePropsType) => {
+const Table = ({ view, data }: TablePropsType) => {
   return (
     <table className="w-full border border-gray-300">
       <thead>
@@ -71,7 +72,12 @@ const Table = ({ onClick, data }: TablePropsType) => {
             <td>
               <div className="flex justify-center">
                 <button
-                  onClick={onClick}
+                  onClick={() =>
+                    view(
+                      typeOfLetterEnumToStringURLConverter(element.type),
+                      element.id
+                    )
+                  }
                   className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
                 >
                   View
@@ -181,7 +187,7 @@ const LetterModal = () => {
   const navigate = useNavigate();
   const [isRequestButtonClicked, setIsRequestButtonClicked] =
     useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [fetchedLetter, setFetchedLetter] = useState<
@@ -198,7 +204,6 @@ const LetterModal = () => {
   useEffect(() => {
     const fetchedData = async () => {
       try {
-        setIsLoading(true);
         const response = await apiClient.get(
           `/letters?page=${page.currentPage - 1}&size=10&status=${
             filterBody.status
@@ -220,6 +225,10 @@ const LetterModal = () => {
 
   const navigationHandler = () => {
     navigate("/home");
+  };
+
+  const letterViewNavigationHandler = (type: string, id: string) => {
+    navigate(`/letters/view/${type}/${id}`);
   };
 
   const requestButtonHandler = () => {
@@ -318,7 +327,7 @@ const LetterModal = () => {
             {isLoading ? (
               <Loading />
             ) : (
-              <Table onClick={() => null} data={fetchedLetter} />
+              <Table view={letterViewNavigationHandler} data={fetchedLetter} />
             )}
           </div>
           <PaginationButtons

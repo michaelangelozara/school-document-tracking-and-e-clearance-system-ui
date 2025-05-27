@@ -1,6 +1,6 @@
-import { BaseLetter } from "./BaseLetter";
+import { IBaseLetterRequestDTO } from "./BaseLetter";
 
-export interface ISchoolFacility extends BaseLetter {
+export interface ISchoolFacility extends IBaseLetterRequestDTO {
   venue: string;
   date: string;
   time: string;

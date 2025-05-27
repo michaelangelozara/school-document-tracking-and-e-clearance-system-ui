@@ -1,6 +1,6 @@
-import { BaseLetter } from "./BaseLetter";
+import { IBaseLetterRequestDTO } from "./BaseLetter";
 
-export interface IBudgetProposalRequest extends BaseLetter {
+export interface IBudgetProposalRequest extends IBaseLetterRequestDTO {
   name_of_activity: string;
   venue: string;
   source_of_fund: string;
