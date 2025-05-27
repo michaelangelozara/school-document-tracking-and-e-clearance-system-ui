@@ -1,6 +1,7 @@
 import { ISignatoryResponseDTO } from "../../types/signatory/Signatory";
 
 const SignatoryCard = ({
+  id,
   authority,
   currentSignatory,
   date_and_time_of_signature,
@@ -31,7 +32,7 @@ const SignatoryCard = ({
           alt="Signature"
         />
       ) : (
-        <div className="w-[200px] h-[60px] border border-gray-200 flex justify-center items-center">
+        <div className="w-[200px] h-[60px] border border-gray-200 flex justify-center items-center cursor-pointer">
           <span>Sign Here</span>
         </div>
       )}
@@ -54,6 +55,7 @@ const SignatoryContainer = ({ data }: SignatoryContainerPropsType) => {
       {data?.map((element, index) => (
         <SignatoryCard
           key={index}
+          id={element.id}
           authority={element.authority}
           currentSignatory={element.currentSignatory}
           date_and_time_of_signature={element.date_and_time_of_signature}

@@ -166,8 +166,9 @@ const RequestModal = ({ onClick }: RequestModalPropsType) => {
           </div>
         </div>
         <div className="grid gap-2 p-2 grid-cols-2 auto-rows-auto flex-1 bg-white overflow-auto text-xs">
-          {listOfLetters?.map((element) => (
+          {listOfLetters?.map((element, index) => (
             <RequestModalIcon
+              key={index}
               name={element.name}
               icon={element.icon}
               type={element.type}
