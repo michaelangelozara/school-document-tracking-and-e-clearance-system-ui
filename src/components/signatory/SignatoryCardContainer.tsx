@@ -10,7 +10,7 @@ const SignatoryCard = ({
   signed,
 }: ISignatoryResponseDTO) => {
   return (
-    <div className="flex flex-col border border-gray-200 p-2 sm:w-[300px]">
+    <div className="flex flex-col border border-gray-200 p-2 rounded-md sm:w-[300px]">
       <h1 className="text-darkContrast">
         Authority: <span className="text-black">{authority}</span>
       </h1>

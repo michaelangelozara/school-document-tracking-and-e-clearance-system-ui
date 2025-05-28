@@ -1,30 +1,19 @@
 import { useEffect, useState } from "react";
-import {
-  ICommunicationLetterResponseDTO,
-  TypeOfCommunicationLetter,
-} from "../../../types/letter/CommunicationLetter";
-import { useAuth } from "../../../context/AuthContext";
+import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
-import Loading from "../../../components/Loading";
+import { AppDispatch } from "../../../store/Store";
+import { useAuth } from "../../../context/AuthContext";
 import { findById } from "../../../service/LetterService";
+import { IBudgetProposalResponseDTO } from "../../../types/letter/BudgetProposal";
+import { getErrorMessage } from "../../../helper/AxiosHelper";
+import { open } from "../../../store/slice/MessageSlice";
+import Loading from "../../../components/Loading";
 import { typeOfLetterEnumToStringConverter } from "../../../helper/LetterHelper";
 import SignatoryContainer from "../../../components/signatory/SignatoryCardContainer";
-import { getErrorMessage } from "../../../helper/AxiosHelper";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../store/Store";
-import { open } from "../../../store/slice/MessageSlice";
+import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
 
-const TypeOfCommunicationLetterEnumConverter = (
-  type: TypeOfCommunicationLetter | undefined
-): string => {
-  return type === TypeOfCommunicationLetter.IN_CAMPUS
-    ? "In-Campus"
-    : "Off-Campus";
-};
-
-const CommunicatioLetterView = () => {
-  const [letter, setLetter] = useState<ICommunicationLetterResponseDTO>({
+const BudgetProposalLetterView = () => {
+  const [letter, setLetter] = useState<IBudgetProposalResponseDTO>({
     id: "",
     status: undefined,
     type: undefined,
@@ -34,9 +23,11 @@ const CommunicatioLetterView = () => {
     created_at: "",
     last_modified_at: "",
     club_name: "",
-    date: "",
-    content: "",
-    type_of_communication_letter: undefined,
+    name_of_activity: "",
+    venue: "",
+    source_of_fund: "",
+    amount_allotted: "",
+    expected_expenses: [],
   });
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navivage = useNavigate();
@@ -53,7 +44,7 @@ const CommunicatioLetterView = () => {
           id,
           apiClient,
           controller
-        )) as ICommunicationLetterResponseDTO;
+        )) as IBudgetProposalResponseDTO;
         setLetter(response);
       } catch (error: any) {
         if (error.status === 404) {
@@ -77,7 +68,9 @@ const CommunicatioLetterView = () => {
     <div className="bg-background p-2">
       <div className="flex flex-col rounded-md gap-2 p-2 overflow-auto">
         <div className="p-2 bg-white rounded-sm overflow-auto">
-          <h1 className="font-semibold text-darkContrast">Metadata</h1>
+          <h1 className="font-semibold text-darkContrast text-sm md:text-md">
+            Metadata
+          </h1>
           <div className="pt-2 pb-2 flex">
             <h1 className="min-w-[170px] text-darkContrast">Applied Club</h1>
             <h1>{letter.club_name}</h1>
@@ -97,8 +90,11 @@ const CommunicatioLetterView = () => {
             <h1 className="text-nowrap">{letter.last_modified_at || "N/A"}</h1>
           </div>
         </div>
+
         <div className="p-2 bg-white rounded-sm">
-          <h1 className="font-semibold text-darkContrast">Letter Details</h1>
+          <h1 className="font-semibold text-darkContrast text-sm md:text-md">
+            Letter Details
+          </h1>
           <div className="pt-2 pb-2 flex">
             <h1 className="min-w-[170px] text-darkContrast">
               Semester/School Year
@@ -106,36 +102,53 @@ const CommunicatioLetterView = () => {
             <h1>{letter.semester_and_school_year}</h1>
           </div>
           <div className="pt-2 pb-2 flex">
-            <h1 className="min-w-[170px] text-darkContrast">Date of Letter</h1>
-            <h1>{letter.date}</h1>
+            <h1 className="min-w-[170px] text-darkContrast">Activity</h1>
+            <h1>{letter.name_of_activity}</h1>
           </div>
           <div className="pt-2 pb-2 flex">
-            <h1 className="min-w-[170px] text-darkContrast">Type</h1>
-            <h1>
-              {TypeOfCommunicationLetterEnumConverter(
-                letter.type_of_communication_letter
-              )}
-            </h1>
+            <h1 className="min-w-[170px] text-darkContrast">Venue</h1>
+            <h1>{letter.venue}</h1>
+          </div>
+          <div className="pt-2 pb-2 flex">
+            <h1 className="min-w-[170px] text-darkContrast">Source of Fund</h1>
+            <h1>{letter.source_of_fund}</h1>
+          </div>
+          <div className="pt-2 pb-2 flex">
+            <h1 className="min-w-[170px] text-darkContrast">Amount Allotted</h1>
+            <h1>{letter.amount_allotted}</h1>
           </div>
           <div className="pt-2 pb-2 flex">
             <h1 className="min-w-[170px] text-darkContrast">Status</h1>
             <h1>{letter.status}</h1>
           </div>
-          <div className="pt-2 pb-2 flex flex-col">
-            <h1 className="min-w-[170px] mb-2 text-darkContrast">Content</h1>
-            <textarea
-              disabled
-              defaultValue={letter.content}
-              className="border border-gray-200 rounded-md p-2 h-[120px]"
-            />
+
+          <h1 className="text-darkContrast">Expected Expenses</h1>
+          <div className="flex flex-col h-[200px] p-2 border border-gray-200 rounded-md">
+            <div className="flex mb-2 border-b border-b-gray-200">
+              <h1 className="text-darkContrast w-[10%] md:w-[7%]">No</h1>
+              <h1 className="text-darkContrast w-[40%] md:w-[43%]">Name</h1>
+              <h1 className="text-darkContrast w-[50%]">Amount</h1>
+            </div>
+            {letter.expected_expenses.map((element, index) => (
+              <div key={index} className="flex">
+                <h1 className="text-darkContrast w-[10%] md:w-[7%]">
+                  {index + 1}.
+                </h1>
+                <h1 className="w-[40%] md:w-[43%]">{element.name}</h1>
+                <h1 className="w-[50%]">{element.amount}</h1>
+              </div>
+            ))}
           </div>
         </div>
+
         <div className="p-2 bg-white rounded-sm">
-          <h1 className="font-semibold text-darkContrast mb-3">Signatories</h1>
+          <h1 className="font-semibold text-darkContrast mb-3 text-sm md:text-md">
+            Signatories
+          </h1>
           <SignatoryContainer data={letter.current_signatories} />
           <ReturnDownloadButton
-            onClickReturn={() => navivage("/home/letters")}
             onClickDownload={() => null}
+            onClickReturn={() => navivage("/home/letters")}
             placement="right"
           />
         </div>
@@ -144,4 +157,4 @@ const CommunicatioLetterView = () => {
   );
 };
 
-export default CommunicatioLetterView;
+export default BudgetProposalLetterView;

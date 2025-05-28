@@ -29,6 +29,7 @@ import ImplementationLetterInCampus from "./pages/letter/ImplementationLetterInC
 import ImplementationLetterOffCampus from "./pages/letter/ImplementationLetterOffCampus";
 import MessageModal from "./components/MessageModal";
 import CommunicatioLetterView from "./pages/letter/view/CommunicatioLetterView";
+import BudgetProposalLetterView from "./pages/letter/view/BudgetProposalLetterView";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -103,6 +104,10 @@ function App() {
               <Route
                 path="communication/:id"
                 element={<CommunicatioLetterView />}
+              />
+              <Route
+                path="budget-proposal/:id"
+                element={<BudgetProposalLetterView />}
               />
             </Route>
           </Route>
