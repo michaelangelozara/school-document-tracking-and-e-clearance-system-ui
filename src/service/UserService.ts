@@ -21,7 +21,7 @@ type findStudentsPropsType = {
   currentPage: number;
   apiClient: AxiosInstance;
 };
-export const findStudents = async ({
+export const findClubMember = async ({
   apiClient,
   query,
   currentPage,
