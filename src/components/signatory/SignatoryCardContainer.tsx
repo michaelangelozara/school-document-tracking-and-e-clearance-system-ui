@@ -10,7 +10,7 @@ const SignatoryCard = ({
   signed,
 }: ISignatoryResponseDTO) => {
   return (
-    <div className="flex flex-col border border-gray-200 p-2 rounded-md sm:w-[300px]">
+    <div className="flex flex-col max-h-[250px] border border-gray-200 p-2 rounded-md sm:w-[280px]">
       <h1 className="text-darkContrast">
         Authority: <span className="text-black">{authority}</span>
       </h1>
@@ -27,12 +27,12 @@ const SignatoryCard = ({
       </h1>
       {signed ? (
         <img
-          className="w-[200px] h-[60px] border border-gray-200"
+          className="w-[200px] h-[80px] border border-gray-200"
           src={signature}
           alt="Signature"
         />
       ) : (
-        <div className="w-[200px] h-[60px] border border-gray-200 flex justify-center items-center cursor-pointer">
+        <div className="w-[200px] h-[80px] border border-gray-200 flex justify-center items-center cursor-pointer">
           <span>Sign Here</span>
         </div>
       )}

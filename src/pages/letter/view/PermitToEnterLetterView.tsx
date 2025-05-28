@@ -1,20 +1,20 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
-import { AppDispatch } from "../../../store/Store";
-import { useAuth } from "../../../context/AuthContext";
-import { findById } from "../../../service/LetterService";
-import { IBudgetProposalResponseDTO } from "../../../types/letter/BudgetProposal";
-import { getErrorMessage } from "../../../helper/AxiosHelper";
-import { open } from "../../../store/slice/MessageSlice";
+import React, { useEffect, useState } from "react";
+import { IPermitToEnterResponseDTO } from "../../../types/letter/PermitToEnter";
 import Loading from "../../../components/Loading";
+import { useAuth } from "../../../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../store/Store";
+import { useNavigate, useParams } from "react-router-dom";
+import { getErrorMessage } from "../../../helper/AxiosHelper";
+import { findById } from "../../../service/LetterService";
+import { open } from "../../../store/slice/MessageSlice";
 import { typeOfLetterEnumToStringConverter } from "../../../helper/LetterHelper";
 import SignatoryContainer from "../../../components/signatory/SignatoryCardContainer";
 import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
 import LetterRejectionCard from "../../../components/letter/LetterRejectionCard";
 
-const BudgetProposalLetterView = () => {
-  const [letter, setLetter] = useState<IBudgetProposalResponseDTO>({
+const PermitToEnterLetterView = () => {
+  const [letter, setLetter] = useState<IPermitToEnterResponseDTO>({
     id: "",
     status: undefined,
     type: undefined,
@@ -24,12 +24,11 @@ const BudgetProposalLetterView = () => {
     created_at: "",
     last_modified_at: "",
     club_name: "",
-    name_of_activity: "",
-    venue: "",
-    source_of_fund: "",
-    amount_allotted: "",
-    expected_expenses: [],
+    activity: "",
+    date_and_time: "",
+    participants: [],
   });
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const navivage = useNavigate();
 
@@ -37,6 +36,7 @@ const BudgetProposalLetterView = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const { apiClient } = useAuth();
+
   useEffect(() => {
     const controller = new AbortController();
     const fetchDate = async () => {
@@ -45,7 +45,7 @@ const BudgetProposalLetterView = () => {
           id,
           apiClient,
           controller
-        )) as IBudgetProposalResponseDTO;
+        )) as IPermitToEnterResponseDTO;
         setLetter(response);
       } catch (error: any) {
         if (error.status === 404) {
@@ -104,39 +104,21 @@ const BudgetProposalLetterView = () => {
           </div>
           <div className="pt-2 pb-2 flex">
             <h1 className="min-w-[170px] text-darkContrast">Activity</h1>
-            <h1>{letter.name_of_activity}</h1>
+            <h1>{letter.activity}</h1>
           </div>
           <div className="pt-2 pb-2 flex">
-            <h1 className="min-w-[170px] text-darkContrast">Venue</h1>
-            <h1>{letter.venue}</h1>
-          </div>
-          <div className="pt-2 pb-2 flex">
-            <h1 className="min-w-[170px] text-darkContrast">Source of Fund</h1>
-            <h1>{letter.source_of_fund}</h1>
-          </div>
-          <div className="pt-2 pb-2 flex">
-            <h1 className="min-w-[170px] text-darkContrast">Amount Allotted</h1>
-            <h1>{letter.amount_allotted}</h1>
-          </div>
-          <div className="pt-2 pb-2 flex">
-            <h1 className="min-w-[170px] text-darkContrast">Status</h1>
-            <h1>{letter.status}</h1>
+            <h1 className="min-w-[170px] text-darkContrast">
+              Date & Time of Letter
+            </h1>
+            <h1>{letter.date_and_time}</h1>
           </div>
 
-          <h1 className="text-darkContrast">Expected Expenses</h1>
+          <h1 className="text-darkContrast">Participants</h1>
           <div className="flex flex-col h-[200px] overflow-auto p-2 border border-gray-200 rounded-md">
-            <div className="flex mb-2 border-b border-b-gray-200">
-              <h1 className="text-darkContrast w-[10%] md:w-[7%]">No</h1>
-              <h1 className="text-darkContrast w-[40%] md:w-[43%]">Name</h1>
-              <h1 className="text-darkContrast w-[50%]">Amount</h1>
-            </div>
-            {letter.expected_expenses.map((element, index) => (
-              <div key={index} className="flex">
-                <h1 className="text-darkContrast w-[10%] md:w-[7%]">
-                  {index + 1}.
-                </h1>
-                <h1 className="w-[40%] md:w-[43%]">{element.name}</h1>
-                <h1 className="w-[50%]">{element.amount}</h1>
+            {letter.participants.map((element, index) => (
+              <div key={index} className="flex gap-2">
+                <h1 className="text-darkContrast">{index + 1}.</h1>
+                <h1>{element.name}</h1>
               </div>
             ))}
           </div>
@@ -163,4 +145,4 @@ const BudgetProposalLetterView = () => {
   );
 };
 
-export default BudgetProposalLetterView;
+export default PermitToEnterLetterView;
