@@ -182,27 +182,6 @@ const BudgetProposal = () => {
                 </tr>
               </thead>
               <tbody className="border border-gray-300">
-                {budgetProposal?.expected_expenses?.map((element, index) => (
-                  <tr
-                    key={index}
-                    className="text-nowrap md:text-md md:h-[var(--input-height-md)]"
-                  >
-                    <td className="pl-2 border-r border-b border-gray-300 md:text-[1.2rem]">
-                      {element.name}
-                    </td>
-                    <td className="pl-2 border-r border-b border-gray-300 md:text-[1.2rem]">
-                      {element.amount}
-                    </td>
-                    <td className="flex justify-center items-center border-b border-gray-300">
-                      <button
-                        onClick={() => removeItemHandler(index)}
-                        className="text-darkContrast underline md:h-[2.5rem]"
-                      >
-                        Remove
-                      </button>
-                    </td>
-                  </tr>
-                ))}
                 <tr className="text-nowrap">
                   <td className="border-r border-gray-300">
                     <input
@@ -231,7 +210,7 @@ const BudgetProposal = () => {
                       className="border pl-2 border-gray-200 w-full placeholder:text-gray-400 outline-darkContrast md:h-[var(--input-height-md)] md:text-[1.2rem]"
                     />
                   </td>
-                  <td className="flex justify-center items-center md:h-[var(--input-height-md)]">
+                  <td className="flex border-b border-b-gray-200 justify-center items-center md:h-[var(--input-height-md)]">
                     <button
                       onClick={addItemHandler}
                       className="text-darkContrast underline"
@@ -240,6 +219,27 @@ const BudgetProposal = () => {
                     </button>
                   </td>
                 </tr>
+                {budgetProposal?.expected_expenses?.map((element, index) => (
+                  <tr
+                    key={index}
+                    className="text-nowrap md:text-md md:h-[var(--input-height-md)]"
+                  >
+                    <td className="pl-2 border-r border-b border-gray-300 md:text-[1.2rem]">
+                      {element.name}
+                    </td>
+                    <td className="pl-2 border-r border-b border-gray-300 md:text-[1.2rem]">
+                      {element.amount}
+                    </td>
+                    <td className="flex justify-center items-center border-b border-gray-300">
+                      <button
+                        onClick={() => removeItemHandler(index)}
+                        className="text-darkContrast underline md:h-[2.5rem]"
+                      >
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
