@@ -12,7 +12,6 @@ import { typeOfLetterEnumToStringConverter } from "../../../helper/LetterHelper"
 import SignatoryContainer from "../../../components/signatory/SignatoryCardContainer";
 import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
 import LetterRejectionCard from "../../../components/letter/LetterRejectionCard";
-import { StatusOfBaseLetter } from "../../../types/letter/BaseLetter";
 
 const BudgetProposalLetterView = () => {
   const [letter, setLetter] = useState<IBudgetProposalResponseDTO>({

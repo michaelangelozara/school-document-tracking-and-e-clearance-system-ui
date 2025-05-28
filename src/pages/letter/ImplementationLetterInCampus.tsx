@@ -16,6 +16,7 @@ import { open } from "../../store/slice/MessageSlice";
 import { applying, stopApplying } from "../../store/slice/LetterSlice";
 import { getErrorMessage } from "../../helper/AxiosHelper";
 import { apply } from "../../service/LetterService";
+import { findStudents } from "../../service/UserService";
 
 const ImplementationLetterInCampus = () => {
   const [implementationLetter, setImplementationLetter] =
@@ -59,12 +60,13 @@ const ImplementationLetterInCampus = () => {
         return;
       }
 
-      const response = await apiClient.get(
-        `/students/search?q=${query}&page=${currentPage - 1}&size=5`
-      );
-      const { data } = response.data as BaseResponse<
-        PaginationResponse<IUserNameAndIdOnly>
-      >;
+      // const response = await apiClient.get(
+      //   `/students/search?q=${query}&page=${currentPage - 1}&size=5`
+      // );
+      // const { data } = response.data as BaseResponse<
+      //   PaginationResponse<IUserNameAndIdOnly>
+      // >;
+      const data = await findStudents({ apiClient, query, currentPage });
       setSearchedStudents(data.content);
       setPage((prev) => ({ ...prev, totalPage: data.totalPages }));
     },
