@@ -11,6 +11,8 @@ import Loading from "../../../components/Loading";
 import { typeOfLetterEnumToStringConverter } from "../../../helper/LetterHelper";
 import SignatoryContainer from "../../../components/signatory/SignatoryCardContainer";
 import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
+import LetterRejectionCard from "../../../components/letter/LetterRejectionCard";
+import { StatusOfBaseLetter } from "../../../types/letter/BaseLetter";
 
 const BudgetProposalLetterView = () => {
   const [letter, setLetter] = useState<IBudgetProposalResponseDTO>({
@@ -152,6 +154,11 @@ const BudgetProposalLetterView = () => {
             placement="right"
           />
         </div>
+
+        <LetterRejectionCard
+          status={letter.status}
+          reasonOfRejection={letter.reason_of_rejection}
+        />
       </div>
     </div>
   );
