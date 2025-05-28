@@ -97,6 +97,7 @@ const CommunicatioLetterView = () => {
             <h1 className="text-nowrap">{letter.last_modified_at || "N/A"}</h1>
           </div>
         </div>
+
         <div className="p-2 bg-white rounded-sm">
           <h1 className="font-semibold text-darkContrast">Letter Details</h1>
           <div className="pt-2 pb-2 flex">
@@ -130,6 +131,7 @@ const CommunicatioLetterView = () => {
             />
           </div>
         </div>
+
         <div className="p-2 bg-white rounded-sm">
           <h1 className="font-semibold text-darkContrast mb-3">Signatories</h1>
           <SignatoryContainer data={letter.current_signatories} />

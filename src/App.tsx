@@ -31,6 +31,7 @@ import MessageModal from "./components/MessageModal";
 import CommunicatioLetterView from "./pages/letter/view/CommunicatioLetterView";
 import BudgetProposalLetterView from "./pages/letter/view/BudgetProposalLetterView";
 import PermitToEnterLetterView from "./pages/letter/view/PermitToEnterLetterView";
+import SchoolFacilityLetterView from "./pages/letter/view/SchoolFacilityLetterView";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -113,6 +114,10 @@ function App() {
               <Route
                 path="permit-to-enter/:id"
                 element={<PermitToEnterLetterView />}
+              />
+              <Route
+                path="school-facility/:id"
+                element={<SchoolFacilityLetterView />}
               />
             </Route>
           </Route>

@@ -1,4 +1,4 @@
-import { IBaseLetterRequestDTO } from "./BaseLetter";
+import { IBaseLetterRequestDTO, IBaseLetterResponseDTO } from "./BaseLetter";
 
 export interface ISchoolFacility extends IBaseLetterRequestDTO {
   venue: string;
@@ -8,6 +8,18 @@ export interface ISchoolFacility extends IBaseLetterRequestDTO {
 }
 
 export interface IFacilityOrEquipment {
+  name: string;
+  quantity: number;
+}
+
+export interface ISchoolFacilityResponseDTO extends IBaseLetterResponseDTO {
+  venue: string;
+  date_and_time: string;
+  facility_or_equipments: IFacilityOrEquipmentResponseDTO[];
+}
+
+export interface IFacilityOrEquipmentResponseDTO {
+  id: string;
   name: string;
   quantity: number;
 }
