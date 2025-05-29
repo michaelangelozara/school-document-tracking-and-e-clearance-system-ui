@@ -477,7 +477,7 @@ const ImplementationLetterOffCampus = () => {
 
   return (
     <div className="bg-background p-3">
-      <div className="flex flex-col rounded-md gap-2 p-2 bg-white text-darkContrast overflow-auto">
+      <div className="flex flex-col rounded-md gap-4 p-2 bg-white text-darkContrast overflow-auto lg:text-md">
         <LetterHeader title="Implementation Off Campus Letter Application" />
         <div className="flex flex-col gap-2">
           <div>

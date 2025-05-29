@@ -33,6 +33,7 @@ import BudgetProposalLetterView from "./pages/letter/view/BudgetProposalLetterVi
 import PermitToEnterLetterView from "./pages/letter/view/PermitToEnterLetterView";
 import SchoolFacilityLetterView from "./pages/letter/view/SchoolFacilityLetterView";
 import ImplementationLetterInCampusView from "./pages/letter/view/ImplementationLetterInCampusView";
+import ImplementationLetterOffCampusView from "./pages/letter/view/ImplementationLetterOffCampusView";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -123,6 +124,10 @@ function App() {
               <Route
                 path="implementation-letter-in-campus/:id"
                 element={<ImplementationLetterInCampusView />}
+              />
+              <Route
+                path="implementation-letter-off-campus/:id"
+                element={<ImplementationLetterOffCampusView />}
               />
             </Route>
           </Route>
