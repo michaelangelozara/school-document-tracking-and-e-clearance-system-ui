@@ -16,7 +16,7 @@ const withRoleCheck = <P extends object>(
     const { user, isTokenChecking } = useAuth();
 
     if (isTokenChecking || user === null) {
-      return <div>Loding ...</div>;
+      return;
     }
 
     if (allowedAuthorities.length !== 0) {

@@ -190,7 +190,6 @@ const LetterModal = () => {
     useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const [searchTerm, setSearchTerm] = useState<string>("");
   const [fetchedLetter, setFetchedLetter] = useState<
     IBaseLetterSummaryProjection[]
   >([]);
@@ -311,7 +310,9 @@ const LetterModal = () => {
               >
                 <option value="">All</option>
                 <option value={StatusOfBaseLetter.DRAFT}>Draft</option>
-                <option value={StatusOfBaseLetter.PENDING}>Pending</option>
+                <option value={StatusOfBaseLetter.IN_PROGRESS}>
+                  In-Progress
+                </option>
                 <option value={StatusOfBaseLetter.APPROVED}>Approved</option>
                 <option value={StatusOfBaseLetter.REJECTED}>Rejected</option>
                 <option value={StatusOfBaseLetter.EXPIRED}>Expired</option>
