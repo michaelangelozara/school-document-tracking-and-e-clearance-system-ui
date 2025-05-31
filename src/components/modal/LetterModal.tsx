@@ -183,7 +183,7 @@ const RequestModal = ({ onClick }: RequestModalPropsType) => {
 const LetterModal = () => {
   const [page, setPage] = useState<Page>({
     totalPage: 0,
-    currentPage: 0,
+    currentPage: 1,
   });
   const navigate = useNavigate();
   const [isRequestButtonClicked, setIsRequestButtonClicked] =
@@ -234,6 +234,13 @@ const LetterModal = () => {
 
   const requestButtonHandler = () => {
     setIsRequestButtonClicked((v) => !v);
+  };
+
+  const prevPageHandler = () => {
+    setPage((prev) => ({ ...prev, currentPage: (prev.currentPage -= 1) }));
+  };
+  const nextPageHandler = () => {
+    setPage((prev) => ({ ...prev, currentPage: (prev.currentPage += 1) }));
   };
 
   return (
@@ -333,8 +340,8 @@ const LetterModal = () => {
           </div>
           <PaginationButtons
             page={page}
-            onNext={() => null}
-            onPrev={() => null}
+            onNext={nextPageHandler}
+            onPrev={prevPageHandler}
           />
         </div>
         {isRequestButtonClicked && (
