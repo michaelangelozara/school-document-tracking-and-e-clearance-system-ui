@@ -11,6 +11,13 @@ import { Client, IMessage } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { useAuth } from "./AuthContext";
 
+const WEBSOCKET_CONFIG = {
+  URL: "http://localhost:8080/ws",
+  RECONNECT_DELAY: 5000,
+  HEARTBEAT_INCOMING: 4000,
+  HEARTBEAT_OUTGOING: 4000,
+} as const;
+
 type MessagePayload = Record<string, any>;
 
 type WebSocketContextType = {
@@ -31,36 +38,36 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
 
   const { token, isTokenChecking } = useAuth();
   useEffect(() => {
-    if (token) {
-      const client = new Client({
-        webSocketFactory: () => new SockJS("http://localhost:8080/ws"),
-        reconnectDelay: 5000,
-        heartbeatIncoming: 4000,
-        heartbeatOutgoing: 4000,
-        connectHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
-        onConnect: () => {
-          setIsConnected(true);
-          subscriptions.current.forEach((callback, destination) => {
-            client.subscribe(destination, callback);
-          });
-        },
-        onDisconnect: () => setIsConnected(false),
-        onStompError: (frame) => {
-          console.error("WebSocket Error:", frame.body);
-        },
-      });
+    if (!token || isTokenChecking) return;
 
-      clientRef.current = client;
-      client.activate();
+    const client = new Client({
+      webSocketFactory: () => new SockJS(WEBSOCKET_CONFIG.URL),
+      reconnectDelay: WEBSOCKET_CONFIG.RECONNECT_DELAY,
+      heartbeatIncoming: WEBSOCKET_CONFIG.HEARTBEAT_INCOMING,
+      heartbeatOutgoing: WEBSOCKET_CONFIG.HEARTBEAT_OUTGOING,
+      connectHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+      onConnect: () => {
+        setIsConnected(true);
+        subscriptions.current.forEach((callback, destination) => {
+          client.subscribe(destination, callback);
+        });
+      },
+      onDisconnect: () => setIsConnected(false),
+      onStompError: (frame) => {
+        console.error("WebSocket Error:", frame.body);
+      },
+    });
 
-      return () => {
-        client.deactivate();
-        subscriptions.current.clear();
-      };
-    }
-  }, [isTokenChecking]);
+    clientRef.current = client;
+    client.activate();
+
+    return () => {
+      client.deactivate();
+      subscriptions.current.clear();
+    };
+  }, [token, isTokenChecking]);
 
   const sendMessage = useCallback(
     (destination: string, body: MessagePayload) => {
