@@ -41,7 +41,8 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
     if (!token || isTokenChecking) return;
 
     const client = new Client({
-      webSocketFactory: () => new SockJS(WEBSOCKET_CONFIG.URL),
+      webSocketFactory: () =>
+        new SockJS(`${WEBSOCKET_CONFIG.URL}?token=${token}`), // embed the token to parameter for handshaking
       reconnectDelay: WEBSOCKET_CONFIG.RECONNECT_DELAY,
       heartbeatIncoming: WEBSOCKET_CONFIG.HEARTBEAT_INCOMING,
       heartbeatOutgoing: WEBSOCKET_CONFIG.HEARTBEAT_OUTGOING,
