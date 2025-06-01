@@ -32,3 +32,19 @@ export const findById = async <T extends IBaseLetterResponseDTO>(
     throw error;
   }
 };
+
+// this signatory id refers to the signatory id in the database not the Person who signs
+export const signBySignatoryId = async (
+  id: string,
+  apiClient: AxiosInstance
+): Promise<string> => {
+  try {
+    const response = await apiClient.post(
+      `/letters/sign?letter_signatory_id=${id}`
+    );
+    const data = response.data as BaseResponse<null>;
+    return data?.message;
+  } catch (error) {
+    throw error;
+  }
+};

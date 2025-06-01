@@ -1,5 +1,22 @@
 import { ISignatoryResponseDTO } from "../../types/signatory/Signatory";
+import { useState } from "react";
+import ConfirmationModal from "../ConfirmationModal";
+import { signBySignatoryId } from "../../service/LetterService";
+import { useAuth } from "../../context/AuthContext";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/Store";
+import { open } from "../../store/slice/MessageSlice";
+import { getErrorMessage } from "../../helper/AxiosHelper";
 
+type SignatoryCardPropsType = {
+  id: string;
+  authority: string;
+  currentSignatory: boolean;
+  date_and_time_of_signature: string;
+  name: string;
+  signature: string;
+  signed: boolean;
+};
 const SignatoryCard = ({
   id,
   authority,
@@ -8,7 +25,27 @@ const SignatoryCard = ({
   name,
   signature,
   signed,
-}: ISignatoryResponseDTO) => {
+}: SignatoryCardPropsType) => {
+  const [isSignatureButtonClicked, setIsSignatureButtonClicked] =
+    useState<boolean>(false);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const { apiClient } = useAuth();
+  const signatureConfirmed = async () => {
+    try {
+      const response = await signBySignatoryId(id, apiClient);
+      dispatch(open(response));
+    } catch (error: any) {
+      if (error.status === 400 || error.status === 403) {
+        const errorMessage = getErrorMessage(error);
+        dispatch(open(errorMessage));
+      }
+    } finally {
+      setIsSignatureButtonClicked(false);
+    }
+  };
+
   return (
     <div className="flex flex-col max-h-[250px] border border-gray-200 p-2 rounded-md sm:w-[280px]">
       <h1 className="text-darkContrast">
@@ -32,7 +69,10 @@ const SignatoryCard = ({
           alt="Signature"
         />
       ) : (
-        <div className="w-[200px] h-[80px] border border-gray-200 flex justify-center items-center cursor-pointer">
+        <div
+          onClick={() => setIsSignatureButtonClicked(true)}
+          className="w-[200px] h-[80px] border border-gray-200 flex justify-center items-center cursor-pointer"
+        >
           <span>Sign Here</span>
         </div>
       )}
@@ -42,6 +82,14 @@ const SignatoryCard = ({
           {signed ? "Signed" : "Pending"}
         </span>
       </h1>
+
+      {isSignatureButtonClicked && (
+        <ConfirmationModal
+          message="Are you sure you want to sign?"
+          cancel={() => setIsSignatureButtonClicked(false)}
+          confirm={signatureConfirmed}
+        />
+      )}
     </div>
   );
 };

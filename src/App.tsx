@@ -34,6 +34,7 @@ import PermitToEnterLetterView from "./pages/letter/view/PermitToEnterLetterView
 import SchoolFacilityLetterView from "./pages/letter/view/SchoolFacilityLetterView";
 import ImplementationLetterInCampusView from "./pages/letter/view/ImplementationLetterInCampusView";
 import ImplementationLetterOffCampusView from "./pages/letter/view/ImplementationLetterOffCampusView";
+import ConfirmationModal from "./components/ConfirmationModal";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
