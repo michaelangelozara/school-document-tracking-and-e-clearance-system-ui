@@ -20,6 +20,9 @@ import {
 import { useAuth } from "../../context/AuthContext";
 import { BaseResponse } from "../../types/response/Response";
 import { typeOfLetterEnumToStringURLConverter } from "../../helper/LetterHelper";
+import { useWebSocket } from "../../context/WebsocketContext";
+import { IMessage } from "@stomp/stompjs";
+import { IBaseLetterRequestDTO } from "../../types/letter/BaseLetter";
 
 type TablePropsType = {
   view: (type: string, id: string) => void;
@@ -241,6 +244,32 @@ const LetterModal = () => {
   const nextPageHandler = () => {
     setPage((prev) => ({ ...prev, currentPage: (prev.currentPage += 1) }));
   };
+
+  const updateListOfLetter = (updatedLetter: IBaseLetterSummaryProjection) => {
+    setFetchedLetter((prev) => {
+      const index = prev.findIndex(
+        (letter) =>
+          letter.id.toString().trim().toLowerCase() ===
+          updatedLetter.id.toString().trim().toLowerCase()
+      );
+
+      if (index !== -1) {
+        const updatedLetters = [...prev];
+        updatedLetters[index] = updatedLetter;
+        return updatedLetters;
+      } else {
+        return prev;
+      }
+    });
+  };
+
+  const { subscribe } = useWebSocket();
+  useEffect(() => {
+    subscribe("/user/queue/letter/updated", (msg: IMessage) => {
+      // update the listed letters
+      updateListOfLetter(JSON.parse(msg.body) as IBaseLetterSummaryProjection);
+    });
+  }, []);
 
   return (
     <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">

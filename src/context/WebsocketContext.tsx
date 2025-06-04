@@ -10,9 +10,10 @@ import React, {
 import { Client, IMessage } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 import { useAuth } from "./AuthContext";
+import { BASE_URL } from "../api/apiClient";
 
 const WEBSOCKET_CONFIG = {
-  URL: "http://localhost:8080/ws",
+  URL: `${BASE_URL}/ws`,
   RECONNECT_DELAY: 5000,
   HEARTBEAT_INCOMING: 4000,
   HEARTBEAT_OUTGOING: 4000,
@@ -36,9 +37,9 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
   );
   const [isConnected, setIsConnected] = React.useState(false);
 
-  const { token, isTokenChecking } = useAuth();
+  const { token } = useAuth();
   useEffect(() => {
-    if (!token || isTokenChecking) return;
+    if (!token) return;
 
     const client = new Client({
       webSocketFactory: () =>
@@ -68,7 +69,7 @@ export const WebSocketProvider = ({ children }: { children: ReactNode }) => {
       client.deactivate();
       subscriptions.current.clear();
     };
-  }, [token, isTokenChecking]);
+  }, [token]);
 
   const sendMessage = useCallback(
     (destination: string, body: MessagePayload) => {
