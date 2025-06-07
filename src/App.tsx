@@ -27,14 +27,14 @@ import PermitToEnter from "./pages/letter/PermitToEnter";
 import SchoolFacility from "./pages/letter/SchoolFacility";
 import ImplementationLetterInCampus from "./pages/letter/ImplementationLetterInCampus";
 import ImplementationLetterOffCampus from "./pages/letter/ImplementationLetterOffCampus";
-import MessageModal from "./components/MessageModal";
+import MessageModal from "./components/shared/MessageModal";
 import CommunicatioLetterView from "./pages/letter/view/CommunicatioLetterView";
 import BudgetProposalLetterView from "./pages/letter/view/BudgetProposalLetterView";
 import PermitToEnterLetterView from "./pages/letter/view/PermitToEnterLetterView";
 import SchoolFacilityLetterView from "./pages/letter/view/SchoolFacilityLetterView";
 import ImplementationLetterInCampusView from "./pages/letter/view/ImplementationLetterInCampusView";
 import ImplementationLetterOffCampusView from "./pages/letter/view/ImplementationLetterOffCampusView";
-import ConfirmationModal from "./components/ConfirmationModal";
+import ConfirmationModal from "./components/shared/ConfirmationModal";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);

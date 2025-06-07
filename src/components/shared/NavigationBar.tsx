@@ -1,10 +1,10 @@
-import NDTC_LOGO from "../assets/icon/png/NDTC-300x279.png";
-import HOME_ICON from "../assets/icon/svg/navigation/home-icon-svg.svg";
-import PROFILE_ICON from "../assets/icon/svg/profile-account-settings-icon-svg.svg";
-import BELL_ICON from "../assets/icon/svg/navigation/bell-icon.svg";
-import LOG_OUT_ICON from "../assets/icon/svg/navigation/logout-icon-svg-com.svg";
+import NDTC_LOGO from "../../assets/icon/png/NDTC-300x279.png";
+import HOME_ICON from "../../assets/icon/svg/navigation/home-icon-svg.svg";
+import PROFILE_ICON from "../../assets/icon/svg/profile-account-settings-icon-svg.svg";
+import BELL_ICON from "../../assets/icon/svg/navigation/bell-icon.svg";
+import LOG_OUT_ICON from "../../assets/icon/svg/navigation/logout-icon-svg-com.svg";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 type ButtonPropsType = {
   label: string;

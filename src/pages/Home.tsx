@@ -1,7 +1,7 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import SectionCard from "../components/SectionCard";
-import ProfileSummaryCard from "../components/ProfileSummaryCard";
-import ClearanceCard from "../components/ClearanceCard";
+import SectionCard from "../components/shared/SectionCard";
+import ProfileSummaryCard from "../components/shared/ProfileSummaryCard";
+import ClearanceCard from "../components/shared/ClearanceCard";
 
 // icons
 import CLEARANCE_ICON from "../assets/icon/svg/section_card/clearance-icon-svgrepo-com.svg";

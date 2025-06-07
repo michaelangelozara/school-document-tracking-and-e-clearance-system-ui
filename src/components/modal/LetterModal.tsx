@@ -2,14 +2,14 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 
 import LETTER_ICON from "../../assets/icon/svg/section_card/letter-icon-svgrepo-com.svg";
 import { Outlet, useNavigate } from "react-router-dom";
-import PaginationButtons from "../PaginationButton";
+import PaginationButtons from "../shared/PaginationButton";
 import BUDGET_PROPOSAL_ICON from "../../assets/icon/png/budget_proposal_letter_icon.png";
 import COMMUNICATION_ICON from "../../assets/icon/png/communication_icon.png";
 import IMPLEMENATION_LETTER_IN_CAMPUS_ICON from "../../assets/icon/png/implementation_in_campus_icon.png";
 import IMPLEMENATION_LETTER_OFF_CAMPUS_ICON from "../../assets/icon/png/implementation_off_campus_icon.png";
 import PERMIT_TO_ENTER_ICON from "../../assets/icon/png/permit_to_enter_icon.png";
 import SCHOOL_FACILITY_ICON from "../../assets/icon/png/school_facility_icon.png";
-import Loading from "../Loading";
+import Loading from "../shared/Loading";
 import { Page, PaginationResponse } from "../../types/Pagination";
 import {
   IBaseLetterFilterBody,

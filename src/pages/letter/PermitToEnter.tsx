@@ -7,7 +7,7 @@ import LetterHeader from "../../components/letter/LetterHeader";
 import UserSearchedCard from "../../components/letter/UserSearchedCard";
 import { useAuth } from "../../context/AuthContext";
 import { debounce } from "lodash";
-import PaginationButton from "../../components/PaginationButton";
+import PaginationButton from "../../components/shared/PaginationButton";
 import { Page, PaginationResponse } from "../../types/Pagination";
 import { BaseResponse } from "../../types/response/Response";
 import { applying, stopApplying } from "../../store/slice/LetterSlice";

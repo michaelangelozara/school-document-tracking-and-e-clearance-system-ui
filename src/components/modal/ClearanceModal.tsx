@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CLEARANCE_ICON from "../../assets/icon/svg/section_card/clearance-icon-svgrepo-com.svg";
 
-import PaginationButton from "../PaginationButton";
+import PaginationButton from "../shared/PaginationButton";
 
 type TablePropsType = {
   onClick: () => void;

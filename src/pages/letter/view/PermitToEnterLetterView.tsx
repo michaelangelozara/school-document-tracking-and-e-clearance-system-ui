@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { IPermitToEnterResponseDTO } from "../../../types/letter/PermitToEnter";
-import Loading from "../../../components/Loading";
+import Loading from "../../../components/shared/Loading";
 import { useAuth } from "../../../context/AuthContext";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/Store";
@@ -9,7 +9,7 @@ import { getErrorMessage } from "../../../helper/AxiosHelper";
 import { findById } from "../../../service/LetterService";
 import { open } from "../../../store/slice/MessageSlice";
 import { typeOfLetterEnumToStringConverter } from "../../../helper/LetterHelper";
-import SignatoryContainer from "../../../components/signatory/SignatoryCardContainer";
+import SignatoryCardContainer from "../../../components/signatory/SignatoryCardContainer";
 import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
 import LetterRejectionCard from "../../../components/letter/LetterRejectionCard";
 import { IBaseLetterSummaryProjection } from "../../../types/letter/BaseLetter";
@@ -150,7 +150,7 @@ const PermitToEnterLetterView = () => {
           <h1 className="font-semibold text-darkContrast mb-3 text-sm md:text-md">
             Signatories
           </h1>
-          <SignatoryContainer data={letter.current_signatories} />
+          <SignatoryCardContainer data={letter.current_signatories} />
           <ReturnDownloadButton
             onClickDownload={() => null}
             onClickReturn={() => navivage("/home/letters")}

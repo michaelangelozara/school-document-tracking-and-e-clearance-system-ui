@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../store/Store";
-import { close } from "../store/slice/MessageSlice";
+import { AppDispatch, RootState } from "../../store/Store";
+import { close } from "../../store/slice/MessageSlice";
 
 const MessageModal = () => {
   const { message, isOpen } = useSelector((state: RootState) => state.message);

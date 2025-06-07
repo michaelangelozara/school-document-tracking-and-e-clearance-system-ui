@@ -1,6 +1,6 @@
 import { ISignatoryResponseDTO } from "../../types/signatory/Signatory";
 import { useEffect, useState } from "react";
-import ConfirmationModal from "../ConfirmationModal";
+import ConfirmationModal from "../shared/ConfirmationModal";
 import { signBySignatoryId } from "../../service/LetterService";
 import { useAuth } from "../../context/AuthContext";
 import { useDispatch } from "react-redux";
@@ -99,7 +99,7 @@ const SignatoryCard = ({
 type SignatoryContainerPropsType = {
   data: ISignatoryResponseDTO[];
 };
-const SignatoryContainer = ({ data }: SignatoryContainerPropsType) => {
+const SignatoryCardContainer = ({ data }: SignatoryContainerPropsType) => {
   const [signatories, setSignatories] = useState<ISignatoryResponseDTO[]>(data);
 
   const updateSignatories = (updatedSignatory: ISignatoryResponseDTO) => {
@@ -145,4 +145,4 @@ const SignatoryContainer = ({ data }: SignatoryContainerPropsType) => {
   );
 };
 
-export default SignatoryContainer;
+export default SignatoryCardContainer;

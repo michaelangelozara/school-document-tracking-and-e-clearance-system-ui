@@ -10,7 +10,7 @@ import {
 } from "../../types/letter/ImplementationLetterOffCampus";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import { IUserNameAndIdOnly } from "../../types/user/User";
-import PaginationButton from "../../components/PaginationButton";
+import PaginationButton from "../../components/shared/PaginationButton";
 import { Page, PaginationResponse } from "../../types/Pagination";
 import { useAuth } from "../../context/AuthContext";
 import { debounce } from "lodash";

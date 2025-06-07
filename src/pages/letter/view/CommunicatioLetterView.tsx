@@ -6,10 +6,10 @@ import {
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate, useParams } from "react-router-dom";
 import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
-import Loading from "../../../components/Loading";
+import Loading from "../../../components/shared/Loading";
 import { findById } from "../../../service/LetterService";
 import { typeOfLetterEnumToStringConverter } from "../../../helper/LetterHelper";
-import SignatoryContainer from "../../../components/signatory/SignatoryCardContainer";
+import SignatoryCardContainer from "../../../components/signatory/SignatoryCardContainer";
 import { getErrorMessage } from "../../../helper/AxiosHelper";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/Store";
@@ -152,7 +152,7 @@ const CommunicatioLetterView = () => {
 
         <div className="p-2 bg-white rounded-sm">
           <h1 className="font-semibold text-darkContrast mb-3">Signatories</h1>
-          <SignatoryContainer data={letter.current_signatories} />
+          <SignatoryCardContainer data={letter.current_signatories} />
           <ReturnDownloadButton
             onClickReturn={() => navivage("/home/letters")}
             onClickDownload={() => null}

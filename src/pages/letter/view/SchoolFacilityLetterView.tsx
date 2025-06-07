@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Loading from "../../../components/Loading";
+import Loading from "../../../components/shared/Loading";
 import { getErrorMessage } from "../../../helper/AxiosHelper";
 import { ISchoolFacilityResponseDTO } from "../../../types/letter/SchoolFacility";
 import { findById } from "../../../service/LetterService";
@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { open } from "../../../store/slice/MessageSlice";
 import { typeOfLetterEnumToStringConverter } from "../../../helper/LetterHelper";
-import SignatoryContainer from "../../../components/signatory/SignatoryCardContainer";
+import SignatoryCardContainer from "../../../components/signatory/SignatoryCardContainer";
 import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
 import LetterRejectionCard from "../../../components/letter/LetterRejectionCard";
 import { useWebSocket } from "../../../context/WebsocketContext";
@@ -149,7 +149,7 @@ const SchoolFacilityLetterView = () => {
           <h1 className="font-semibold text-darkContrast mb-3 text-sm md:text-md">
             Signatories
           </h1>
-          <SignatoryContainer data={letter.current_signatories} />
+          <SignatoryCardContainer data={letter.current_signatories} />
           <ReturnDownloadButton
             onClickDownload={() => null}
             onClickReturn={() => navivage("/home/letters")}

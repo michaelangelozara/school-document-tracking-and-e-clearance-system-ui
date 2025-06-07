@@ -1,4 +1,4 @@
-import { checkAuthorities } from "../helper/AuthorityHelper";
+import { checkAuthorities } from "../../helper/AuthorityHelper";
 
 type SectionCardProps = {
   icon: string;

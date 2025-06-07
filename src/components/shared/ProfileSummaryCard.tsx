@@ -1,12 +1,15 @@
 import React from "react";
 
-import AUTHORITY_ICON from "../assets/icon/svg/profile_summary/role-icon-svgrepo-com.svg";
-import EMAIL_ICON from "../assets/icon/svg/profile_summary/email-icon-svgrepo-com.svg";
-import USERNAME_ICON from "../assets/icon/svg/profile_summary/username-icon-svgrepo-com.svg";
-import CONTACT_NUMBER_ICON from "../assets/icon/svg/profile_summary/contact-icon-svgrepo-com.svg";
-import TYPE_OF_PERSONNEL_ICON from "../assets/icon/svg/profile_summary/type-of-personel-svgrepo-com.svg";
-import { IUserSummaryResponse, TypeOfBaseUserUser } from "../types/user/User";
-import { extractAuthorties, getFullName } from "../util/UserUtil";
+import AUTHORITY_ICON from "../../assets/icon/svg/profile_summary/role-icon-svgrepo-com.svg";
+import EMAIL_ICON from "../../assets/icon/svg/profile_summary/email-icon-svgrepo-com.svg";
+import USERNAME_ICON from "../../assets/icon/svg/profile_summary/username-icon-svgrepo-com.svg";
+import CONTACT_NUMBER_ICON from "../../assets/icon/svg/profile_summary/contact-icon-svgrepo-com.svg";
+import TYPE_OF_PERSONNEL_ICON from "../../assets/icon/svg/profile_summary/type-of-personel-svgrepo-com.svg";
+import {
+  IUserSummaryResponse,
+  TypeOfBaseUserUser,
+} from "../../types/user/User";
+import { extractAuthorties, getFullName } from "../../util/UserUtil";
 
 interface Props {
   userData: IUserSummaryResponse | null;

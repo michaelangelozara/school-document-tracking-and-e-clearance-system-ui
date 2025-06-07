@@ -1,5 +1,5 @@
-import NEXT_ICON from "../assets/icon/svg/next-svgrepo-com.svg";
-import { Page } from "../types/Pagination";
+import NEXT_ICON from "../../assets/icon/svg/next-svgrepo-com.svg";
+import { Page } from "../../types/Pagination";
 
 type PaginationTypes = {
   page: Page;

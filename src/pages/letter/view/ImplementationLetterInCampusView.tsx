@@ -6,10 +6,10 @@ import { useAuth } from "../../../context/AuthContext";
 import { findById } from "../../../service/LetterService";
 import { getErrorMessage } from "../../../helper/AxiosHelper";
 import { open } from "../../../store/slice/MessageSlice";
-import Loading from "../../../components/Loading";
+import Loading from "../../../components/shared/Loading";
 import { IImplementationLetterInCampusResponseDTO } from "../../../types/letter/ImplementationLetterInCampus";
 import { typeOfLetterEnumToStringConverter } from "../../../helper/LetterHelper";
-import SignatoryContainer from "../../../components/signatory/SignatoryCardContainer";
+import SignatoryCardContainer from "../../../components/signatory/SignatoryCardContainer";
 import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
 import LetterRejectionCard from "../../../components/letter/LetterRejectionCard";
 import { IBaseLetterSummaryProjection } from "../../../types/letter/BaseLetter";
@@ -156,7 +156,7 @@ const ImplementationLetterInCampusView = () => {
           <h1 className="font-semibold text-darkContrast mb-3 text-sm md:text-md">
             Signatories
           </h1>
-          <SignatoryContainer data={letter.current_signatories} />
+          <SignatoryCardContainer data={letter.current_signatories} />
           <ReturnDownloadButton
             onClickDownload={() => null}
             onClickReturn={() => navivage("/home/letters")}
