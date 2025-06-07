@@ -271,6 +271,8 @@ const LetterModal = () => {
     });
   }, []);
 
+  const { user } = useAuth();
+
   return (
     <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
       {/* Modal Content */}
@@ -351,7 +353,12 @@ const LetterModal = () => {
             <div className="justify-self-end">
               <button
                 onClick={requestButtonHandler}
-                className="bg-primary text-darkContrast pl-2 pr-2 rounded-md hover:text-white md:pl-4 md:pr-4 md:pt-1 md:pb-1"
+                className={`${
+                  user?.authorities.length === 1 &&
+                  user?.authorities.includes("STUDENT")
+                    ? ""
+                    : "hidden"
+                } bg-primary text-darkContrast pl-2 pr-2 rounded-md hover:text-white md:pl-4 md:pr-4 md:pt-1 md:pb-1`}
               >
                 Request
               </button>
