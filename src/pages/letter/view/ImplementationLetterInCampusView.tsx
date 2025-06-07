@@ -12,6 +12,9 @@ import { typeOfLetterEnumToStringConverter } from "../../../helper/LetterHelper"
 import SignatoryContainer from "../../../components/signatory/SignatoryCardContainer";
 import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
 import LetterRejectionCard from "../../../components/letter/LetterRejectionCard";
+import { IBaseLetterSummaryProjection } from "../../../types/letter/BaseLetter";
+import { useWebSocket } from "../../../context/WebsocketContext";
+import { IMessage } from "@stomp/stompjs";
 
 const ImplementationLetterInCampusView = () => {
   const [letter, setLetter] =
@@ -66,6 +69,21 @@ const ImplementationLetterInCampusView = () => {
 
     return () => controller.abort();
   }, [id]);
+
+  const updateLetter = (updatedLetter: IBaseLetterSummaryProjection) => {
+    setLetter((prev) => ({
+      ...prev,
+      status: updatedLetter.status,
+      last_modified_at: updatedLetter.last_modified_at,
+    }));
+  };
+
+  const { subscribe } = useWebSocket();
+  useEffect(() => {
+    subscribe("/user/queue/letter/update", (msg: IMessage) => {
+      updateLetter(JSON.parse(msg.body) as IBaseLetterSummaryProjection);
+    });
+  }, []);
 
   if (isLoading) {
     return <Loading />;

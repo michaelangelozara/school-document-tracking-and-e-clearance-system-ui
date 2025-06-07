@@ -14,6 +14,9 @@ import { getErrorMessage } from "../../../helper/AxiosHelper";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/Store";
 import { open } from "../../../store/slice/MessageSlice";
+import { useWebSocket } from "../../../context/WebsocketContext";
+import { IMessage } from "@stomp/stompjs";
+import { IBaseLetterSummaryProjection } from "../../../types/letter/BaseLetter";
 
 const TypeOfCommunicationLetterEnumConverter = (
   type: TypeOfCommunicationLetter | undefined
@@ -68,6 +71,21 @@ const CommunicatioLetterView = () => {
 
     return () => controller.abort();
   }, [id]);
+
+  const updateLetter = (updatedLetter: IBaseLetterSummaryProjection) => {
+    setLetter((prev) => ({
+      ...prev,
+      status: updatedLetter.status,
+      last_modified_at: updatedLetter.last_modified_at,
+    }));
+  };
+
+  const { subscribe } = useWebSocket();
+  useEffect(() => {
+    subscribe("/user/queue/letter/update", (msg: IMessage) => {
+      updateLetter(JSON.parse(msg.body) as IBaseLetterSummaryProjection);
+    });
+  }, []);
 
   if (isLoading) {
     return <Loading />;

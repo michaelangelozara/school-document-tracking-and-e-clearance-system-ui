@@ -258,14 +258,14 @@ const LetterModal = () => {
         updatedLetters[index] = updatedLetter;
         return updatedLetters;
       } else {
-        return prev;
+        return [updatedLetter, ...prev];
       }
     });
   };
 
   const { subscribe } = useWebSocket();
   useEffect(() => {
-    subscribe("/user/queue/letter/updated", (msg: IMessage) => {
+    subscribe("/user/queue/letter/update", (msg: IMessage) => {
       // update the listed letters
       updateListOfLetter(JSON.parse(msg.body) as IBaseLetterSummaryProjection);
     });

@@ -1,5 +1,5 @@
 import { ISignatoryResponseDTO } from "../../types/signatory/Signatory";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConfirmationModal from "../ConfirmationModal";
 import { signBySignatoryId } from "../../service/LetterService";
 import { useAuth } from "../../context/AuthContext";
@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/Store";
 import { open } from "../../store/slice/MessageSlice";
 import { getErrorMessage } from "../../helper/AxiosHelper";
+import { useWebSocket } from "../../context/WebsocketContext";
+import { IMessage } from "@stomp/stompjs";
 
 type SignatoryCardPropsType = {
   id: string;
@@ -98,9 +100,36 @@ type SignatoryContainerPropsType = {
   data: ISignatoryResponseDTO[];
 };
 const SignatoryContainer = ({ data }: SignatoryContainerPropsType) => {
+  const [signatories, setSignatories] = useState<ISignatoryResponseDTO[]>(data);
+
+  const updateSignatories = (updatedSignatory: ISignatoryResponseDTO) => {
+    setSignatories((prev) => {
+      const index = prev.findIndex(
+        (signatory) =>
+          signatory.id.toString().trim().toLowerCase() ===
+          updatedSignatory.id.toString().trim().toLowerCase()
+      );
+
+      if (index !== -1) {
+        const updatedSignatories = [...prev];
+        updatedSignatories[index] = updatedSignatory;
+        return updatedSignatories;
+      } else {
+        return prev;
+      }
+    });
+  };
+
+  const { subscribe } = useWebSocket();
+  useEffect(() => {
+    subscribe("/user/queue/letter/signatory/updated", (msg: IMessage) => {
+      updateSignatories(JSON.parse(msg.body) as ISignatoryResponseDTO);
+    });
+  }, []);
+
   return (
     <div className="grid grid-cols-1 border border-gray-200 p-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 h-[400px] overflow-auto mb-4">
-      {data?.map((element, index) => (
+      {signatories?.map((element, index) => (
         <SignatoryCard
           key={index}
           id={element.id}
