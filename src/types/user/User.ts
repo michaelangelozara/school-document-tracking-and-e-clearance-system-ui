@@ -1,4 +1,4 @@
-export enum TypeOfBaseUserUser {
+export enum TypeOfBaseUser {
   STUDENT = "STUDENT",
   ACADEMIC_PERSONNEL = "ACADEMIC_PERSONNEL",
   NON_ACADEMIC_PERSONNEL = "NON_ACADEMIC_PERSONNEL",
@@ -9,7 +9,7 @@ export interface IUserSummaryResponse {
   middle_name: string;
   lastname: string;
   username: string;
-  type: TypeOfBaseUserUser;
+  type: TypeOfBaseUser;
   authorities: string[];
 }
 
@@ -24,12 +24,12 @@ export interface IUserDetailedResponse {
   firstname: string;
   middle_name: string;
   lastname: string;
+  type: TypeOfBaseUser;
   gender: Gender;
   username: string;
   contact_number: string;
   email: string;
-  profile_picture: Uint8Array;
-  create_at: string;
+  created_at: string;
   last_modified_at: string;
   authorities: string[];
 }
@@ -69,17 +69,22 @@ export interface IAcademicPersonnelResponse extends IPersonnelResponse {
   course_short_name: string;
   department_name: string;
   department_short_name: string;
+  club_name: string;
+  club_short_name: string;
 }
 
-export interface INonAcademicPersonnelResponse extends IPersonnelResponse {}
+export interface INonAcademicPersonnelResponse extends IPersonnelResponse {
+  club_name: string;
+  club_short_name: string;
+}
 
 // request
 export interface IUserRequest {
-  base_user_request_body_type: TypeOfBaseUserUser;
+  base_user_request_body_type: TypeOfBaseUser;
   firstname: string;
   middle_name: string;
   lastname: string;
-  type: TypeOfBaseUserUser;
+  type: TypeOfBaseUser;
   username: string;
   contact_number: string;
   email: string;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Loading from "../components/shared/Loading";
 
 type WithAuthorityCheckProps = {
   allowedAuthorities: string[];
@@ -16,7 +17,7 @@ const withRoleCheck = <P extends object>(
     const { user, isTokenChecking } = useAuth();
 
     if (isTokenChecking || user === null) {
-      return;
+      return <Loading />;
     }
 
     if (allowedAuthorities.length !== 0) {

@@ -48,3 +48,15 @@ export const signBySignatoryId = async (
     throw error;
   }
 };
+
+export const cancelLetterById = async (
+  apiClient: AxiosInstance,
+  id: string
+): Promise<string> => {
+  try {
+    const response = await apiClient.put(`/letters/${id}/cancel`);
+    return response.data?.message;
+  } catch (error) {
+    throw error;
+  }
+};

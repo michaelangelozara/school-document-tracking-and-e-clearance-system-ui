@@ -5,22 +5,19 @@ import EMAIL_ICON from "../../assets/icon/svg/profile_summary/email-icon-svgrepo
 import USERNAME_ICON from "../../assets/icon/svg/profile_summary/username-icon-svgrepo-com.svg";
 import CONTACT_NUMBER_ICON from "../../assets/icon/svg/profile_summary/contact-icon-svgrepo-com.svg";
 import TYPE_OF_PERSONNEL_ICON from "../../assets/icon/svg/profile_summary/type-of-personel-svgrepo-com.svg";
-import {
-  IUserSummaryResponse,
-  TypeOfBaseUserUser,
-} from "../../types/user/User";
+import { IUserSummaryResponse, TypeOfBaseUser } from "../../types/user/User";
 import { extractAuthorties, getFullName } from "../../util/UserUtil";
 
 interface Props {
   userData: IUserSummaryResponse | null;
 }
 
-const extractUserType = (type: TypeOfBaseUserUser | undefined): string => {
-  if (type === TypeOfBaseUserUser.STUDENT) {
+const extractUserType = (type: TypeOfBaseUser | undefined): string => {
+  if (type === TypeOfBaseUser.STUDENT) {
     return "Student";
-  } else if (type === TypeOfBaseUserUser.ACADEMIC_PERSONNEL) {
+  } else if (type === TypeOfBaseUser.ACADEMIC_PERSONNEL) {
     return "Academic Personnel";
-  } else if (type === TypeOfBaseUserUser.NON_ACADEMIC_PERSONNEL) {
+  } else if (type === TypeOfBaseUser.NON_ACADEMIC_PERSONNEL) {
     return "Non Academic Personnel";
   } else {
     return "Unknown";

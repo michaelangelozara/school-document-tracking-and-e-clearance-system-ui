@@ -51,9 +51,7 @@ const NavigationBar = () => {
         <Button
           label="Profile"
           icon={PROFILE_ICON}
-          onClick={() => {
-            ("");
-          }}
+          onClick={() => navigate("/user/profile")}
         />
 
         <Button

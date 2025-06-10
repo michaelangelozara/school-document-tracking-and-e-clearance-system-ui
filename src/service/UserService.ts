@@ -1,8 +1,12 @@
 import { AxiosInstance } from "axios";
 import { BaseResponse } from "../types/response/Response";
-import { IUserNameAndIdOnly } from "../types/user/User";
+import {
+  IAcademicPersonnelResponse,
+  INonAcademicPersonnelResponse,
+  IStudentResponse,
+  IUserNameAndIdOnly,
+} from "../types/user/User";
 import { PaginationResponse } from "../types/Pagination";
-import apiClient from "../api/apiClient";
 
 export const getMySignature = async (
   apiClient: AxiosInstance
@@ -33,4 +37,33 @@ export const findClubMember = async ({
     PaginationResponse<IUserNameAndIdOnly>
   >;
   return data;
+};
+
+export const meDetailed = async (
+  apiClient: AxiosInstance
+): Promise<
+  IStudentResponse | IAcademicPersonnelResponse | INonAcademicPersonnelResponse
+> => {
+  try {
+    const response = await apiClient.get("/users/me/detailed");
+    return response.data?.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const uploadProfilePicture = async (
+  apiClient: AxiosInstance,
+  profile: FormData
+): Promise<string> => {
+  try {
+    const response = await apiClient.post(`/users/profile/upload`, profile, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data?.message;
+  } catch (error) {
+    throw error;
+  }
 };

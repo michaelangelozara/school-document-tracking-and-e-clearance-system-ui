@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 import LETTER_ICON from "../../assets/icon/svg/section_card/letter-icon-svgrepo-com.svg";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PaginationButtons from "../shared/PaginationButton";
 import BUDGET_PROPOSAL_ICON from "../../assets/icon/png/budget_proposal_letter_icon.png";
 import COMMUNICATION_ICON from "../../assets/icon/png/communication_icon.png";
@@ -22,14 +22,21 @@ import { BaseResponse } from "../../types/response/Response";
 import { typeOfLetterEnumToStringURLConverter } from "../../helper/LetterHelper";
 import { useWebSocket } from "../../context/WebsocketContext";
 import { IMessage } from "@stomp/stompjs";
-import { IBaseLetterRequestDTO } from "../../types/letter/BaseLetter";
+import { cancelLetterById } from "../../service/LetterService";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/Store";
+import { open } from "../../store/slice/MessageSlice";
 
 type TablePropsType = {
-  view: (type: string, id: string) => void;
   data: IBaseLetterSummaryProjection[];
+  view: (type: string, id: string) => void;
+  edit: (type: string, id: string) => void;
+  cancel: (id: string) => void;
 };
 
-const Table = ({ view, data }: TablePropsType) => {
+const Table = ({ data, view, edit, cancel }: TablePropsType) => {
+  const { user } = useAuth();
+
   return (
     <table className="w-full border border-gray-300">
       <thead>
@@ -49,7 +56,7 @@ const Table = ({ view, data }: TablePropsType) => {
           <th className="sticky top-0 p-2 border-r border-gray-300 bg-gray-200">
             Last Modified
           </th>
-          <th className="sticky top-0 p-2 bg-gray-200">Action</th>
+          <th className="sticky top-0 p-2 bg-gray-200">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -73,7 +80,7 @@ const Table = ({ view, data }: TablePropsType) => {
                 : "N/A"}
             </td>
             <td>
-              <div className="flex justify-center">
+              <div className="flex justify-center gap-2">
                 <button
                   onClick={() =>
                     view(
@@ -81,10 +88,33 @@ const Table = ({ view, data }: TablePropsType) => {
                       element.id
                     )
                   }
-                  className="bg-primary p-1 rounded-lg font-medium text-darkContrast hover:text-white"
+                  className="bg-darkContrast p-1 rounded-lg text-white hover:bg-secondary"
                 >
                   View
                 </button>
+                {user?.type === "STUDENT" &&
+                  element.status === StatusOfBaseLetter.DRAFT && (
+                    <button
+                      onClick={() =>
+                        edit(
+                          typeOfLetterEnumToStringURLConverter(element.type),
+                          element.id
+                        )
+                      }
+                      className="bg-darkContrast p-1 rounded-lg text-white hover:bg-secondary"
+                    >
+                      Edit
+                    </button>
+                  )}
+                {user?.type === "STUDENT" &&
+                  element.status === StatusOfBaseLetter.DRAFT && (
+                    <button
+                      onClick={() => cancel(element.id)}
+                      className="bg-darkContrast p-1 rounded-lg text-white hover:bg-secondary"
+                    >
+                      Cancel
+                    </button>
+                  )}
               </div>
             </td>
           </tr>
@@ -201,7 +231,8 @@ const LetterModal = () => {
     status: "",
   });
 
-  const { apiClient } = useAuth();
+  const { apiClient, user } = useAuth();
+  const dispatch = useDispatch<AppDispatch>();
 
   // Trigger API call when searchTerm or page changes
   useEffect(() => {
@@ -233,6 +264,15 @@ const LetterModal = () => {
   const letterViewNavigationHandler = (type: string, id: string) => {
     navigate(`/letters/view/${type}/${id}`);
   };
+
+  const letterCancelHandler = async (id: string) => {
+    try {
+      const response = await cancelLetterById(apiClient, id);
+      dispatch(open(response));
+    } catch (error) {}
+  };
+
+  const letterEditHandler = (id: string) => {};
 
   const requestButtonHandler = () => {
     setIsRequestButtonClicked((v) => !v);
@@ -270,8 +310,6 @@ const LetterModal = () => {
       updateListOfLetter(JSON.parse(msg.body) as IBaseLetterSummaryProjection);
     });
   }, []);
-
-  const { user } = useAuth();
 
   return (
     <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
@@ -372,7 +410,12 @@ const LetterModal = () => {
             {isLoading ? (
               <Loading />
             ) : (
-              <Table view={letterViewNavigationHandler} data={fetchedLetter} />
+              <Table
+                edit={letterEditHandler}
+                cancel={letterCancelHandler}
+                view={letterViewNavigationHandler}
+                data={fetchedLetter}
+              />
             )}
           </div>
           <PaginationButtons

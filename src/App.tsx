@@ -6,9 +6,7 @@ import {
 } from "react-router-dom";
 import Login from "./pages/Login";
 import HomePageLayout from "./layouts/HomePageLayout";
-import ProfileInfoModal, {
-  profileLoader,
-} from "./components/modal/ProfileInfoModal";
+import Profile from "./pages/Profile";
 import Account, { accountLoader } from "./components/Account";
 import UserPageLayout from "./layouts/UserPageLayout";
 import withRoleCheck from "./auth/withRoleCheck";
@@ -34,7 +32,6 @@ import PermitToEnterLetterView from "./pages/letter/view/PermitToEnterLetterView
 import SchoolFacilityLetterView from "./pages/letter/view/SchoolFacilityLetterView";
 import ImplementationLetterInCampusView from "./pages/letter/view/ImplementationLetterInCampusView";
 import ImplementationLetterOffCampusView from "./pages/letter/view/ImplementationLetterOffCampusView";
-import ConfirmationModal from "./components/shared/ConfirmationModal";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -44,6 +41,7 @@ function App() {
 
   const ProtectedLetterLayout = withRoleCheck(LetterLayout);
   const ProtectedHomePageLayout = withRoleCheck(HomePageLayout);
+  const ProtectedProfilePageLayout = withRoleCheck(UserPageLayout);
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -132,12 +130,11 @@ function App() {
               />
             </Route>
           </Route>
-          <Route path="user" element={<UserPageLayout />}>
-            <Route
-              path="profile"
-              element={<ProfileInfoModal />}
-              loader={profileLoader}
-            />
+          <Route
+            path="user"
+            element={<ProtectedProfilePageLayout allowedAuthorities={[]} />}
+          >
+            <Route path="profile" element={<Profile />} />
             <Route
               path="account"
               element={<Account />}
