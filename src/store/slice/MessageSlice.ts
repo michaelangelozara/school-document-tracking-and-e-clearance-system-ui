@@ -17,7 +17,7 @@ const messageSlice = createSlice({
       state.isOpen = true;
       state.message = action.payload;
     },
-    close: (state, action) => {
+    close: (state) => {
       state.isOpen = false;
       state.message = "";
     },

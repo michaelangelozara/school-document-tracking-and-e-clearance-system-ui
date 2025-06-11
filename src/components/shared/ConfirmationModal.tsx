@@ -16,9 +16,9 @@ const ConfirmationModal = ({
             {message}
             <br />
             <span className="text-xs font-normal">
-              By clicking Confirm, you are agreeing that the information is
-              accurate and you approve this document for signing. This action
-              cannot be undone.
+              By clicking Confirm, you acknowledge that the information provided
+              is accurate and you authorize this action. This action is final
+              and cannot be undone.
             </span>
           </h1>
         </div>

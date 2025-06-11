@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 
 import LETTER_ICON from "../../assets/icon/svg/section_card/letter-icon-svgrepo-com.svg";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +25,8 @@ import { IMessage } from "@stomp/stompjs";
 import { cancelLetterById } from "../../service/LetterService";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/Store";
-import { open } from "../../store/slice/MessageSlice";
+import { close, open } from "../../store/slice/MessageSlice";
+import ConfirmationModal from "../shared/ConfirmationModal";
 
 type TablePropsType = {
   data: IBaseLetterSummaryProjection[];
@@ -222,6 +223,8 @@ const LetterModal = () => {
   const [isRequestButtonClicked, setIsRequestButtonClicked] =
     useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isCancelButtonClicked, setIsCancelButtonClicked] =
+    useState<boolean>(false);
 
   const [fetchedLetter, setFetchedLetter] = useState<
     IBaseLetterSummaryProjection[]
@@ -230,6 +233,7 @@ const LetterModal = () => {
     type: "",
     status: "",
   });
+  const letterIdWillBeCanceled = useRef<string | null>(null);
 
   const { apiClient, user } = useAuth();
   const dispatch = useDispatch<AppDispatch>();
@@ -265,11 +269,27 @@ const LetterModal = () => {
     navigate(`/letters/view/${type}/${id}`);
   };
 
-  const letterCancelHandler = async (id: string) => {
+  const setIdOfLetterThatWillBeCanceled = async (id: string) => {
+    letterIdWillBeCanceled.current = id;
+    setIsCancelButtonClicked(true);
+  };
+
+  const letterCancellationConfirmed = async () => {
+    if (letterIdWillBeCanceled.current === null) {
+      return;
+    }
+
     try {
-      const response = await cancelLetterById(apiClient, id);
+      const response = await cancelLetterById(
+        apiClient,
+        letterIdWillBeCanceled.current
+      );
       dispatch(open(response));
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      letterIdWillBeCanceled.current = null;
+      setIsCancelButtonClicked(false); // close the confirmation modal
+    }
   };
 
   const letterEditHandler = (id: string) => {};
@@ -412,7 +432,7 @@ const LetterModal = () => {
             ) : (
               <Table
                 edit={letterEditHandler}
-                cancel={letterCancelHandler}
+                cancel={setIdOfLetterThatWillBeCanceled}
                 view={letterViewNavigationHandler}
                 data={fetchedLetter}
               />
@@ -427,7 +447,13 @@ const LetterModal = () => {
         {isRequestButtonClicked && (
           <RequestModal onClick={requestButtonHandler} />
         )}
-        {/* <Outlet /> */}
+        {isCancelButtonClicked && (
+          <ConfirmationModal
+            message="Are you sure you want to cancel submission?"
+            cancel={() => setIsCancelButtonClicked(false)}
+            confirm={letterCancellationConfirmed}
+          />
+        )}
       </div>
     </div>
   );
