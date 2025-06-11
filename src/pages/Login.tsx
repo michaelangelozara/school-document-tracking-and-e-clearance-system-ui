@@ -11,6 +11,7 @@ import { BaseResponse } from "../types/response/Response";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store/Store";
 import { open } from "../store/slice/MessageSlice";
+import Loading from "../components/shared/Loading";
 
 const Login = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -43,7 +44,7 @@ const Login = () => {
   };
 
   if (isTokenChecking) {
-    return <div>Loading Login Page ...</div>;
+    return <Loading />;
   }
 
   if (token !== null) {
