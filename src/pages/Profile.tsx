@@ -7,7 +7,7 @@ import { getErrorMessage } from "../helper/AxiosHelper";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store/Store";
 import { open } from "../store/slice/MessageSlice";
-import { meDetailed, uploadProfilePicture } from "../service/UserService";
+import { meDetailed } from "../service/UserService";
 import { useAuth } from "../context/AuthContext";
 import {
   IAcademicPersonnelResponse,
@@ -15,7 +15,7 @@ import {
   IStudentResponse,
 } from "../types/user/User";
 import { extractFullName } from "../helper/UserHelper";
-import AcademicInfo from "../components/infrastructure/profile/AcademicInfo";
+import AcademicInfo from "../components/infrastructure/factory/profile/AcademicInfo";
 
 const Profile = () => {
   const [isImageCropperOpen, setIsImageCropperOpen] = useState<boolean>(false);

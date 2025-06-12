@@ -25,8 +25,9 @@ import { IMessage } from "@stomp/stompjs";
 import { cancelLetterById } from "../../service/LetterService";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/Store";
-import { close, open } from "../../store/slice/MessageSlice";
+import { open } from "../../store/slice/MessageSlice";
 import ConfirmationModal from "../shared/ConfirmationModal";
+import { getErrorMessage } from "../../helper/AxiosHelper";
 
 type TablePropsType = {
   data: IBaseLetterSummaryProjection[];
@@ -285,7 +286,11 @@ const LetterModal = () => {
         letterIdWillBeCanceled.current
       );
       dispatch(open(response));
-    } catch (error) {
+    } catch (error: any) {
+      if (error.status === 404 || error.status === 403) {
+        const errorMessage = getErrorMessage(error);
+        dispatch(open(errorMessage));
+      }
     } finally {
       letterIdWillBeCanceled.current = null;
       setIsCancelButtonClicked(false); // close the confirmation modal

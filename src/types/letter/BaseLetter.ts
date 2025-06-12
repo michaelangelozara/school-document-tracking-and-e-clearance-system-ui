@@ -41,9 +41,13 @@ export interface IBaseLetterResponseDTO {
   status: StatusOfBaseLetter | undefined;
   type: TypeOfBaseLetter | undefined;
   current_signatories: ISignatoryResponseDTO[];
-  reason_of_rejection: string;
   semester_and_school_year: string;
   created_at: string;
   last_modified_at: string;
   club_name: string;
+}
+
+export interface IRejectionResponseDTO {
+  rejection_by: string;
+  reason_of_rejection: string;
 }

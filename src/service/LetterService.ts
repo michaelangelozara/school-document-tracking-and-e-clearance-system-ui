@@ -2,6 +2,7 @@ import { AxiosInstance } from "axios";
 import {
   IBaseLetterRequestDTO,
   IBaseLetterResponseDTO,
+  IRejectionResponseDTO,
 } from "../types/letter/BaseLetter";
 import { BaseResponse } from "../types/response/Response";
 
@@ -56,6 +57,33 @@ export const cancelLetterById = async (
   try {
     const response = await apiClient.put(`/letters/${id}/cancel`);
     return response.data?.message;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const rejectLetterById = async (
+  apiClient: AxiosInstance,
+  id: string,
+  reasonOfRejection: string | null
+): Promise<string> => {
+  try {
+    const response = await apiClient.put(`/letters/${id}/reject`, {
+      reasonOfRejection: reasonOfRejection,
+    });
+    return response.data?.message;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getRejectionByLetterId = async (
+  apiClient: AxiosInstance,
+  id: string
+): Promise<IRejectionResponseDTO | null> => {
+  try {
+    const response = await apiClient.get(`/letters/${id}/request-rejection`);
+    return response.data.data;
   } catch (error) {
     throw error;
   }

@@ -5,21 +5,7 @@ import {
   INonAcademicPersonnelResponse,
   IStudentResponse,
   TypeOfBaseUser,
-} from "../../../types/user/User";
-
-// Define the props type that all academic info components will receive
-type AcademicInfoComponentProps =
-  | IStudentResponse
-  | IAcademicPersonnelResponse
-  | INonAcademicPersonnelResponse
-  | null;
-
-// Create a type that maps user types to their corresponding props
-type ComponentMap = {
-  [TypeOfBaseUser.STUDENT]: React.ComponentType<IStudentResponse>;
-  [TypeOfBaseUser.ACADEMIC_PERSONNEL]: React.ComponentType<IAcademicPersonnelResponse>;
-  [TypeOfBaseUser.NON_ACADEMIC_PERSONNEL]: React.ComponentType<INonAcademicPersonnelResponse>;
-};
+} from "../../../../types/user/User";
 
 const StudentAcademicInfo = (data: IStudentResponse) => {
   return (
@@ -104,6 +90,20 @@ const NonAcademicPersonnelAcademicInfo = (
       </div>
     </div>
   );
+};
+
+// Define the props type that all academic info components will receive
+type AcademicInfoComponentProps =
+  | IStudentResponse
+  | IAcademicPersonnelResponse
+  | INonAcademicPersonnelResponse
+  | null;
+
+// Create a type that maps user types to their corresponding props
+type ComponentMap = {
+  [TypeOfBaseUser.STUDENT]: React.ComponentType<IStudentResponse>;
+  [TypeOfBaseUser.ACADEMIC_PERSONNEL]: React.ComponentType<IAcademicPersonnelResponse>;
+  [TypeOfBaseUser.NON_ACADEMIC_PERSONNEL]: React.ComponentType<INonAcademicPersonnelResponse>;
 };
 
 // Create the component factory map
