@@ -44,21 +44,11 @@ const CommunicatioLetterView = () => {
     type_of_communication_letter: undefined,
   });
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const navivage = useNavigate();
-
-  const [isRejecting, setIsRejecting] = useState<boolean>();
-  const [reasonOfRejection, setReasonOfRejection] = useState<string | null>(
-    null
-  );
-
-  const reasonOfRejectionHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setReasonOfRejection(e.target.value);
-  };
 
   const { id } = useParams();
 
   const dispatch = useDispatch<AppDispatch>();
-  const { apiClient, user } = useAuth();
+  const { apiClient } = useAuth();
   useEffect(() => {
     const controller = new AbortController();
     const fetchDate = async () => {
@@ -82,29 +72,6 @@ const CommunicatioLetterView = () => {
 
     return () => controller.abort();
   }, [id]);
-
-  const rejectionConfirmed = async () => {
-    try {
-      const response = await rejectLetterById(
-        apiClient,
-        letter.id,
-        reasonOfRejection
-      );
-      dispatch(open(response));
-    } catch (error: any) {
-      if (
-        error.status === 400 ||
-        error.status === 404 ||
-        error.status === 403
-      ) {
-        const errorMessage = getErrorMessage(error);
-        dispatch(open(errorMessage));
-      }
-    } finally {
-      setIsRejecting(false);
-      setReasonOfRejection(null);
-    }
-  };
 
   const updateLetter = (updatedLetter: IBaseLetterSummaryProjection) => {
     setLetter((prev) => ({

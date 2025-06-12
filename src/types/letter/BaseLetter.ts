@@ -48,6 +48,6 @@ export interface IBaseLetterResponseDTO {
 }
 
 export interface IRejectionResponseDTO {
-  rejection_by: string;
+  rejected_by: string;
   reason_of_rejection: string;
 }

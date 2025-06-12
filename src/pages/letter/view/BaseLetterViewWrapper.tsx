@@ -1,17 +1,25 @@
-import React, { ChangeEvent, useState } from "react";
-import { IBaseLetterResponseDTO } from "../../../types/letter/BaseLetter";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import {
+  IBaseLetterResponseDTO,
+  IRejectionResponseDTO,
+  StatusOfBaseLetter,
+} from "../../../types/letter/BaseLetter";
 import { useAuth } from "../../../context/AuthContext";
 import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
 import LetterRejectButton from "../../../components/button/LetterRejectButton";
 import SignatoryCardContainer from "../../../components/signatory/SignatoryCardContainer";
 import { useNavigate } from "react-router-dom";
 import LetterRejectionModal from "../../../components/letter/LetterRejectionModal";
-import { rejectLetterById } from "../../../service/LetterService";
+import {
+  getRejectionByLetterId,
+  rejectLetterById,
+} from "../../../service/LetterService";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/Store";
 import { open } from "../../../store/slice/MessageSlice";
 import { getErrorMessage } from "../../../helper/AxiosHelper";
 import LetterInfoFactory from "../../../components/infrastructure/factory/letter/view/LetterInfoFactory";
+import LetterRejectionCard from "../../../components/letter/LetterRejectionCard";
 
 type BaseLetterWrapperPropsType<T extends IBaseLetterResponseDTO> = {
   letter: T;
@@ -20,6 +28,8 @@ type BaseLetterWrapperPropsType<T extends IBaseLetterResponseDTO> = {
 const BaseLetterWrapper = <T extends IBaseLetterResponseDTO>({
   letter,
 }: BaseLetterWrapperPropsType<T>) => {
+  const [letterRejection, setLetterRejection] =
+    useState<IRejectionResponseDTO | null>(null);
   const [isRejecting, setIsRejecting] = useState<boolean>(false);
   const [reasonOfRejection, setReasonOfRejection] = useState<string | null>(
     null
@@ -55,6 +65,21 @@ const BaseLetterWrapper = <T extends IBaseLetterResponseDTO>({
       setReasonOfRejection(null);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getRejectionByLetterId(apiClient, letter.id);
+        setLetterRejection(response);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (letter.id !== "" && letter.status === StatusOfBaseLetter.REJECTED) {
+      fetchData();
+    }
+  }, [letter.id]);
 
   return (
     <div className="bg-background p-2">
@@ -106,6 +131,10 @@ const BaseLetterWrapper = <T extends IBaseLetterResponseDTO>({
             </div>
           )}
         </div>
+
+        {letter.status === StatusOfBaseLetter.REJECTED && letterRejection && (
+          <LetterRejectionCard letterRejection={letterRejection} />
+        )}
 
         {isRejecting && (
           <LetterRejectionModal
