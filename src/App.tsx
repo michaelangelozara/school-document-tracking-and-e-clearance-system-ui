@@ -12,11 +12,11 @@ import UserPageLayout from "./layouts/UserPageLayout";
 import withRoleCheck from "./auth/withRoleCheck";
 import PageNotFound from "./pages/PageNotFound";
 import Unauthorized from "./pages/Unauthorized";
-import DepartmentModal from "./components/modal/DepartmentModal";
-import CourseModal from "./components/modal/CourseModal";
-import ClearanceModal from "./components/modal/ClearanceModal";
-import LetterModal from "./components/modal/LetterModal";
-import MyClearanceModal from "./components/modal/MyClearanceModal";
+import DepartmentModal from "./components/home-modal/DepartmentModal";
+import CourseModal from "./components/home-modal/CourseModal";
+import ClearanceModal from "./components/home-modal/ClearanceModal";
+import LetterModal from "./components/home-modal/LetterModal";
+import MyClearanceModal from "./components/home-modal/MyClearanceModal";
 
 import LetterLayout from "./layouts/LetterLayout";
 import BudgetProposal from "./pages/letter/BudgetProposal";

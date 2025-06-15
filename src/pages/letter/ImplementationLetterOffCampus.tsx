@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
-import LetterHeader from "../../components/letter/LetterHeader";
+import LetterHeader from "../../components/letter/apply-update-header/LetterHeader";
 import SignatureCard from "../../components/signature/SignatureCard";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
 import EDIT_ICON from "../../assets/icon/svg/letter/edit-pensil-svgrepo-com.svg";

@@ -1,5 +1,4 @@
-import React from "react";
-import NDTC_LOGO from "../../assets/icon/png/NDTC-300x279.png";
+import NDTC_LOGO from "../../../assets/icon/png/NDTC-300x279.png";
 
 type LetterHeaderPropsType = {
   title: string;

@@ -3,7 +3,7 @@ import { IPermitToEnterRequestDTO } from "../../types/letter/PermitToEnter";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import { IUserNameAndIdOnly } from "../../types/user/User";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
-import LetterHeader from "../../components/letter/LetterHeader";
+import LetterHeader from "../../components/letter/apply-update-header/LetterHeader";
 import UserSearchedCard from "../../components/letter/UserSearchedCard";
 import { useAuth } from "../../context/AuthContext";
 import { debounce } from "lodash";

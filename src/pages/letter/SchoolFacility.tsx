@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useRef, useState } from "react";
-import LetterHeader from "../../components/letter/LetterHeader";
+import LetterHeader from "../../components/letter/apply-update-header/LetterHeader";
 import {
   ISchoolFacilityRequestDTO,
   IFacilityOrEquipment,

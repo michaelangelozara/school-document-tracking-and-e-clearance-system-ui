@@ -6,7 +6,7 @@ import {
 import CancelApplyButton from "../../components/button/CancelApplyButton";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import SignatureCard from "../../components/signature/SignatureCard";
-import LetterHeader from "../../components/letter/LetterHeader";
+import LetterHeader from "../../components/letter/apply-update-header/LetterHeader";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/Store";
 import { open } from "../../store/slice/MessageSlice";

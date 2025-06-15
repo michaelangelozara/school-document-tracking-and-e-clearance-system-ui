@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
-import LetterHeader from "../../components/letter/LetterHeader";
+import LetterHeader from "../../components/letter/apply-update-header/LetterHeader";
 import SignatureCard from "../../components/signature/SignatureCard";
 import { IImplementationLetterInCampusRequestDTO } from "../../types/letter/ImplementationLetterInCampus";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
