@@ -1,13 +1,6 @@
-import React, { ChangeEvent, useRef, useState } from "react";
-import LetterHeader from "../../components/letter/apply-update-header/LetterHeader";
-import {
-  ISchoolFacilityRequestDTO,
-  IFacilityOrEquipment,
-} from "../../types/letter/SchoolFacility";
+import { useState } from "react";
+import { ISchoolFacilityRequestDTO } from "../../types/letter/SchoolFacility";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
-import REMOVE_ICON from "../../assets/icon/svg/letter/remove-svgrepo-com.svg";
-import CancelApplyButton from "../../components/button/CancelApplyButton";
-import SignatureCard from "../../components/signature/SignatureCard";
 import { useAuth } from "../../context/AuthContext";
 import { AppDispatch, RootState } from "../../store/Store";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,42 +8,7 @@ import { open } from "../../store/slice/MessageSlice";
 import { applying, stopApplying } from "../../store/slice/LetterSlice";
 import { getErrorMessage } from "../../helper/AxiosHelper";
 import { apply } from "../../service/LetterService";
-
-type SelectedItemPropsType = {
-  index: number;
-  name: string;
-  quantity: number;
-  removeItem: (index: number) => void;
-};
-const SelectedItemCard = ({
-  index,
-  name,
-  quantity,
-  removeItem,
-}: SelectedItemPropsType) => {
-  return (
-    <div className="flex flex-col gap-2">
-      <div className="flex w-full gap-2">
-        <div className="w-[50%]">
-          <h1 className="border w-full border-gray-200 rounded-md p-1 pl-1 placeholder:text-gray-400 outline-darkContrast">
-            {name}
-          </h1>
-        </div>
-        <div className="flex items-center w-[50%]">
-          <h1 className="border w-[70%] border-gray-200 rounded-md p-1 pl-1 placeholder:text-gray-400 outline-darkContrast">
-            {quantity}
-          </h1>
-          <div
-            onClick={() => removeItem(index)}
-            className="flex-1 flex w-auto justify-center items-center"
-          >
-            <img className="size-6" src={REMOVE_ICON} alt="Remove Icon" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import SchoolFacilityForm from "../../components/letter/apply-update-form/SchoolFacilityForm";
 
 const SchoolFacility = () => {
   const [schoolFacility, setSchoolFacility] =
@@ -62,49 +20,6 @@ const SchoolFacility = () => {
       time: "",
       facility_or_equipments: [],
     });
-
-  const [equipment, setEquipment] = useState<IFacilityOrEquipment>({
-    name: "",
-    quantity: 0,
-  });
-
-  const addEquipment = () => {
-    if (equipment.name === "" || equipment.quantity === 0) {
-      return;
-    }
-
-    setSchoolFacility((prev) => ({
-      ...prev,
-      facility_or_equipments: [...prev.facility_or_equipments, equipment],
-    }));
-
-    // reset the state
-    setEquipment({
-      name: "",
-      quantity: 0,
-    });
-  };
-
-  const removeEquipment = (i: number) => {
-    setSchoolFacility((prev) => ({
-      ...prev,
-      facility_or_equipments: prev.facility_or_equipments.filter(
-        (_, index) => index !== i
-      ),
-    }));
-  };
-
-  const venueHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setSchoolFacility((prev) => ({ ...prev, venue: e.target.value }));
-  };
-
-  const dateHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setSchoolFacility((prev) => ({ ...prev, date: e.target.value }));
-  };
-
-  const timeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setSchoolFacility((prev) => ({ ...prev, time: e.target.value }));
-  };
 
   const reset = () => {
     setSchoolFacility({
@@ -143,187 +58,11 @@ const SchoolFacility = () => {
   };
 
   return (
-    <div className="bg-background p-3">
-      <div className="flex flex-col rounded-md gap-4 p-2 bg-white text-darkContrast overflow-auto lg:text-md">
-        <LetterHeader title="School Facility Letter Application" />
-        <div className="flex flex-col gap-2 overflow-auto">
-          <div>
-            <h1>Venue</h1>
-            <input
-              value={schoolFacility.venue || ""}
-              onChange={venueHandler}
-              type="text"
-              className="w-[85%] border border-gray-200 rounded-md pl-2 placeholder:text-gray-400 outline-darkContrast md:h-[var(--input-height-md)]"
-            />
-          </div>
-          <div>
-            <h1>Date & Time</h1>
-            <div className="flex gap-2">
-              <input
-                onChange={dateHandler}
-                value={schoolFacility.date || ""}
-                className="border p-1 border-gray-200 rounded-md outline-darkContrast md:h-[var(--input-height-md)]"
-                type="date"
-              />
-              <input
-                onChange={timeHandler}
-                value={schoolFacility.time || ""}
-                className="border p-1 border-gray-200 rounded-md outline-darkContrast md:h-[var(--input-height-md)]"
-                type="time"
-              />
-            </div>
-          </div>
-          <div className="flex flex-col">
-            <h1 className="text-center font-semibold md:font-bold md:text-[1.2rem]">
-              Facility/Equipment
-            </h1>
-            <div className="border border-gray-300 h-[6rem] md:h-[10rem] overflow-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-gray-300 md:text-md">
-                    <th className="sticky top-0 bg-gray-300 border-r border-gray-400">
-                      Name
-                    </th>
-                    <th className="sticky top-0 bg-gray-300 border-r border-gray-400">
-                      Amount
-                    </th>
-                    <th className="sticky top-0 bg-gray-300 border-r border-gray-400">
-                      Action
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="border border-gray-300">
-                  <tr className="text-nowrap">
-                    <td className="border-r border-gray-300">
-                      <input
-                        value={equipment.name || ""}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setEquipment((prev) => ({
-                            ...prev,
-                            name: e.target.value,
-                          }))
-                        }
-                        className="border pl-2 border-gray-200 w-full placeholder:text-gray-400 outline-darkContrast md:h-[var(--input-height-md)] md:text-[1.2rem]"
-                      />
-                    </td>
-                    <td className="border-r border-gray-300">
-                      <input
-                        value={equipment.quantity || ""}
-                        type="number"
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                          setEquipment((prev) => ({
-                            ...prev,
-                            quantity: Number(e.target.value),
-                          }))
-                        }
-                        className="border pl-2 border-gray-200 w-full placeholder:text-gray-400 outline-darkContrast md:h-[var(--input-height-md)] md:text-[1.2rem]"
-                      />
-                    </td>
-                    <td className="flex border-b border-b-gray-200 justify-center items-center md:h-[var(--input-height-md)]">
-                      <button
-                        onClick={addEquipment}
-                        className="text-darkContrast underline"
-                      >
-                        Add
-                      </button>
-                    </td>
-                  </tr>
-                  {schoolFacility?.facility_or_equipments?.map(
-                    (element, index) => (
-                      <tr
-                        key={index}
-                        className="text-nowrap md:text-md md:h-[var(--input-height-md)]"
-                      >
-                        <td className="pl-2 border-r border-b border-gray-300 md:text-[1.2rem]">
-                          {element.name}
-                        </td>
-                        <td className="pl-2 border-r border-b border-gray-300 md:text-[1.2rem]">
-                          {element.quantity}
-                        </td>
-                        <td className="flex justify-center items-center border-b border-gray-300">
-                          <button
-                            onClick={() => removeEquipment(index)}
-                            className="text-darkContrast underline md:h-[2.5rem]"
-                          >
-                            Remove
-                          </button>
-                        </td>
-                      </tr>
-                    )
-                  )}
-                </tbody>
-              </table>
-            </div>
-          </div>
-          {/* <div className="flex flex-col gap-2 h-[320px] mt-4">
-            <h1 className="mb-1 font-semibold">Facilities/Equipment</h1>
-            <div className="border border-gray-200">
-              <div className="flex gap-2">
-                <div className="w-[50%]">
-                  <h1>Name</h1>
-                </div>
-                <div className="w-[50%]">
-                  <h1>Quantity</h1>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2 h-[200px] overflow-auto">
-                {schoolFacility?.facility_or_equipments?.map(
-                  (element, index) => (
-                    <SelectedItemCard
-                      index={index}
-                      name={element.name}
-                      quantity={element.quantity}
-                      removeItem={() => removeEquipment(index)}
-                    />
-                  )
-                )}
-
-                <div className="flex flex-col gap-2">
-                  <div className="flex w-full gap-2">
-                    <div className="w-[50%]">
-                      <input
-                        value={equipment.name || ""}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                          setEquipment((prev) => ({
-                            ...prev,
-                            name: e.target.value,
-                          }))
-                        }
-                        type="text"
-                        className="border w-full border-gray-200 rounded-md p-1 pl-1 placeholder:text-gray-400 outline-darkContrast"
-                      />
-                    </div>
-                    <div className="flex items-center w-[50%]">
-                      <input
-                        value={equipment.quantity || ""}
-                        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                          setEquipment((prev) => ({
-                            ...prev,
-                            quantity: Number(e.target.value),
-                          }))
-                        }
-                        type="number"
-                        className="border w-[70%] border-gray-200 rounded-md p-1 pl-1 placeholder:text-gray-400 outline-darkContrast"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <button
-              onClick={addEquipment}
-              className="bg-secondary text-nowrap w-[5rem] p-1 rounded-md hover:bg-primary"
-            >
-              Add Item
-            </button>
-          </div> */}
-          <SignatureCard />
-          <CancelApplyButton apply={submit} />
-        </div>
-      </div>
-    </div>
+    <SchoolFacilityForm
+      schoolFacility={schoolFacility}
+      setSchoolFacility={setSchoolFacility}
+      onSubmit={submit}
+    />
   );
 };
 
