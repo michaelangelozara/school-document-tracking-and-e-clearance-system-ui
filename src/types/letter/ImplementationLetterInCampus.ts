@@ -1,5 +1,5 @@
 import { IBaseLetterRequestDTO, IBaseLetterResponseDTO } from "./BaseLetter";
-export interface IImplementationLetterInCampusRequest
+export interface IImplementationLetterInCampusRequestDTO
   extends IBaseLetterRequestDTO {
   name_of_activity: string;
   venue: string;

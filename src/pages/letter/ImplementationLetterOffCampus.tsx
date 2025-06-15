@@ -6,7 +6,7 @@ import EDIT_ICON from "../../assets/icon/svg/letter/edit-pensil-svgrepo-com.svg"
 import REMOVE_ICON from "../../assets/icon/svg/letter/remove-svgrepo-com.svg";
 import {
   ICommittee,
-  IImplementationLetterOffCampus,
+  IImplementationLetterOffCampusRequestDTO,
 } from "../../types/letter/ImplementationLetterOffCampus";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import { IUserNameAndIdOnly } from "../../types/user/User";
@@ -373,7 +373,7 @@ const AssigningActivityModal = ({
 
 const ImplementationLetterOffCampus = () => {
   const [implementationLetter, setImplementationLetter] =
-    useState<IImplementationLetterOffCampus>({
+    useState<IImplementationLetterOffCampusRequestDTO>({
       base_letter_request_body_type:
         TypeOfBaseLetter.IMPLEMENTATION_LETTER_OFF_CAMPUS,
       type: TypeOfBaseLetter.IMPLEMENTATION_LETTER_OFF_CAMPUS,

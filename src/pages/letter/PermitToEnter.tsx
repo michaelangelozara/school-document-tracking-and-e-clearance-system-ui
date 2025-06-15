@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
-import { IPermitToEnter } from "../../types/letter/PermitToEnter";
+import { IPermitToEnterRequestDTO } from "../../types/letter/PermitToEnter";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import { IUserNameAndIdOnly } from "../../types/user/User";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
@@ -19,7 +19,7 @@ import { open } from "../../store/slice/MessageSlice";
 import SignatureCard from "../../components/signature/SignatureCard";
 
 const PermitToEnter = () => {
-  const [permitToEnter, setPermitToEnter] = useState<IPermitToEnter>({
+  const [permitToEnter, setPermitToEnter] = useState<IPermitToEnterRequestDTO>({
     base_letter_request_body_type: TypeOfBaseLetter.PERMIT_TO_ENTER_LETTER,
     type: TypeOfBaseLetter.PERMIT_TO_ENTER_LETTER,
     activity: "",

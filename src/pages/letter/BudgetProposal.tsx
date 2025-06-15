@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import {
-  IBudgetProposalRequest,
-  IExpectedExpensesRequest,
+  IBudgetProposalRequestDTO,
+  IExpectedExpensesRequestDTO,
 } from "../../types/letter/BudgetProposal";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
@@ -16,17 +16,18 @@ import { useAuth } from "../../context/AuthContext";
 import { getErrorMessage } from "../../helper/AxiosHelper";
 
 const BudgetProposal = () => {
-  const [budgetProposal, setBudgetProposal] = useState<IBudgetProposalRequest>({
-    base_letter_request_body_type: TypeOfBaseLetter.BUDGET_PROPOSAL_LETTER,
-    type: TypeOfBaseLetter.BUDGET_PROPOSAL_LETTER,
-    name_of_activity: "",
-    venue: "",
-    source_of_fund: "",
-    amount_allotted: 0,
-    expected_expenses: [],
-  });
+  const [budgetProposal, setBudgetProposal] =
+    useState<IBudgetProposalRequestDTO>({
+      base_letter_request_body_type: TypeOfBaseLetter.BUDGET_PROPOSAL_LETTER,
+      type: TypeOfBaseLetter.BUDGET_PROPOSAL_LETTER,
+      name_of_activity: "",
+      venue: "",
+      source_of_fund: "",
+      amount_allotted: 0,
+      expected_expenses: [],
+    });
   const [expectedExpense, setExpectedExpense] =
-    useState<IExpectedExpensesRequest>({
+    useState<IExpectedExpensesRequestDTO>({
       name: "",
       amount: 0,
     });

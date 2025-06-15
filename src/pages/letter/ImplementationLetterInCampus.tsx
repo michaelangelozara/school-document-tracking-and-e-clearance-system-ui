@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useRef, useState } from "react";
 import CancelApplyButton from "../../components/button/CancelApplyButton";
 import LetterHeader from "../../components/letter/LetterHeader";
 import SignatureCard from "../../components/signature/SignatureCard";
-import { IImplementationLetterInCampusRequest } from "../../types/letter/ImplementationLetterInCampus";
+import { IImplementationLetterInCampusRequestDTO } from "../../types/letter/ImplementationLetterInCampus";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
 import { IUserNameAndIdOnly } from "../../types/user/User";
 import UserSearchedCard from "../../components/letter/UserSearchedCard";
@@ -20,7 +20,7 @@ import { findClubMember } from "../../service/UserService";
 
 const ImplementationLetterInCampus = () => {
   const [implementationLetter, setImplementationLetter] =
-    useState<IImplementationLetterInCampusRequest>({
+    useState<IImplementationLetterInCampusRequestDTO>({
       base_letter_request_body_type:
         TypeOfBaseLetter.IMPLEMENTATION_LETTER_IN_CAMPUS,
       type: TypeOfBaseLetter.IMPLEMENTATION_LETTER_IN_CAMPUS,

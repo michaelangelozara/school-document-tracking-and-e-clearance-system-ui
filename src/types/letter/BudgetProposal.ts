@@ -1,14 +1,14 @@
 import { IBaseLetterRequestDTO, IBaseLetterResponseDTO } from "./BaseLetter";
 
-export interface IBudgetProposalRequest extends IBaseLetterRequestDTO {
+export interface IBudgetProposalRequestDTO extends IBaseLetterRequestDTO {
   name_of_activity: string;
   venue: string;
   source_of_fund: string;
   amount_allotted: number;
-  expected_expenses: IExpectedExpensesRequest[];
+  expected_expenses: IExpectedExpensesRequestDTO[];
 }
 
-export interface IExpectedExpensesRequest {
+export interface IExpectedExpensesRequestDTO {
   name: string;
   amount: number;
 }

@@ -5,7 +5,7 @@ export enum TypeOfCommunicationLetter {
   OFF_CAMPUS = "OFF_CAMPUS",
 }
 
-export interface ICommunicationLetterRequest extends IBaseLetterRequestDTO {
+export interface ICommunicationLetterRequestDTO extends IBaseLetterRequestDTO {
   date: string; // this must be formatted like this (i.g. yyyy-mm-dd)
   content: string;
   type_of_communication_letter: TypeOfCommunicationLetter;

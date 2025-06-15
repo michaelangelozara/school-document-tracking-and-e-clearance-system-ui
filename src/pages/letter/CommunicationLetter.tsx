@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 
 import {
-  ICommunicationLetterRequest,
+  ICommunicationLetterRequestDTO,
   TypeOfCommunicationLetter,
 } from "../../types/letter/CommunicationLetter";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
@@ -19,7 +19,7 @@ import { getErrorMessage } from "../../helper/AxiosHelper";
 const CommunicationLetter = () => {
   const { apiClient } = useAuth();
   const [communicationLetter, setCommunicationLetter] =
-    useState<ICommunicationLetterRequest>({
+    useState<ICommunicationLetterRequestDTO>({
       base_letter_request_body_type: TypeOfBaseLetter.COMMUNICATION_LETTER,
       type: TypeOfBaseLetter.COMMUNICATION_LETTER,
       date: "",

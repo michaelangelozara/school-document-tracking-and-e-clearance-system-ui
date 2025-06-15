@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useRef, useState } from "react";
 import LetterHeader from "../../components/letter/LetterHeader";
 import {
-  ISchoolFacility,
+  ISchoolFacilityRequestDTO,
   IFacilityOrEquipment,
 } from "../../types/letter/SchoolFacility";
 import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
@@ -53,14 +53,15 @@ const SelectedItemCard = ({
 };
 
 const SchoolFacility = () => {
-  const [schoolFacility, setSchoolFacility] = useState<ISchoolFacility>({
-    base_letter_request_body_type: TypeOfBaseLetter.SCHOOL_FACILITY_LETTER,
-    type: TypeOfBaseLetter.SCHOOL_FACILITY_LETTER,
-    venue: "",
-    date: "",
-    time: "",
-    facility_or_equipments: [],
-  });
+  const [schoolFacility, setSchoolFacility] =
+    useState<ISchoolFacilityRequestDTO>({
+      base_letter_request_body_type: TypeOfBaseLetter.SCHOOL_FACILITY_LETTER,
+      type: TypeOfBaseLetter.SCHOOL_FACILITY_LETTER,
+      venue: "",
+      date: "",
+      time: "",
+      facility_or_equipments: [],
+    });
 
   const [equipment, setEquipment] = useState<IFacilityOrEquipment>({
     name: "",
