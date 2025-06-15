@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import {
-  IBudgetProposalRequestDTO,
+  IBudgetProposalApplyRequestDTO,
   IExpectedExpensesRequestDTO,
 } from "../../../types/letter/BudgetProposal";
 import LetterHeader from "../apply-update-header/LetterHeader";
@@ -8,9 +8,9 @@ import SignatureCard from "../../signature/SignatureCard";
 import CancelApplyButton from "../../button/CancelApplyButton";
 
 type BudgetProposalFormPropsType = {
-  budgetProposal: IBudgetProposalRequestDTO;
+  budgetProposal: IBudgetProposalApplyRequestDTO;
   setBudgetProposal: React.Dispatch<
-    React.SetStateAction<IBudgetProposalRequestDTO>
+    React.SetStateAction<IBudgetProposalApplyRequestDTO>
   >;
   onSubmit: () => void;
 };

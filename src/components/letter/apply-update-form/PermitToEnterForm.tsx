@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { IPermitToEnterRequestDTO } from "../../../types/letter/PermitToEnter";
+import { IPermitToEnterApplyRequestDTO } from "../../../types/letter/PermitToEnter";
 import CancelApplyButton from "../../button/CancelApplyButton";
 import SignatureCard from "../../signature/SignatureCard";
 import { IUserNameAndIdOnly } from "../../../types/user/User";
@@ -12,9 +12,9 @@ import UserSearchedCard from "../UserSearchedCard";
 import PaginationButton from "../../shared/PaginationButton";
 
 type PermitToEnterPropsType = {
-  permitToEnter: IPermitToEnterRequestDTO;
+  permitToEnter: IPermitToEnterApplyRequestDTO;
   setPermitToEnter: React.Dispatch<
-    React.SetStateAction<IPermitToEnterRequestDTO>
+    React.SetStateAction<IPermitToEnterApplyRequestDTO>
   >;
   studentMap: React.RefObject<Map<string, IUserNameAndIdOnly>>;
   onSubmit: () => void;

@@ -1,6 +1,10 @@
-import { IBaseLetterRequestDTO, IBaseLetterResponseDTO } from "./BaseLetter";
+import {
+  IBaseLetterApplyRequestDTO,
+  IBaseLetterResponseDTO,
+} from "./BaseLetter";
 
-export interface IBudgetProposalRequestDTO extends IBaseLetterRequestDTO {
+export interface IBudgetProposalApplyRequestDTO
+  extends IBaseLetterApplyRequestDTO {
   name_of_activity: string;
   venue: string;
   source_of_fund: string;

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import LetterHeader from "../apply-update-header/LetterHeader";
-import { IImplementationLetterInCampusRequestDTO } from "../../../types/letter/ImplementationLetterInCampus";
+import { IImplementationLetterInCampusApplyRequestDTO } from "../../../types/letter/ImplementationLetterInCampus";
 import CancelApplyButton from "../../button/CancelApplyButton";
 import SignatureCard from "../../signature/SignatureCard";
 import { IUserNameAndIdOnly } from "../../../types/user/User";
@@ -11,9 +11,9 @@ import { Page } from "../../../types/Pagination";
 import UserSearchedCard from "../UserSearchedCard";
 
 type ImplementationInCampusFormPropsType = {
-  implementationLetter: IImplementationLetterInCampusRequestDTO;
+  implementationLetter: IImplementationLetterInCampusApplyRequestDTO;
   setImplementationLetter: React.Dispatch<
-    React.SetStateAction<IImplementationLetterInCampusRequestDTO>
+    React.SetStateAction<IImplementationLetterInCampusApplyRequestDTO>
   >;
   onsubmit: () => void;
   studentMap: React.RefObject<Map<string, IUserNameAndIdOnly>>;

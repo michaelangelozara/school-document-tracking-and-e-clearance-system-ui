@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ISchoolFacilityRequestDTO } from "../../../types/letter/SchoolFacility";
+import { ISchoolFacilityApplyRequestDTO } from "../../../types/letter/SchoolFacility";
 import { TypeOfBaseLetter } from "../../../types/letter/BaseLetter";
 import { useAuth } from "../../../context/AuthContext";
 import { AppDispatch, RootState } from "../../../store/Store";
@@ -12,7 +12,7 @@ import SchoolFacilityForm from "../../../components/letter/apply-update-form/Sch
 
 const SchoolFacility = () => {
   const [schoolFacility, setSchoolFacility] =
-    useState<ISchoolFacilityRequestDTO>({
+    useState<ISchoolFacilityApplyRequestDTO>({
       base_letter_request_body_type: TypeOfBaseLetter.SCHOOL_FACILITY_LETTER,
       type: TypeOfBaseLetter.SCHOOL_FACILITY_LETTER,
       venue: "",

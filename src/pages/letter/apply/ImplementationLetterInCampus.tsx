@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { IImplementationLetterInCampusRequestDTO } from "../../../types/letter/ImplementationLetterInCampus";
+import { IImplementationLetterInCampusApplyRequestDTO } from "../../../types/letter/ImplementationLetterInCampus";
 import { TypeOfBaseLetter } from "../../../types/letter/BaseLetter";
 import { IUserNameAndIdOnly } from "../../../types/user/User";
 import { useAuth } from "../../../context/AuthContext";
@@ -13,7 +13,7 @@ import ImplementationInCampusForm from "../../../components/letter/apply-update-
 
 const ImplementationLetterInCampus = () => {
   const [implementationLetter, setImplementationLetter] =
-    useState<IImplementationLetterInCampusRequestDTO>({
+    useState<IImplementationLetterInCampusApplyRequestDTO>({
       base_letter_request_body_type:
         TypeOfBaseLetter.IMPLEMENTATION_LETTER_IN_CAMPUS,
       type: TypeOfBaseLetter.IMPLEMENTATION_LETTER_IN_CAMPUS,

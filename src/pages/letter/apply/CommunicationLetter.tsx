@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 
 import {
-  ICommunicationLetterRequestDTO,
+  ICommunicationLetterApplyRequestDTO,
   TypeOfCommunicationLetter,
 } from "../../../types/letter/CommunicationLetter";
 import { TypeOfBaseLetter } from "../../../types/letter/BaseLetter";
@@ -20,7 +20,7 @@ import CommunicationForm from "../../../components/letter/apply-update-form/Comm
 const CommunicationLetter = () => {
   const { apiClient } = useAuth();
   const [communicationLetter, setCommunicationLetter] =
-    useState<ICommunicationLetterRequestDTO>({
+    useState<ICommunicationLetterApplyRequestDTO>({
       base_letter_request_body_type: TypeOfBaseLetter.COMMUNICATION_LETTER,
       type: TypeOfBaseLetter.COMMUNICATION_LETTER,
       date: "",

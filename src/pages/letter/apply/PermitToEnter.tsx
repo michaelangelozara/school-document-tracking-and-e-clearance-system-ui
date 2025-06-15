@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { IPermitToEnterRequestDTO } from "../../../types/letter/PermitToEnter";
+import { IPermitToEnterApplyRequestDTO } from "../../../types/letter/PermitToEnter";
 import { TypeOfBaseLetter } from "../../../types/letter/BaseLetter";
 import { IUserNameAndIdOnly } from "../../../types/user/User";
 import { applying, stopApplying } from "../../../store/slice/LetterSlice";
@@ -12,14 +12,15 @@ import { useAuth } from "../../../context/AuthContext";
 import PermitToEnterForm from "../../../components/letter/apply-update-form/PermitToEnterForm";
 
 const PermitToEnter = () => {
-  const [permitToEnter, setPermitToEnter] = useState<IPermitToEnterRequestDTO>({
-    base_letter_request_body_type: TypeOfBaseLetter.PERMIT_TO_ENTER_LETTER,
-    type: TypeOfBaseLetter.PERMIT_TO_ENTER_LETTER,
-    activity: "",
-    date: "",
-    time: "",
-    participant_ids: [],
-  });
+  const [permitToEnter, setPermitToEnter] =
+    useState<IPermitToEnterApplyRequestDTO>({
+      base_letter_request_body_type: TypeOfBaseLetter.PERMIT_TO_ENTER_LETTER,
+      type: TypeOfBaseLetter.PERMIT_TO_ENTER_LETTER,
+      activity: "",
+      date: "",
+      time: "",
+      participant_ids: [],
+    });
 
   const studentMap = useRef<Map<string, IUserNameAndIdOnly>>(new Map()); // this holds all the selected participants
 

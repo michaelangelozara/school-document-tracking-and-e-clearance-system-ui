@@ -9,7 +9,7 @@ export enum TypeOfBaseLetter {
   SCHOOL_FACILITY_LETTER = "SCHOOL_FACILITY_LETTER",
 }
 
-export interface IBaseLetterRequestDTO {
+export interface IBaseLetterApplyRequestDTO {
   base_letter_request_body_type: TypeOfBaseLetter;
   type: TypeOfBaseLetter;
 }
