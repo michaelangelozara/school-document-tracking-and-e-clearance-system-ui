@@ -1,15 +1,15 @@
 import { useRef, useState } from "react";
-import { IImplementationLetterInCampusRequestDTO } from "../../types/letter/ImplementationLetterInCampus";
-import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
-import { IUserNameAndIdOnly } from "../../types/user/User";
-import { useAuth } from "../../context/AuthContext";
-import { AppDispatch, RootState } from "../../store/Store";
+import { IImplementationLetterInCampusRequestDTO } from "../../../types/letter/ImplementationLetterInCampus";
+import { TypeOfBaseLetter } from "../../../types/letter/BaseLetter";
+import { IUserNameAndIdOnly } from "../../../types/user/User";
+import { useAuth } from "../../../context/AuthContext";
+import { AppDispatch, RootState } from "../../../store/Store";
 import { useDispatch, useSelector } from "react-redux";
-import { open } from "../../store/slice/MessageSlice";
-import { applying, stopApplying } from "../../store/slice/LetterSlice";
-import { getErrorMessage } from "../../helper/AxiosHelper";
-import { apply } from "../../service/LetterService";
-import ImplementationInCampusForm from "../../components/letter/apply-update-form/ImplementationInCampusForm";
+import { open } from "../../../store/slice/MessageSlice";
+import { applying, stopApplying } from "../../../store/slice/LetterSlice";
+import { getErrorMessage } from "../../../helper/AxiosHelper";
+import { apply } from "../../../service/LetterService";
+import ImplementationInCampusForm from "../../../components/letter/apply-update-form/ImplementationInCampusForm";
 
 const ImplementationLetterInCampus = () => {
   const [implementationLetter, setImplementationLetter] =

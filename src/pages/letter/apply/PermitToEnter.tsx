@@ -1,15 +1,15 @@
 import { useRef, useState } from "react";
-import { IPermitToEnterRequestDTO } from "../../types/letter/PermitToEnter";
-import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
-import { IUserNameAndIdOnly } from "../../types/user/User";
-import { applying, stopApplying } from "../../store/slice/LetterSlice";
-import { getErrorMessage } from "../../helper/AxiosHelper";
-import { apply } from "../../service/LetterService";
+import { IPermitToEnterRequestDTO } from "../../../types/letter/PermitToEnter";
+import { TypeOfBaseLetter } from "../../../types/letter/BaseLetter";
+import { IUserNameAndIdOnly } from "../../../types/user/User";
+import { applying, stopApplying } from "../../../store/slice/LetterSlice";
+import { getErrorMessage } from "../../../helper/AxiosHelper";
+import { apply } from "../../../service/LetterService";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/Store";
-import { open } from "../../store/slice/MessageSlice";
-import { useAuth } from "../../context/AuthContext";
-import PermitToEnterForm from "../../components/letter/apply-update-form/PermitToEnterForm";
+import { AppDispatch, RootState } from "../../../store/Store";
+import { open } from "../../../store/slice/MessageSlice";
+import { useAuth } from "../../../context/AuthContext";
+import PermitToEnterForm from "../../../components/letter/apply-update-form/PermitToEnterForm";
 
 const PermitToEnter = () => {
   const [permitToEnter, setPermitToEnter] = useState<IPermitToEnterRequestDTO>({

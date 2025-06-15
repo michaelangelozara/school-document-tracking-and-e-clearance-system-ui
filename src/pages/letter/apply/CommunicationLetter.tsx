@@ -3,19 +3,19 @@ import { ChangeEvent, useState } from "react";
 import {
   ICommunicationLetterRequestDTO,
   TypeOfCommunicationLetter,
-} from "../../types/letter/CommunicationLetter";
-import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
-import SignatureCard from "../../components/signature/SignatureCard";
-import CancelApplyButton from "../../components/button/CancelApplyButton";
-import LetterHeader from "../../components/letter/apply-update-header/LetterHeader";
-import { apply } from "../../service/LetterService";
-import { useAuth } from "../../context/AuthContext";
+} from "../../../types/letter/CommunicationLetter";
+import { TypeOfBaseLetter } from "../../../types/letter/BaseLetter";
+import SignatureCard from "../../../components/signature/SignatureCard";
+import CancelApplyButton from "../../../components/button/CancelApplyButton";
+import LetterHeader from "../../../components/letter/apply-update-header/LetterHeader";
+import { apply } from "../../../service/LetterService";
+import { useAuth } from "../../../context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/Store";
-import { open } from "../../store/slice/MessageSlice";
-import { applying, stopApplying } from "../../store/slice/LetterSlice";
-import { getErrorMessage } from "../../helper/AxiosHelper";
-import CommunicationForm from "../../components/letter/apply-update-form/CommunicationForm";
+import { AppDispatch, RootState } from "../../../store/Store";
+import { open } from "../../../store/slice/MessageSlice";
+import { applying, stopApplying } from "../../../store/slice/LetterSlice";
+import { getErrorMessage } from "../../../helper/AxiosHelper";
+import CommunicationForm from "../../../components/letter/apply-update-form/CommunicationForm";
 
 const CommunicationLetter = () => {
   const { apiClient } = useAuth();

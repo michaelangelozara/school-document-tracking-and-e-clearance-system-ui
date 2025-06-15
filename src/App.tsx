@@ -19,12 +19,12 @@ import LetterModal from "./components/home-modal/LetterModal";
 import MyClearanceModal from "./components/home-modal/MyClearanceModal";
 
 import LetterLayout from "./layouts/LetterLayout";
-import BudgetProposal from "./pages/letter/BudgetProposal";
-import CommunicationLetter from "./pages/letter/CommunicationLetter";
-import PermitToEnter from "./pages/letter/PermitToEnter";
-import SchoolFacility from "./pages/letter/SchoolFacility";
-import ImplementationLetterInCampus from "./pages/letter/ImplementationLetterInCampus";
-import ImplementationLetterOffCampus from "./pages/letter/ImplementationLetterOffCampus";
+import BudgetProposal from "./pages/letter/apply/BudgetProposal";
+import CommunicationLetter from "./pages/letter/apply/CommunicationLetter";
+import PermitToEnter from "./pages/letter/apply/PermitToEnter";
+import SchoolFacility from "./pages/letter/apply/SchoolFacility";
+import ImplementationLetterInCampus from "./pages/letter/apply/ImplementationLetterInCampus";
+import ImplementationLetterOffCampus from "./pages/letter/apply/ImplementationLetterOffCampus";
 import MessageModal from "./components/shared/MessageModal";
 import CommunicatioLetterView from "./pages/letter/view/CommunicatioLetterView";
 import BudgetProposalLetterView from "./pages/letter/view/BudgetProposalLetterView";

@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { ISchoolFacilityRequestDTO } from "../../types/letter/SchoolFacility";
-import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
-import { useAuth } from "../../context/AuthContext";
-import { AppDispatch, RootState } from "../../store/Store";
+import { ISchoolFacilityRequestDTO } from "../../../types/letter/SchoolFacility";
+import { TypeOfBaseLetter } from "../../../types/letter/BaseLetter";
+import { useAuth } from "../../../context/AuthContext";
+import { AppDispatch, RootState } from "../../../store/Store";
 import { useDispatch, useSelector } from "react-redux";
-import { open } from "../../store/slice/MessageSlice";
-import { applying, stopApplying } from "../../store/slice/LetterSlice";
-import { getErrorMessage } from "../../helper/AxiosHelper";
-import { apply } from "../../service/LetterService";
-import SchoolFacilityForm from "../../components/letter/apply-update-form/SchoolFacilityForm";
+import { open } from "../../../store/slice/MessageSlice";
+import { applying, stopApplying } from "../../../store/slice/LetterSlice";
+import { getErrorMessage } from "../../../helper/AxiosHelper";
+import { apply } from "../../../service/LetterService";
+import SchoolFacilityForm from "../../../components/letter/apply-update-form/SchoolFacilityForm";
 
 const SchoolFacility = () => {
   const [schoolFacility, setSchoolFacility] =

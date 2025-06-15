@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { IBudgetProposalRequestDTO } from "../../types/letter/BudgetProposal";
-import { TypeOfBaseLetter } from "../../types/letter/BaseLetter";
+import { IBudgetProposalRequestDTO } from "../../../types/letter/BudgetProposal";
+import { TypeOfBaseLetter } from "../../../types/letter/BaseLetter";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/Store";
-import { open } from "../../store/slice/MessageSlice";
-import { apply } from "../../service/LetterService";
-import { applying, stopApplying } from "../../store/slice/LetterSlice";
-import { useAuth } from "../../context/AuthContext";
-import { getErrorMessage } from "../../helper/AxiosHelper";
-import BudgetProposalForm from "../../components/letter/apply-update-form/BudgetProposalForm";
+import { AppDispatch, RootState } from "../../../store/Store";
+import { open } from "../../../store/slice/MessageSlice";
+import { apply } from "../../../service/LetterService";
+import { applying, stopApplying } from "../../../store/slice/LetterSlice";
+import { useAuth } from "../../../context/AuthContext";
+import { getErrorMessage } from "../../../helper/AxiosHelper";
+import BudgetProposalForm from "../../../components/letter/apply-update-form/BudgetProposalForm";
 
 const BudgetProposal = () => {
   const [budgetProposal, setBudgetProposal] =
