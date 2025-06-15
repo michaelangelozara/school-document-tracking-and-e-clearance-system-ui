@@ -1,13 +1,10 @@
 import { ChangeEvent, useState } from "react";
 
 import {
-  ICommunicationLetterApplyRequestDTO,
+  ICommunicationLetterRequestDTO,
   TypeOfCommunicationLetter,
 } from "../../../types/letter/CommunicationLetter";
 import { TypeOfBaseLetter } from "../../../types/letter/BaseLetter";
-import SignatureCard from "../../../components/signature/SignatureCard";
-import CancelApplyButton from "../../../components/button/CancelApplyButton";
-import LetterHeader from "../../../components/letter/apply-update-header/LetterHeader";
 import { apply } from "../../../service/LetterService";
 import { useAuth } from "../../../context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +17,7 @@ import CommunicationForm from "../../../components/letter/apply-update-form/Comm
 const CommunicationLetter = () => {
   const { apiClient } = useAuth();
   const [communicationLetter, setCommunicationLetter] =
-    useState<ICommunicationLetterApplyRequestDTO>({
+    useState<ICommunicationLetterRequestDTO>({
       base_letter_request_body_type: TypeOfBaseLetter.COMMUNICATION_LETTER,
       type: TypeOfBaseLetter.COMMUNICATION_LETTER,
       date: "",

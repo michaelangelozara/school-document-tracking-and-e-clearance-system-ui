@@ -1,10 +1,6 @@
-import {
-  IBaseLetterApplyRequestDTO,
-  IBaseLetterResponseDTO,
-} from "./BaseLetter";
+import { IBaseLetterRequestDTO, IBaseLetterResponseDTO } from "./BaseLetter";
 
-export interface IPermitToEnterApplyRequestDTO
-  extends IBaseLetterApplyRequestDTO {
+export interface IPermitToEnterRequestDTO extends IBaseLetterRequestDTO {
   activity: string;
   date: string; // this must be formatted like this (i.g. yyyy-mm-dd)
   time: string; // this must be formatted like this (i.g. hh:mm/23:59)

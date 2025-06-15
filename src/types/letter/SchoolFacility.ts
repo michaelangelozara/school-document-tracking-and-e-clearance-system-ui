@@ -1,10 +1,6 @@
-import {
-  IBaseLetterApplyRequestDTO,
-  IBaseLetterResponseDTO,
-} from "./BaseLetter";
+import { IBaseLetterRequestDTO, IBaseLetterResponseDTO } from "./BaseLetter";
 
-export interface ISchoolFacilityApplyRequestDTO
-  extends IBaseLetterApplyRequestDTO {
+export interface ISchoolFacilityRequestDTO extends IBaseLetterRequestDTO {
   venue: string;
   date: string;
   time: string;

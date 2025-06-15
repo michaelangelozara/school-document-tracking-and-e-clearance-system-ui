@@ -1,12 +1,12 @@
 import { AxiosInstance } from "axios";
 import {
-  IBaseLetterApplyRequestDTO,
+  IBaseLetterRequestDTO,
   IBaseLetterResponseDTO,
   IRejectionResponseDTO,
 } from "../types/letter/BaseLetter";
 import { BaseResponse } from "../types/response/Response";
 
-export const apply = async <T extends IBaseLetterApplyRequestDTO>(
+export const apply = async <T extends IBaseLetterRequestDTO>(
   requestLetter: T,
   apiClient: AxiosInstance
 ): Promise<string> => {

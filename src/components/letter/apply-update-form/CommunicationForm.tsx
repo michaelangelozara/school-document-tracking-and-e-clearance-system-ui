@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
 import {
-  ICommunicationLetterApplyRequestDTO,
+  ICommunicationLetterRequestDTO,
   TypeOfCommunicationLetter,
 } from "../../../types/letter/CommunicationLetter";
 import LetterHeader from "../apply-update-header/LetterHeader";
@@ -8,9 +8,9 @@ import CancelApplyButton from "../../button/CancelApplyButton";
 import SignatureCard from "../../signature/SignatureCard";
 
 type CommunicationFormPropsType = {
-  letter: ICommunicationLetterApplyRequestDTO;
+  letter: ICommunicationLetterRequestDTO;
   setLetter: React.Dispatch<
-    React.SetStateAction<ICommunicationLetterApplyRequestDTO>
+    React.SetStateAction<ICommunicationLetterRequestDTO>
   >;
   onSubmit: () => void;
 };

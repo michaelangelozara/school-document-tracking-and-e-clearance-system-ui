@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import LetterHeader from "../apply-update-header/LetterHeader";
 import {
   ICommittee,
-  IImplementationLetterOffCampusApplyRequestDTO,
+  IImplementationLetterOffCampusRequestDTO,
 } from "../../../types/letter/ImplementationLetterOffCampus";
 import SignatureCard from "../../signature/SignatureCard";
 import CancelApplyButton from "../../button/CancelApplyButton";
@@ -366,9 +366,9 @@ const AssigningActivityModal = ({
 };
 
 type ImplementationOffCampusFormPropsType = {
-  implementationLetter: IImplementationLetterOffCampusApplyRequestDTO;
+  implementationLetter: IImplementationLetterOffCampusRequestDTO;
   setImplementationLetter: React.Dispatch<
-    React.SetStateAction<IImplementationLetterOffCampusApplyRequestDTO>
+    React.SetStateAction<IImplementationLetterOffCampusRequestDTO>
   >;
   committeeMap: React.RefObject<Map<string, ICommittee>>;
   onSubmit: () => void;

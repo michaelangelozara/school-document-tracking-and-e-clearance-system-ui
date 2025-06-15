@@ -1,16 +1,16 @@
 import React, { ChangeEvent, useState } from "react";
 import {
   IFacilityOrEquipment,
-  ISchoolFacilityApplyRequestDTO,
+  ISchoolFacilityRequestDTO,
 } from "../../../types/letter/SchoolFacility";
 import CancelApplyButton from "../../button/CancelApplyButton";
 import SignatureCard from "../../signature/SignatureCard";
 import LetterHeader from "../apply-update-header/LetterHeader";
 
 type SchoolFacilityPropsType = {
-  schoolFacility: ISchoolFacilityApplyRequestDTO;
+  schoolFacility: ISchoolFacilityRequestDTO;
   setSchoolFacility: React.Dispatch<
-    React.SetStateAction<ISchoolFacilityApplyRequestDTO>
+    React.SetStateAction<ISchoolFacilityRequestDTO>
   >;
   onSubmit: () => void;
 };

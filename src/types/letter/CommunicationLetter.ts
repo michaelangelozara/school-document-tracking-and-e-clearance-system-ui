@@ -1,15 +1,11 @@
-import {
-  IBaseLetterApplyRequestDTO,
-  IBaseLetterResponseDTO,
-} from "./BaseLetter";
+import { IBaseLetterRequestDTO, IBaseLetterResponseDTO } from "./BaseLetter";
 
 export enum TypeOfCommunicationLetter {
   IN_CAMPUS = "IN_CAMPUS",
   OFF_CAMPUS = "OFF_CAMPUS",
 }
 
-export interface ICommunicationLetterApplyRequestDTO
-  extends IBaseLetterApplyRequestDTO {
+export interface ICommunicationLetterRequestDTO extends IBaseLetterRequestDTO {
   date: string; // this must be formatted like this (i.g. yyyy-mm-dd)
   content: string;
   type_of_communication_letter: TypeOfCommunicationLetter;

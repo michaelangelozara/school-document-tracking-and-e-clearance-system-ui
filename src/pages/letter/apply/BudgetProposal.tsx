@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IBudgetProposalApplyRequestDTO } from "../../../types/letter/BudgetProposal";
+import { IBudgetProposalRequestDTO } from "../../../types/letter/BudgetProposal";
 import { TypeOfBaseLetter } from "../../../types/letter/BaseLetter";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../store/Store";
@@ -12,7 +12,7 @@ import BudgetProposalForm from "../../../components/letter/apply-update-form/Bud
 
 const BudgetProposal = () => {
   const [budgetProposal, setBudgetProposal] =
-    useState<IBudgetProposalApplyRequestDTO>({
+    useState<IBudgetProposalRequestDTO>({
       base_letter_request_body_type: TypeOfBaseLetter.BUDGET_PROPOSAL_LETTER,
       type: TypeOfBaseLetter.BUDGET_PROPOSAL_LETTER,
       name_of_activity: "",

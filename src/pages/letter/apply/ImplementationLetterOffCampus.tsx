@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import {
   ICommittee,
-  IImplementationLetterOffCampusApplyRequestDTO,
+  IImplementationLetterOffCampusRequestDTO,
 } from "../../../types/letter/ImplementationLetterOffCampus";
 import { TypeOfBaseLetter } from "../../../types/letter/BaseLetter";
 import { useAuth } from "../../../context/AuthContext";
@@ -15,7 +15,7 @@ import ImplementationOffCampusForm from "../../../components/letter/apply-update
 
 const ImplementationLetterOffCampus = () => {
   const [implementationLetter, setImplementationLetter] =
-    useState<IImplementationLetterOffCampusApplyRequestDTO>({
+    useState<IImplementationLetterOffCampusRequestDTO>({
       base_letter_request_body_type:
         TypeOfBaseLetter.IMPLEMENTATION_LETTER_OFF_CAMPUS,
       type: TypeOfBaseLetter.IMPLEMENTATION_LETTER_OFF_CAMPUS,
