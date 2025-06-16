@@ -19,12 +19,12 @@ import LetterModal from "./components/home-modal/LetterModal";
 import MyClearanceModal from "./components/home-modal/MyClearanceModal";
 
 import LetterLayout from "./layouts/LetterLayout";
-import BudgetProposal from "./pages/letter/apply/BudgetProposal";
-import CommunicationLetter from "./pages/letter/apply/CommunicationLetter";
-import PermitToEnter from "./pages/letter/apply/PermitToEnter";
-import SchoolFacility from "./pages/letter/apply/SchoolFacility";
-import ImplementationLetterInCampus from "./pages/letter/apply/ImplementationLetterInCampus";
-import ImplementationLetterOffCampus from "./pages/letter/apply/ImplementationLetterOffCampus";
+import BudgetProposalApply from "./pages/letter/apply/BudgetProposalApply";
+import CommunicationLetterApply from "./pages/letter/apply/CommunicationLetterApply";
+import PermitToEnterApply from "./pages/letter/apply/PermitToEnterApply";
+import SchoolFacilityApply from "./pages/letter/apply/SchoolFacilityApply";
+import ImplementationLetterInCampusApply from "./pages/letter/apply/ImplementationLetterInCampusApply";
+import ImplementationLetterOffCampusApply from "./pages/letter/apply/ImplementationLetterOffCampusApply";
 import MessageModal from "./components/shared/MessageModal";
 import CommunicatioLetterView from "./pages/letter/view/CommunicatioLetterView";
 import BudgetProposalLetterView from "./pages/letter/view/BudgetProposalLetterView";
@@ -32,6 +32,7 @@ import PermitToEnterLetterView from "./pages/letter/view/PermitToEnterLetterView
 import SchoolFacilityLetterView from "./pages/letter/view/SchoolFacilityLetterView";
 import ImplementationLetterInCampusView from "./pages/letter/view/ImplementationLetterInCampusView";
 import ImplementationLetterOffCampusView from "./pages/letter/view/ImplementationLetterOffCampusView";
+import BudgetProposalUpdate from "./pages/letter/update/BudgetProposalUpdate";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -82,22 +83,23 @@ function App() {
             <Route
               path="apply"
               element={
-                <ProtectedLetterLayout
-                  allowedAuthorities={["STUDENT", "SUPER_ADMIN"]}
-                />
+                <ProtectedLetterLayout allowedAuthorities={["STUDENT"]} />
               }
             >
-              <Route path="budget-proposal" element={<BudgetProposal />} />
-              <Route path="communication" element={<CommunicationLetter />} />
-              <Route path="permit-to-enter" element={<PermitToEnter />} />
-              <Route path="school-facility" element={<SchoolFacility />} />
+              <Route path="budget-proposal" element={<BudgetProposalApply />} />
+              <Route
+                path="communication"
+                element={<CommunicationLetterApply />}
+              />
+              <Route path="permit-to-enter" element={<PermitToEnterApply />} />
+              <Route path="school-facility" element={<SchoolFacilityApply />} />
               <Route
                 path="implementation-letter-in-campus"
-                element={<ImplementationLetterInCampus />}
+                element={<ImplementationLetterInCampusApply />}
               />
               <Route
                 path="implementation-letter-off-campus"
-                element={<ImplementationLetterOffCampus />}
+                element={<ImplementationLetterOffCampusApply />}
               />
             </Route>
             <Route
@@ -128,6 +130,22 @@ function App() {
                 path="implementation-letter-off-campus/:id"
                 element={<ImplementationLetterOffCampusView />}
               />
+            </Route>
+            <Route
+              path="update"
+              element={
+                <ProtectedLetterLayout allowedAuthorities={["STUDENT"]} />
+              }
+            >
+              <Route path="communication/:id" />
+              <Route
+                path="budget-proposal/:id"
+                element={<BudgetProposalUpdate />}
+              />
+              <Route path="permit-to-enter/:id" />
+              <Route path="school-facility/:id" />
+              <Route path="implementation-letter-in-campus/:id" />
+              <Route path="implementation-letter-off-campus/:id" />
             </Route>
           </Route>
           <Route

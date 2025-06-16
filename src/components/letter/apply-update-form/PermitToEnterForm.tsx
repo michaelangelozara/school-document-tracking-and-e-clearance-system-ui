@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { IPermitToEnterRequestDTO } from "../../../types/letter/PermitToEnter";
-import CancelApplyButton from "../../button/CancelApplyButton";
+import ApplyUpdateButton from "../../button/ApplyUpdateButton";
 import SignatureCard from "../../signature/SignatureCard";
 import { IUserNameAndIdOnly } from "../../../types/user/User";
 import LetterHeader from "../apply-update-header/LetterHeader";
@@ -10,6 +10,7 @@ import { debounce } from "lodash";
 import { useAuth } from "../../../context/AuthContext";
 import UserSearchedCard from "../UserSearchedCard";
 import PaginationButton from "../../shared/PaginationButton";
+import { ModeType } from "../../../types/letter/BaseLetter";
 
 type PermitToEnterPropsType = {
   permitToEnter: IPermitToEnterRequestDTO;
@@ -18,12 +19,14 @@ type PermitToEnterPropsType = {
   >;
   studentMap: React.RefObject<Map<string, IUserNameAndIdOnly>>;
   onSubmit: () => void;
+  mode: ModeType;
 };
 const PermitToEnterForm = ({
   permitToEnter,
   setPermitToEnter,
   studentMap,
   onSubmit,
+  mode,
 }: PermitToEnterPropsType) => {
   const [page, setPage] = useState<Page>({
     currentPage: 0,
@@ -195,8 +198,12 @@ const PermitToEnterForm = ({
             }
           />
         </div>
-        <SignatureCard />
-        <CancelApplyButton apply={onSubmit} />
+        {mode === "apply" && (
+          <div className="flex flex-col gap-4">
+            <SignatureCard />
+          </div>
+        )}
+        <ApplyUpdateButton apply={onSubmit} mode={mode} />
       </div>
     </div>
   );

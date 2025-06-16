@@ -11,7 +11,7 @@ import { getErrorMessage } from "../../../helper/AxiosHelper";
 import { apply } from "../../../service/LetterService";
 import ImplementationInCampusForm from "../../../components/letter/apply-update-form/ImplementationInCampusForm";
 
-const ImplementationLetterInCampus = () => {
+const ImplementationLetterInCampusApply = () => {
   const [implementationLetter, setImplementationLetter] =
     useState<IImplementationLetterInCampusRequestDTO>({
       base_letter_request_body_type:
@@ -80,8 +80,9 @@ const ImplementationLetterInCampus = () => {
       setImplementationLetter={setImplementationLetter}
       studentMap={studentMap}
       onsubmit={submit}
+      mode="apply"
     />
   );
 };
 
-export default ImplementationLetterInCampus;
+export default ImplementationLetterInCampusApply;

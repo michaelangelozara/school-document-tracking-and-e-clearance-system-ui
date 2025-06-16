@@ -1,11 +1,13 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../store/Store";
+import { ModeType } from "../../types/letter/BaseLetter";
 
 type CancelApplyPropsType = {
   apply: () => void;
+  mode: ModeType;
 };
-const CancelApplyButton = ({ apply }: CancelApplyPropsType) => {
+const ApplyUpdateButton = ({ apply, mode }: CancelApplyPropsType) => {
   const navigate = useNavigate();
   const isLoading = useSelector(
     (state: RootState) => state.eSignature.isFetching
@@ -25,10 +27,16 @@ const CancelApplyButton = ({ apply }: CancelApplyPropsType) => {
         onClick={apply}
         className="bg-green-500 hover:bg-green-400 text-white p-1 md:p-2 rounded-md cursor-pointer"
       >
-        {isApplying ? "Appying" : "Apply"}
+        {mode === "apply"
+          ? isApplying
+            ? "Applying"
+            : "Apply"
+          : isApplying
+          ? "Updating"
+          : "Update"}
       </button>
     </div>
   );
 };
 
-export default CancelApplyButton;
+export default ApplyUpdateButton;

@@ -13,7 +13,7 @@ import { apply } from "../../../service/LetterService";
 import { getErrorMessage } from "../../../helper/AxiosHelper";
 import ImplementationOffCampusForm from "../../../components/letter/apply-update-form/ImplementationOffCampusForm";
 
-const ImplementationLetterOffCampus = () => {
+const ImplementationLetterOffCampusApply = () => {
   const [implementationLetter, setImplementationLetter] =
     useState<IImplementationLetterOffCampusRequestDTO>({
       base_letter_request_body_type:
@@ -75,8 +75,9 @@ const ImplementationLetterOffCampus = () => {
       setImplementationLetter={setImplementationLetter}
       committeeMap={committeeMap}
       onSubmit={submit}
+      mode="apply"
     />
   );
 };
 
-export default ImplementationLetterOffCampus;
+export default ImplementationLetterOffCampusApply;

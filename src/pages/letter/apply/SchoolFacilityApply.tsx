@@ -10,7 +10,7 @@ import { getErrorMessage } from "../../../helper/AxiosHelper";
 import { apply } from "../../../service/LetterService";
 import SchoolFacilityForm from "../../../components/letter/apply-update-form/SchoolFacilityForm";
 
-const SchoolFacility = () => {
+const SchoolFacilityApply = () => {
   const [schoolFacility, setSchoolFacility] =
     useState<ISchoolFacilityRequestDTO>({
       base_letter_request_body_type: TypeOfBaseLetter.SCHOOL_FACILITY_LETTER,
@@ -62,8 +62,9 @@ const SchoolFacility = () => {
       schoolFacility={schoolFacility}
       setSchoolFacility={setSchoolFacility}
       onSubmit={submit}
+      mode="apply"
     />
   );
 };
 
-export default SchoolFacility;
+export default SchoolFacilityApply;

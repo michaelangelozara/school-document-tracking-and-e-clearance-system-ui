@@ -10,7 +10,6 @@ export enum TypeOfBaseLetter {
 }
 
 export interface IBaseLetterRequestDTO {
-  id?: string;
   base_letter_request_body_type: TypeOfBaseLetter;
   type: TypeOfBaseLetter;
 }
@@ -52,3 +51,5 @@ export interface IRejectionResponseDTO {
   rejected_by: string;
   reason_of_rejection: string;
 }
+
+export type ModeType = "apply" | "update";

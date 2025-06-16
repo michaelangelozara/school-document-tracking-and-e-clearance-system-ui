@@ -4,8 +4,9 @@ import {
   TypeOfCommunicationLetter,
 } from "../../../types/letter/CommunicationLetter";
 import LetterHeader from "../apply-update-header/LetterHeader";
-import CancelApplyButton from "../../button/CancelApplyButton";
+import ApplyUpdateButton from "../../button/ApplyUpdateButton";
 import SignatureCard from "../../signature/SignatureCard";
+import { ModeType } from "../../../types/letter/BaseLetter";
 
 type CommunicationFormPropsType = {
   letter: ICommunicationLetterRequestDTO;
@@ -13,11 +14,13 @@ type CommunicationFormPropsType = {
     React.SetStateAction<ICommunicationLetterRequestDTO>
   >;
   onSubmit: () => void;
+  mode: ModeType;
 };
 const CommunicationForm = ({
   letter,
   setLetter,
   onSubmit,
+  mode,
 }: CommunicationFormPropsType) => {
   return (
     <div className="bg-background p-3">
@@ -76,10 +79,12 @@ const CommunicationForm = ({
             className="border rounded-lg border-gray-300 outline-darkContrast w-full h-[12rem] p-2 lg:h-[18rem]"
           />
         </div>
-        <div>
-          <SignatureCard />
-        </div>
-        <CancelApplyButton apply={onSubmit} />
+        {mode === "apply" && (
+          <div className="flex flex-col gap-4">
+            <SignatureCard />
+          </div>
+        )}
+        <ApplyUpdateButton apply={onSubmit} mode={mode} />
       </div>
     </div>
   );

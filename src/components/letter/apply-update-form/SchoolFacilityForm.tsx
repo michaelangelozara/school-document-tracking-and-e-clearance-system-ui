@@ -3,9 +3,10 @@ import {
   IFacilityOrEquipment,
   ISchoolFacilityRequestDTO,
 } from "../../../types/letter/SchoolFacility";
-import CancelApplyButton from "../../button/CancelApplyButton";
+import ApplyUpdateButton from "../../button/ApplyUpdateButton";
 import SignatureCard from "../../signature/SignatureCard";
 import LetterHeader from "../apply-update-header/LetterHeader";
+import { ModeType } from "../../../types/letter/BaseLetter";
 
 type SchoolFacilityPropsType = {
   schoolFacility: ISchoolFacilityRequestDTO;
@@ -13,11 +14,13 @@ type SchoolFacilityPropsType = {
     React.SetStateAction<ISchoolFacilityRequestDTO>
   >;
   onSubmit: () => void;
+  mode: ModeType;
 };
 const SchoolFacilityForm = ({
   schoolFacility,
   setSchoolFacility,
   onSubmit,
+  mode,
 }: SchoolFacilityPropsType) => {
   const [equipment, setEquipment] = useState<IFacilityOrEquipment>({
     name: "",
@@ -174,8 +177,12 @@ const SchoolFacilityForm = ({
               </table>
             </div>
           </div>
-          <SignatureCard />
-          <CancelApplyButton apply={onSubmit} />
+          {mode === "apply" && (
+            <div className="flex flex-col gap-4">
+              <SignatureCard />
+            </div>
+          )}
+          <ApplyUpdateButton apply={onSubmit} mode={mode} />
         </div>
       </div>
     </div>

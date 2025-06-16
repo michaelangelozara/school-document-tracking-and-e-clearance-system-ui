@@ -297,7 +297,9 @@ const LetterModal = () => {
     }
   };
 
-  const letterEditHandler = (id: string) => {};
+  const letterEditHandler = (type: string, id: string) => {
+    navigate(`/letters/update/${type}/${id}`);
+  };
 
   const requestButtonHandler = () => {
     setIsRequestButtonClicked((v) => !v);

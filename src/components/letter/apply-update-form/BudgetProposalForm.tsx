@@ -5,7 +5,8 @@ import {
 } from "../../../types/letter/BudgetProposal";
 import LetterHeader from "../apply-update-header/LetterHeader";
 import SignatureCard from "../../signature/SignatureCard";
-import CancelApplyButton from "../../button/CancelApplyButton";
+import ApplyUpdateButton from "../../button/ApplyUpdateButton";
+import { ModeType } from "../../../types/letter/BaseLetter";
 
 type BudgetProposalFormPropsType = {
   budgetProposal: IBudgetProposalRequestDTO;
@@ -13,11 +14,13 @@ type BudgetProposalFormPropsType = {
     React.SetStateAction<IBudgetProposalRequestDTO>
   >;
   onSubmit: () => void;
+  mode: ModeType;
 };
 const BudgetProposalForm = ({
   budgetProposal,
   setBudgetProposal,
   onSubmit,
+  mode,
 }: BudgetProposalFormPropsType) => {
   const [expectedExpense, setExpectedExpense] =
     useState<IExpectedExpensesRequestDTO>({
@@ -200,10 +203,12 @@ const BudgetProposalForm = ({
             </table>
           </div>
         </div>
-        <div className="flex flex-col gap-4">
-          <SignatureCard />
-        </div>
-        <CancelApplyButton apply={onSubmit} />
+        {mode === "apply" && (
+          <div className="flex flex-col gap-4">
+            <SignatureCard />
+          </div>
+        )}
+        <ApplyUpdateButton apply={onSubmit} mode={mode} />
       </div>
     </div>
   );

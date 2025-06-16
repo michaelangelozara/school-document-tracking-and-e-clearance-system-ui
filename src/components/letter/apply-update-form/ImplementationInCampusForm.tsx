@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import LetterHeader from "../apply-update-header/LetterHeader";
 import { IImplementationLetterInCampusRequestDTO } from "../../../types/letter/ImplementationLetterInCampus";
-import CancelApplyButton from "../../button/CancelApplyButton";
+import ApplyUpdateButton from "../../button/ApplyUpdateButton";
 import SignatureCard from "../../signature/SignatureCard";
 import { IUserNameAndIdOnly } from "../../../types/user/User";
 import { findClubMember } from "../../../service/UserService";
@@ -9,6 +9,7 @@ import { debounce } from "lodash";
 import { useAuth } from "../../../context/AuthContext";
 import { Page } from "../../../types/Pagination";
 import UserSearchedCard from "../UserSearchedCard";
+import { ModeType } from "../../../types/letter/BaseLetter";
 
 type ImplementationInCampusFormPropsType = {
   implementationLetter: IImplementationLetterInCampusRequestDTO;
@@ -17,12 +18,14 @@ type ImplementationInCampusFormPropsType = {
   >;
   onsubmit: () => void;
   studentMap: React.RefObject<Map<string, IUserNameAndIdOnly>>;
+  mode: ModeType;
 };
 const ImplementationInCampusForm = ({
   implementationLetter,
   setImplementationLetter,
   studentMap,
   onsubmit,
+  mode,
 }: ImplementationInCampusFormPropsType) => {
   const [searchedStudents, setSearchedStudents] = useState<
     IUserNameAndIdOnly[]
@@ -275,10 +278,12 @@ const ImplementationInCampusForm = ({
             </div>
           </div>
         </div>
-        <div>
-          <SignatureCard />
-        </div>
-        <CancelApplyButton apply={onsubmit} />
+        {mode === "apply" && (
+          <div className="flex flex-col gap-4">
+            <SignatureCard />
+          </div>
+        )}
+        <ApplyUpdateButton apply={onsubmit} mode={mode} />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ import { open } from "../../../store/slice/MessageSlice";
 import { useAuth } from "../../../context/AuthContext";
 import PermitToEnterForm from "../../../components/letter/apply-update-form/PermitToEnterForm";
 
-const PermitToEnter = () => {
+const PermitToEnterApply = () => {
   const [permitToEnter, setPermitToEnter] = useState<IPermitToEnterRequestDTO>({
     base_letter_request_body_type: TypeOfBaseLetter.PERMIT_TO_ENTER_LETTER,
     type: TypeOfBaseLetter.PERMIT_TO_ENTER_LETTER,
@@ -65,8 +65,9 @@ const PermitToEnter = () => {
       setPermitToEnter={setPermitToEnter}
       studentMap={studentMap}
       onSubmit={submit}
+      mode="apply"
     />
   );
 };
 
-export default PermitToEnter;
+export default PermitToEnterApply;

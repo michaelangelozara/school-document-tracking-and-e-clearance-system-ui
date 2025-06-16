@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 
 import {
   ICommunicationLetterRequestDTO,
@@ -14,7 +14,7 @@ import { applying, stopApplying } from "../../../store/slice/LetterSlice";
 import { getErrorMessage } from "../../../helper/AxiosHelper";
 import CommunicationForm from "../../../components/letter/apply-update-form/CommunicationForm";
 
-const CommunicationLetter = () => {
+const CommunicationLetterApply = () => {
   const { apiClient } = useAuth();
   const [communicationLetter, setCommunicationLetter] =
     useState<ICommunicationLetterRequestDTO>({
@@ -63,8 +63,9 @@ const CommunicationLetter = () => {
       letter={communicationLetter}
       setLetter={setCommunicationLetter}
       onSubmit={submit}
+      mode="apply"
     />
   );
 };
 
-export default CommunicationLetter;
+export default CommunicationLetterApply;

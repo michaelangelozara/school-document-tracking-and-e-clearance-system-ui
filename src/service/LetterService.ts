@@ -88,3 +88,20 @@ export const getRejectionByLetterId = async (
     throw error;
   }
 };
+
+export const update = async <T extends IBaseLetterRequestDTO>(
+  requestLetter: T,
+  id: string,
+  apiClient: AxiosInstance
+): Promise<string> => {
+  try {
+    const response = await apiClient.put(
+      `/letters/${id}/update`,
+      requestLetter
+    );
+    const data = response.data as BaseResponse<null>;
+    return data?.message;
+  } catch (error) {
+    throw error;
+  }
+};

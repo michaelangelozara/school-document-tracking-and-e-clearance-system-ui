@@ -10,7 +10,7 @@ import { useAuth } from "../../../context/AuthContext";
 import { getErrorMessage } from "../../../helper/AxiosHelper";
 import BudgetProposalForm from "../../../components/letter/apply-update-form/BudgetProposalForm";
 
-const BudgetProposal = () => {
+const BudgetProposalApply = () => {
   const [budgetProposal, setBudgetProposal] =
     useState<IBudgetProposalRequestDTO>({
       base_letter_request_body_type: TypeOfBaseLetter.BUDGET_PROPOSAL_LETTER,
@@ -64,8 +64,9 @@ const BudgetProposal = () => {
       budgetProposal={budgetProposal}
       setBudgetProposal={setBudgetProposal}
       onSubmit={submit}
+      mode="apply"
     />
   );
 };
 
-export default BudgetProposal;
+export default BudgetProposalApply;

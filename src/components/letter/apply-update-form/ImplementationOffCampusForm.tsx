@@ -5,7 +5,7 @@ import {
   IImplementationLetterOffCampusRequestDTO,
 } from "../../../types/letter/ImplementationLetterOffCampus";
 import SignatureCard from "../../signature/SignatureCard";
-import CancelApplyButton from "../../button/CancelApplyButton";
+import ApplyUpdateButton from "../../button/ApplyUpdateButton";
 
 import EDIT_ICON from "../../../assets/icon/svg/letter/edit-pensil-svgrepo-com.svg";
 import REMOVE_ICON from "../../../assets/icon/svg/letter/remove-svgrepo-com.svg";
@@ -15,6 +15,7 @@ import { useAuth } from "../../../context/AuthContext";
 import { debounce } from "lodash";
 import { BaseResponse } from "../../../types/response/Response";
 import PaginationButton from "../../shared/PaginationButton";
+import { ModeType } from "../../../types/letter/BaseLetter";
 
 type SearchedUserCard = {
   id: string;
@@ -372,12 +373,14 @@ type ImplementationOffCampusFormPropsType = {
   >;
   committeeMap: React.RefObject<Map<string, ICommittee>>;
   onSubmit: () => void;
+  mode: ModeType;
 };
 const ImplementationOffCampusForm = ({
   implementationLetter,
   setImplementationLetter,
   committeeMap,
   onSubmit,
+  mode,
 }: ImplementationOffCampusFormPropsType) => {
   const [isAssignmentClicked, setIsAssignmentClicked] =
     useState<boolean>(false);
@@ -552,10 +555,12 @@ const ImplementationOffCampusForm = ({
               />
             )}
           </div>
-          <div>
-            <SignatureCard />
-          </div>
-          <CancelApplyButton apply={onSubmit} />
+          {mode === "apply" && (
+            <div className="flex flex-col gap-4">
+              <SignatureCard />
+            </div>
+          )}
+          <ApplyUpdateButton apply={onSubmit} mode={mode} />
         </div>
       </div>
     </div>
