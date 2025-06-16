@@ -47,6 +47,7 @@ const CommunicationForm = ({
           <div>
             <select
               className="border rounded-lg border-gray-300 outline-darkContrast cursor-pointer md:h-[var(--input-height-md)]"
+              value={letter.type_of_communication_letter}
               onChange={(e: ChangeEvent<HTMLSelectElement>) =>
                 setLetter((prev) => ({
                   ...prev,

@@ -56,15 +56,7 @@ const BudgetProposalUpdate = () => {
     });
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const reset = () => {
-    setBudgetProposal({
-      base_letter_request_body_type: TypeOfBaseLetter.BUDGET_PROPOSAL_LETTER,
-      type: TypeOfBaseLetter.BUDGET_PROPOSAL_LETTER,
-      name_of_activity: "",
-      venue: "",
-      source_of_fund: "",
-      amount_allotted: 0,
-      expected_expenses: [],
-    });
+    setTempBudgetProposal(budgetProposal);
   };
 
   const { apiClient } = useAuth();
@@ -81,7 +73,6 @@ const BudgetProposalUpdate = () => {
       dispatch(applying());
       const response = await update(tempBudgetProposal, id, apiClient);
       dispatch(open(response));
-      reset();
     } catch (error: any) {
       if (error.status === 400) {
         const errorMessage = getErrorMessage(error);
@@ -104,7 +95,15 @@ const BudgetProposalUpdate = () => {
         setTempBudgetProposal(
           mapToBudgetProposal(response as IBudgetProposalResponseDTO)
         );
-      } catch (error) {
+      } catch (error: any) {
+        if (
+          error.status === 400 ||
+          error.status === 404 ||
+          error.status === 403
+        ) {
+          const errorMessage = getErrorMessage(error);
+          dispatch(open(errorMessage));
+        }
       } finally {
         setIsLoading(false);
       }

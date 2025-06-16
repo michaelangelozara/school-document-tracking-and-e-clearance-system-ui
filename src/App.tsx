@@ -33,6 +33,7 @@ import SchoolFacilityLetterView from "./pages/letter/view/SchoolFacilityLetterVi
 import ImplementationLetterInCampusView from "./pages/letter/view/ImplementationLetterInCampusView";
 import ImplementationLetterOffCampusView from "./pages/letter/view/ImplementationLetterOffCampusView";
 import BudgetProposalUpdate from "./pages/letter/update/BudgetProposalUpdate";
+import CommunicationUpdate from "./pages/letter/update/CommunicationUpdate";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -137,7 +138,10 @@ function App() {
                 <ProtectedLetterLayout allowedAuthorities={["STUDENT"]} />
               }
             >
-              <Route path="communication/:id" />
+              <Route
+                path="communication/:id"
+                element={<CommunicationUpdate />}
+              />
               <Route
                 path="budget-proposal/:id"
                 element={<BudgetProposalUpdate />}
