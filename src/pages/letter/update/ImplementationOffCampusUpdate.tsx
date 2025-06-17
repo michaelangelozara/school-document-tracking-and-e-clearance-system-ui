@@ -152,7 +152,6 @@ const ImplementationOffCampusUpdate = () => {
     return <Loading />;
   }
 
-  console.log(tempImplementationLetter);
   return (
     <ImplementationOffCampusForm
       implementationLetter={tempImplementationLetter}

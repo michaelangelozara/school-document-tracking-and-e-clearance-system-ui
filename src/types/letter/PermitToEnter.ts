@@ -16,4 +16,5 @@ export interface IPermitToEnterResponseDTO extends IBaseLetterResponseDTO {
 export interface IPermitToEnterParticipantResponseDTO {
   id: string;
   name: string;
+  profile: string;
 }

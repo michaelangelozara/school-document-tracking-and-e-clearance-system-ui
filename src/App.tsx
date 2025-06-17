@@ -36,6 +36,7 @@ import BudgetProposalUpdate from "./pages/letter/update/BudgetProposalUpdate";
 import CommunicationUpdate from "./pages/letter/update/CommunicationUpdate";
 import ImplementationInCampusUpdate from "./pages/letter/update/ImplementationInCampusUpdate";
 import ImplementationOffCampusUpdate from "./pages/letter/update/ImplementationOffCampusUpdate";
+import PermitToEnterUpdate from "./pages/letter/update/PermitToEnterUpdate";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -148,7 +149,10 @@ function App() {
                 path="budget-proposal/:id"
                 element={<BudgetProposalUpdate />}
               />
-              <Route path="permit-to-enter/:id" />
+              <Route
+                path="permit-to-enter/:id"
+                element={<PermitToEnterUpdate />}
+              />
               <Route path="school-facility/:id" />
               <Route
                 path="implementation-letter-in-campus/:id"
