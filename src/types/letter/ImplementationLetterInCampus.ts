@@ -29,4 +29,5 @@ export interface IImplementationLetterInCampusResponseDTO
 export interface IImplementationLetterInCampusParticipant {
   id: string;
   name: string;
+  profile: string;
 }

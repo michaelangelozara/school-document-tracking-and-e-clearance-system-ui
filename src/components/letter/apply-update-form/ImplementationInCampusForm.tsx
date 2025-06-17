@@ -263,8 +263,9 @@ const ImplementationInCampusForm = ({
                 />
               </div>
               <div className="h-[12rem] overflow-auto">
-                {searchedStudents?.map((element, _) => (
+                {searchedStudents?.map((element, index) => (
                   <UserSearchedCard
+                    key={index}
                     onChange={onChangeHandler}
                     user={{
                       id: element.id,

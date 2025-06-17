@@ -1,4 +1,3 @@
-import React from "react";
 import { IImplementationLetterInCampusResponseDTO } from "../../../types/letter/ImplementationLetterInCampus";
 
 const ImplementationLetterInCampusBody = (
@@ -24,6 +23,30 @@ const ImplementationLetterInCampusBody = (
           Date & Time of Letter
         </h1>
         <h1>{letter.date_and_time}</h1>
+      </div>
+      <div className="pt-2 pb-2 flex">
+        <h1 className="min-w-[170px] text-darkContrast">Venue</h1>
+        <h1>{letter.venue}</h1>
+      </div>
+      <div className="pt-2 pb-2 flex">
+        <h1 className="min-w-[170px] text-darkContrast">Expected Output</h1>
+        <h1>{letter.expected_output}</h1>
+      </div>
+      <div className="pt-2 pb-2 flex">
+        <h1 className="min-w-[170px] text-darkContrast">Objective</h1>
+        <h1>{letter.objective}</h1>
+      </div>
+      <div className="pt-2 pb-2 flex">
+        <h1 className="min-w-[170px] text-darkContrast">Projected Expenses</h1>
+        <h1>{letter.projected_expenses}</h1>
+      </div>
+      <div className="pt-2 pb-2 flex">
+        <h1 className="min-w-[170px] text-darkContrast">Source of Fund</h1>
+        <h1>{letter.source_of_fund}</h1>
+      </div>
+      <div className="pt-2 pb-2 flex">
+        <h1 className="min-w-[170px] text-darkContrast">Rationale</h1>
+        <h1>{letter.rationale}</h1>
       </div>
       <div className="pt-2 pb-2 flex">
         <h1 className="min-w-[170px] text-darkContrast">Status</h1>
