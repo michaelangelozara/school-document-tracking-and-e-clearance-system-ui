@@ -35,6 +35,7 @@ import ImplementationLetterOffCampusView from "./pages/letter/view/Implementatio
 import BudgetProposalUpdate from "./pages/letter/update/BudgetProposalUpdate";
 import CommunicationUpdate from "./pages/letter/update/CommunicationUpdate";
 import ImplementationInCampusUpdate from "./pages/letter/update/ImplementationInCampusUpdate";
+import ImplementationOffCampusUpdate from "./pages/letter/update/ImplementationOffCampusUpdate";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -153,7 +154,10 @@ function App() {
                 path="implementation-letter-in-campus/:id"
                 element={<ImplementationInCampusUpdate />}
               />
-              <Route path="implementation-letter-off-campus/:id" />
+              <Route
+                path="implementation-letter-off-campus/:id"
+                element={<ImplementationOffCampusUpdate />}
+              />
             </Route>
           </Route>
           <Route
