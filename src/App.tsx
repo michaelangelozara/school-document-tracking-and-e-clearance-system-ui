@@ -37,6 +37,7 @@ import CommunicationUpdate from "./pages/letter/update/CommunicationUpdate";
 import ImplementationInCampusUpdate from "./pages/letter/update/ImplementationInCampusUpdate";
 import ImplementationOffCampusUpdate from "./pages/letter/update/ImplementationOffCampusUpdate";
 import PermitToEnterUpdate from "./pages/letter/update/PermitToEnterUpdate";
+import SchoolFacilityUpdate from "./pages/letter/update/SchoolFacilityUpdate";
 
 function App() {
   const ProtectedCourseModal = withRoleCheck(CourseModal);
@@ -153,7 +154,10 @@ function App() {
                 path="permit-to-enter/:id"
                 element={<PermitToEnterUpdate />}
               />
-              <Route path="school-facility/:id" />
+              <Route
+                path="school-facility/:id"
+                element={<SchoolFacilityUpdate />}
+              />
               <Route
                 path="implementation-letter-in-campus/:id"
                 element={<ImplementationInCampusUpdate />}
