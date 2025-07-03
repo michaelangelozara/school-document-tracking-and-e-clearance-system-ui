@@ -7,7 +7,7 @@ import {
 import { useAuth } from "../../../context/AuthContext";
 import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
 import LetterRejectButton from "../../../components/button/LetterRejectButton";
-import SignatoryCardContainer from "../../../components/signatory/SignatoryCardContainer";
+import LetterSignatoryCardContainer from "../../../components/letter/signatory/LetterSignatoryCardContainer";
 import { useNavigate } from "react-router-dom";
 import LetterRejectionModal from "../../../components/letter/LetterRejectionModal";
 import {
@@ -113,7 +113,7 @@ const BaseLetterWrapper = <T extends IBaseLetterResponseDTO>({
 
         <div className="p-2 bg-white rounded-sm">
           <h1 className="font-semibold text-darkContrast mb-3">Signatories</h1>
-          <SignatoryCardContainer data={letter.current_signatories} />
+          <LetterSignatoryCardContainer data={letter.current_signatories} />
           {user?.authorities.includes("STUDENT") ? (
             <ReturnDownloadButton
               onClickDownload={() => null}

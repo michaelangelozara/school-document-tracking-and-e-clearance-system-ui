@@ -12,11 +12,11 @@ import UserPageLayout from "./layouts/UserPageLayout";
 import withRoleCheck from "./auth/withRoleCheck";
 import PageNotFound from "./pages/PageNotFound";
 import Unauthorized from "./pages/Unauthorized";
-import DepartmentModal from "./components/home-modal/DepartmentModal";
-import CourseModal from "./components/home-modal/CourseModal";
-import ClearanceModal from "./components/home-modal/ClearanceModal";
-import LetterModal from "./components/home-modal/LetterModal";
-import MyClearanceModal from "./components/home-modal/MyClearanceModal";
+import DepartmentModal from "./components/home-modal/DepartmentListModal";
+import CourseModal from "./components/home-modal/CourseListModal";
+import ClearanceModal from "./components/home-modal/ClearanceListModal";
+import LetterModal from "./components/home-modal/LetterListModal";
+import ClearanceViewModal from "./components/clearance/ClearanceViewModal";
 
 import LetterLayout from "./layouts/LetterLayout";
 import BudgetProposalApply from "./pages/letter/apply/BudgetProposalApply";
@@ -58,7 +58,7 @@ function App() {
             path="home"
             element={<ProtectedHomePageLayout allowedAuthorities={[]} />}
           >
-            <Route path="my-clearance" element={<MyClearanceModal />} />
+            <Route path="my-clearance" element={<ClearanceViewModal />} />
             <Route
               path="clearances"
               element={<ProtectedClearanceModal allowedAuthorities={[]} />}

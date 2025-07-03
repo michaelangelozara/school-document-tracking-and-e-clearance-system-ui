@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { open } from "../../../store/slice/MessageSlice";
 import { typeOfLetterEnumToStringConverter } from "../../../helper/LetterHelper";
-import SignatoryCardContainer from "../../../components/signatory/SignatoryCardContainer";
+import LetterSignatoryCardContainer from "../../../components/letter/signatory/LetterSignatoryCardContainer";
 import ReturnDownloadButton from "../../../components/button/ReturnDownloadButton";
 import LetterRejectionCard from "../../../components/letter/LetterRejectionCard";
 import { useWebSocket } from "../../../context/WebsocketContext";

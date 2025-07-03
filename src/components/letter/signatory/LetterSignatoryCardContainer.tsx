@@ -1,24 +1,18 @@
-import { ISignatoryResponseDTO } from "../../types/signatory/Signatory";
+import {
+  ISignatoryResponseDTO,
+  SignatoryCardPropsType,
+} from "../../../types/signatory/Signatory";
 import { useEffect, useState } from "react";
-import ConfirmationModal from "../shared/ConfirmationModal";
-import { signBySignatoryId } from "../../service/LetterService";
-import { useAuth } from "../../context/AuthContext";
+import ConfirmationModal from "../../shared/ConfirmationModal";
+import { signBySignatoryId } from "../../../service/LetterService";
+import { useAuth } from "../../../context/AuthContext";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/Store";
-import { open } from "../../store/slice/MessageSlice";
-import { getErrorMessage } from "../../helper/AxiosHelper";
-import { useWebSocket } from "../../context/WebsocketContext";
+import { AppDispatch } from "../../../store/Store";
+import { open } from "../../../store/slice/MessageSlice";
+import { getErrorMessage } from "../../../helper/AxiosHelper";
+import { useWebSocket } from "../../../context/WebsocketContext";
 import { IMessage } from "@stomp/stompjs";
 
-type SignatoryCardPropsType = {
-  id: string;
-  authority: string;
-  currentSignatory: boolean;
-  date_and_time_of_signature: string;
-  name: string;
-  signature: string;
-  signed: boolean;
-};
 const SignatoryCard = ({
   id,
   authority,
@@ -99,7 +93,9 @@ const SignatoryCard = ({
 type SignatoryContainerPropsType = {
   data: ISignatoryResponseDTO[];
 };
-const SignatoryCardContainer = ({ data }: SignatoryContainerPropsType) => {
+const LetterSignatoryCardContainer = ({
+  data,
+}: SignatoryContainerPropsType) => {
   const [signatories, setSignatories] = useState<ISignatoryResponseDTO[]>(data);
 
   const updateSignatories = (updatedSignatory: ISignatoryResponseDTO) => {
@@ -145,4 +141,4 @@ const SignatoryCardContainer = ({ data }: SignatoryContainerPropsType) => {
   );
 };
 
-export default SignatoryCardContainer;
+export default LetterSignatoryCardContainer;

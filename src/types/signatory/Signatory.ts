@@ -7,3 +7,13 @@ export interface ISignatoryResponseDTO {
   signature: string;
   signed: boolean;
 }
+
+export type SignatoryCardPropsType = {
+  id: string;
+  authority: string;
+  currentSignatory: boolean;
+  date_and_time_of_signature: string;
+  name: string;
+  signature: string;
+  signed: boolean;
+};

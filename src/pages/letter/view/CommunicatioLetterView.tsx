@@ -9,7 +9,7 @@ import ReturnDownloadButton from "../../../components/button/ReturnDownloadButto
 import Loading from "../../../components/shared/Loading";
 import { findById, rejectLetterById } from "../../../service/LetterService";
 import { typeOfLetterEnumToStringConverter } from "../../../helper/LetterHelper";
-import SignatoryCardContainer from "../../../components/signatory/SignatoryCardContainer";
+import LetterSignatoryCardContainer from "../../../components/letter/signatory/LetterSignatoryCardContainer";
 import { getErrorMessage } from "../../../helper/AxiosHelper";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/Store";
